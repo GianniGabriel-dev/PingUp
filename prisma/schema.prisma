@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  NORMAL
+  MODERATOR
+  ADMIN
+}
+
+model User {
+  id        String   @id @default(cuid()) // cuid es un implemntación de prsima y crea una id mas compleja en vez de hacer el tipico int auto incremental
+  name      String
+  email     String   @unique
+  password  String?  // solo si no usas OAuth
+  role Role @default(NORMAL)
+  image     String?  // foto de perfil
+  tweets    Tweet[]
+  likes     Like[]
+  createdAt DateTime @default(now())
+}
+
+model Tweet {
+  id           String       @id @default(cuid())
+  content      String
+  language     String        // idioma original (ej: "en", "es")
+  author       User          @relation(fields: [authorId], references: [id])
+  authorId     String
+  hashtags     TweetHashtag[]
+  translations Translation[]
+  likes        Like[]
+  createdAt    DateTime      @default(now())
+}
+
+model Hashtag {
+  id       String        @id @default(cuid())
+  name     String        @unique
+  tweets   TweetHashtag[]
+}
+
+model TweetHashtag {
+  tweetId  String
+  hashtagId String
+  tweet    Tweet   @relation(fields: [tweetId], references: [id])
+  hashtag  Hashtag @relation(fields: [hashtagId], references: [id])
+
+  @@id([tweetId, hashtagId]) // clave compuesta para relación N:N
+}
+
+model Translation {
+  id        String   @id @default(cuid())
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId   String
+  language  String   // idioma traducido
+  content   String   // texto traducido
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  tweet     Tweet    @relation(fields: [tweetId], references: [id])
+  tweetId   String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, tweetId]) // evita likes duplicados
+}
