@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* ---- Variables ---- */
+:root {
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F7F9F9;
+  --color-bg-tertiary: #EFF3F4;
+  --color-text-primary: #0F1419;
+  --color-text-secondary: #536471;
+  --color-text-accent: #1D9BF0;
+  --color-border: #CFD9DE;
+  --color-hover: #F5F5F5;
+  --color-active: #E8F5FE;
+  --color-success: #00BA7C;
+  --color-warning: #FFD400;
+  --color-error: #F91880;
+  --color-info: #1D9BF0;
+  --color-primary: #1D9BF0;
+  --color-primary-hover: #1A8CD8;
+}
+
+.dark {
+  --color-bg-primary: #000000;
+  --color-bg-secondary: #16181C;
+  --color-bg-tertiary: #202327;
+  --color-text-primary: #F7F9F9;
+  --color-text-secondary: #71767B;
+  --color-text-accent: #1D9BF0;
+  --color-border: #2F3336;
+  --color-hover: #181818;
+  --color-active: #1E2732;
+  --color-success: #00BA7C;
+  --color-warning: #FFD400;
+  --color-error: #F91880;
+  --color-info: #1D9BF0;
+  --color-primary: #1D9BF0;
+  --color-primary-hover: #1A8CD8;
+}
+
+/* ---- Clases utilitarias ---- */
+.bg-primary { background-color: var(--color-bg-primary); }
+.bg-secondary { background-color: var(--color-bg-secondary); }
+.bg-tertiary { background-color: var(--color-bg-tertiary); }
+.text-primary { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-accent { color: var(--color-text-accent); }
+.border-color { border-color: var(--color-border); }
+.bg-hover { background-color: var(--color-hover); }
+.bg-active { background-color: var(--color-active); }
+.bg-success { background-color: var(--color-success); }
+.bg-warning { background-color: var(--color-warning); }
+.bg-error { background-color: var(--color-error); }
+.bg-info { background-color: var(--color-info); }
+.bg-primary-color { background-color: var(--color-primary); }
+.bg-primary-hover { background-color: var(--color-primary-hover); }
+.bg-primary-hover:hover { background-color: var(--color-primary-hover); }
