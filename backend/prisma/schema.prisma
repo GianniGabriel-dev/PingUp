@@ -1,15 +1,118 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+enum ContentType {
+  post
+  comment
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  username  String  @unique @db.VarChar(30)
+  email     String  @unique @db.VarChar(255)
+  password  String? @db.VarChar(255)
+  avatar_url String? @db.VarChar(350)
+  bio       String? @db.VarChar(280)
+  auth_provider String @default("email") @db.VarChar(15)
+  googleId  String? @unique @db.VarChar(30)
+  created_at DateTime @default(now())
+  
+  posts      Post[]
+  comments   Comment[]
+  likes      Like[]
+  followers  Follow[] @relation("Follower")
+  following  Follow[] @relation("Following")
+  sentNotifications     Notification[] @relation("Sender")
+  receivedNotifications Notification[] @relation("Receiver")
+}
+
+model Post {
+  id              Int       @id @default(autoincrement())
+  user_id         Int
+  content         String    @db.VarChar(280)
+  image_url       String?   @db.VarChar(350)
+  sentiment       String?   @db.VarChar(20)
+  sentiment_score Float?
+  created_at      DateTime  @default(now())
+
+  user      User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  comments  Comment[]
+  likes     Like[]
+}
+
+model Comment {
+  id                 Int       @id @default(autoincrement())
+  content            String    @db.VarChar(280)
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @default(now()) @updatedAt
+  user_id            Int
+  post_id            Int
+  parent_comment_id  Int?
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  parent Comment? @relation("CommentReplies", fields: [parent_comment_id], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("CommentReplies")
+}
+
+model Like {
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  user_id    Int
+  post_id    Int
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, post_id])
+}
+
+model Follow {
+  id            Int      @id @default(autoincrement())
+  created_at    DateTime @default(now())
+  follower_id   Int
+  following_id  Int
+
+  follower User @relation("Follower", fields: [follower_id], references: [id], onDelete: Cascade)
+  following User @relation("Following", fields: [following_id], references: [id], onDelete: Cascade)
+
+  @@unique([follower_id, following_id])
+}
+
+model Translation {
+  id               Int         @id @default(autoincrement())
+  content_type     ContentType
+  content_id       Int
+  original_text    String      @db.Text
+  translated_text  String      @db.Text
+  target_language  String      @db.VarChar(10)
+  source_language  String?     @db.VarChar(10)
+  created_at       DateTime    @default(now())
+
+  @@unique([content_type, content_id, target_language])
+}
+
+model Notification {
+  id                 Int      @id @default(autoincrement())
+  notification_type  String   @db.VarChar(20)
+  is_read            Boolean  @default(false)
+  created_at         DateTime @default(now())
+
+  sender_id   Int
+  receiver_id Int
+  post_id     Int?
+  comment_id  Int?
+
+  sender   User @relation("Sender", fields: [sender_id], references: [id], onDelete: Cascade)
+  receiver User @relation("Receiver", fields: [receiver_id], references: [id], onDelete: Cascade)
+}
+
