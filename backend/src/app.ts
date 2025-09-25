@@ -7,7 +7,8 @@ dotenv.config()
 const app = express()
 
 app.use(express.json());
-app.use(passport.initialize());
+app.use(passport.initialize());// passport sirve para proteger rutas, autenticar usuarios,etc
+app.use(express.json())// sirve para que express entienda json en las peticiones
 
 const PORT = process.env.PORT || 3000
 

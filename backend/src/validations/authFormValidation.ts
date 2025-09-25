@@ -29,6 +29,7 @@ export const signupValidator = [
   body("password")
     .notEmpty().trim().withMessage("La contraseña es obligatoria")
     .isLength({ min: 6 }).withMessage("La contraseña debe tener al menos 6 caracteres")
+    .matches(/^(?=.*[A-Z])(?=.*\d)/).withMessage("La contraseña debe contener al menos una mayúscula y un número")
     .isLength({ max: 255 }).withMessage("La contraseña no puede tener más de 255 caracteres"),
 
   body("confirmPassword")

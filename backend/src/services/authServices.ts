@@ -21,12 +21,12 @@ export const isUsernameTaken = async (username:string) => {
 };
 
 export const isEmailTaken = async (email:string) => {
-  const user = await prisma.user.findUnique({
+  const userMail = await prisma.user.findUnique({
     where: {
       email,
     },
   });
-  return email != null; // devuelve true si email existe y false si no
+  return userMail != null; // devuelve true si email existe y false si no
 };
 
 
