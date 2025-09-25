@@ -1,8 +1,14 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import { authRouter } from './routes/authRoutes.ts'
+import { authRouter } from './routes/authRoutes'
+import "./config/passport"
+import passport from 'passport'
 dotenv.config()
 const app = express()
+
+app.use(express.json());
+app.use(passport.initialize());
+
 const PORT = process.env.PORT || 3000
 
 app.use("/", authRouter)

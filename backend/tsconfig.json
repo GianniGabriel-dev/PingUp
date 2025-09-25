@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
+    "module": "CommonJS",  // ← Cambiar a CommonJS
+    "moduleResolution": "node",  // ← Cambiar a node
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,

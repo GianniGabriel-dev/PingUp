@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npx nodemon --watch \"src/**/*.ts\" --exec \"npx ts-node\" src/app.ts",
+    "dev": "npx nodemon --watch \"src/**/*.ts\" --exec \"npx tsx\" src/app.ts",
     "build": "tsc",
     "start": "node dist/app.js"
   },
@@ -14,13 +14,18 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
-    "prisma": "^6.16.2"
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.3",
     "@types/node": "^24.5.2",
+    "@types/passport": "^1.0.17",
+    "@types/passport-jwt": "^4.0.1",
     "nodemon": "^3.1.10",
+    "prisma": "^6.16.2",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.5",
     "typescript": "^5.9.2"
   }
 }
