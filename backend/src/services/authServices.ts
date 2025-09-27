@@ -11,13 +11,32 @@ export const normalSignUp = async(
     })
 }
 
-export const isUsernameTaken = async (username:string) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      username: username,
-    },
+export const getUserByEmailOrUsername = async (identifier:string)=>{
+  return await prisma.user.findFirst({
+    where:{
+      OR:[
+        {email: identifier},
+        {username: identifier}
+      ]
+    },select:{
+      id:true,
+      username:true,
+      password:true,
+      email:true
+    }
+  })
+}
+
+export const isUsernameOrEmailTaken = async (identifier:string) => {
+  const user = await prisma.user.findFirst({
+    where:{
+      OR:[
+        {email: identifier},
+        {username: identifier}
+      ]
+    },select:{id:true} //solo se necesit saber si existe, no hace fala mas datos
   });
-  return user != null; // devuelve true si user existe y false si no
+  return user != null; // devuelve true si user o email existe y false si no
 };
 
 export const isEmailTaken = async (email:string) => {
