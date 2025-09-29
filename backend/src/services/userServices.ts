@@ -23,3 +23,14 @@ export const createPost = async (
     }
   });
 };
+
+export const getAllPosts = async ()=>{
+  return await prisma.post.findMany({
+    //join para incluir username y avatar en la consulta
+    include:{
+      user: {select:{username:true, avatar_url:true}}
+    },
+    orderBy: {created_at:"desc"}
+  })
+}
+

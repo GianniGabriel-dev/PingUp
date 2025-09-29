@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import { createPost } from "../services/userServices.js";
+import { createPost, getAllPosts} from "../services/userServices.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -20,3 +20,18 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
     return res.status(500).json({ error: 'Error creating users' });
   }
 };
+
+export const getPosts= async(req:Request, res:Response)=>{
+  try{
+    const posts= await getAllPosts()
+    console.log(posts[0].user.username)
+    console.log(posts[0].content)
+    return res.status(200).json(posts)
+    
+
+  }catch(error:any){
+    console.error(error.message)
+    return res.status(500).json({ error: 'Error getting posts' });
+  }
+
+}

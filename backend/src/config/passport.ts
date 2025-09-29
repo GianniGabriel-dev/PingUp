@@ -1,6 +1,3 @@
-import dotenv from "dotenv";
-import path from "path";
-dotenv.config({ path: path.resolve('./BACKEND/.env') });
 import { Strategy, ExtractJwt } from "passport-jwt";
 import passport from "passport";
 import { getUserById } from "../services/userServices";
