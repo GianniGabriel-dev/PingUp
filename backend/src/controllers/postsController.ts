@@ -39,17 +39,18 @@ export const getPosts= async(req:Request, res:Response)=>{
 
 export const likePost= async(req:Request, res:Response)=> {
   const userId = (req.user as {id:number}).id
-  const post_id= Number(req.params.id)
+  const post_id= Number(req.params.post_id)
   const existing= await likeExisting(userId, post_id)
   try{
     if(existing){
       await deleteLike(userId, post_id)
       return res.json({msg: "like quitado"})
-    }else
-    await like(userId, post_id)
+    }else{
+      await like(userId, post_id)
       return res.json({msg: "like dado"})
+    }
   }catch(error:any){
-
+    return res.status(500).json({ error: error.message });
   }
  
 }

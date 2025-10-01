@@ -14,8 +14,9 @@ app.use(express.urlencoded({ extended: true })); // sirve para que express entie
 
 const PORT = process.env.PORT || 3000
 
-app.use("/", authRouter)
 app.use("/", postsRouter)
+app.use("/", authRouter)
+
 
 app.listen(PORT, () =>{
     console.log(`Server running on port ${PORT}`)

@@ -12,8 +12,9 @@ postsRouter.post('/post',
 ) 
 postsRouter.get("/post", getPosts)
 
-postsRouter.post("like/:post_id",
+postsRouter.post("/like/:post_id",
     passport.authenticate ('jwt', {session:false}),
-    likePost)
+    likePost
+)
 
 
