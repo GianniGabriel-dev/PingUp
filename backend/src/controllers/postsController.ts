@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import { createPost, deleteLike, getAllPosts, like, likeExisting} from "../services/userServices.js";
+import { createPost, deleteLike, getAllPosts, likePost, likeExisting} from "../services/userServices.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -24,9 +24,6 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 export const getPosts= async(req:Request, res:Response)=>{
   try{
     const posts= await getAllPosts()
-    console.log(posts[0].user.username)
-    console.log(posts[0].content)
-     console.log (req.user)
     return res.status(200).json(posts)
     
 
@@ -37,7 +34,7 @@ export const getPosts= async(req:Request, res:Response)=>{
 
 }
 
-export const likePost= async(req:Request, res:Response)=> {
+export const like= async(req:Request, res:Response)=> {
   const userId = (req.user as {id:number}).id
   const post_id= Number(req.params.post_id)
   const existing= await likeExisting(userId, post_id)
@@ -46,11 +43,10 @@ export const likePost= async(req:Request, res:Response)=> {
       await deleteLike(userId, post_id)
       return res.json({msg: "like quitado"})
     }else{
-      await like(userId, post_id)
+      await likePost(userId, post_id)
       return res.json({msg: "like dado"})
     }
   }catch(error:any){
     return res.status(500).json({ error: error.message });
   }
- 
 }

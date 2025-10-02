@@ -4,6 +4,7 @@ import { authRouter } from './routes/authRoutes'
 import "./config/passport"
 import passport from 'passport'
 import { postsRouter } from './routes/postsRoutes.js'
+import { userRouter } from './routes/userRoutes.js'
 dotenv.config()
 const app = express()
 
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 3000
 
 app.use("/", postsRouter)
 app.use("/", authRouter)
+app.use("/", userRouter)
 
 
 app.listen(PORT, () =>{

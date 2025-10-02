@@ -28,7 +28,8 @@ export const getAllPosts = async ()=>{
   return await prisma.post.findMany({
     //join para incluir username y avatar en la consulta
     include:{
-      user: {select:{username:true, avatar_url:true}}
+      user: {select:{username:true, avatar_url:true}},
+      _count: {select:{likes: true}}
     },
     orderBy: {created_at:"desc"}
   })
@@ -41,7 +42,7 @@ export const updateAvatar = async(user_id:number, avatar_url:string )=>{
   })
 }
 
-export const like = async(user_id:number,post_id:number )=>{
+export const likePost = async(user_id:number,post_id:number )=>{
   return await prisma.like.create({
     data:{user_id, post_id}
   })
@@ -62,6 +63,23 @@ export const likeExisting= async(user_id:number, post_id:number)=>{
  const existing =await prisma.like.findUnique({
    where: { user_id_post_id: { user_id, post_id } },
  });
- return existing != null // si existe no es null, devuelve true, si no false
+ return existing != null // si existe es true si no false
 } 
 
+export const followUser = async(follower_id:number, following_id:number )=>{
+  return await prisma.follow.create({
+    data:{follower_id, following_id}
+  })
+}
+
+export const deleteFollow = async(follower_id:number, following_id:number)=>{
+  return await prisma.follow.delete({
+    where:{ follower_id_following_id: { follower_id, following_id }
+}})
+}
+export const followExisting= async(follower_id:number, following_id:number)=>{
+  const existing =await prisma.follow.findUnique({
+    where: { follower_id_following_id: { follower_id, following_id } },
+  });
+  return existing != null //si existe es true si no false
+ } 
