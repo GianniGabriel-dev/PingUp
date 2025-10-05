@@ -42,14 +42,14 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
     if(!match){
         return res.status(401).json({error: "Contraseña incorrecta"})
     }
-    //payload que será guardado en el token jwt
+    //payload que será guardado en el token jwt, esta info es accesible por req cada vez que se autentica con passport
     const payload={
       id: user.id,
       username: user.username
     }
     //se firma el token con la clave secreta y se le da una fecha de expiracion
     const token=jwt.sign(payload, process.env.JWT_SECRET as string,{
-      expiresIn: '3d'
+      expiresIn: '7d'
     })
     return res.status(200).json({
       token,

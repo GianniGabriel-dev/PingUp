@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
 import { createPost, deleteLike, getAllPosts, likePost, likeExisting} from "../services/userServices.js";
+import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -10,9 +11,11 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
   }
   try {
     const {content, image_url}=req.body
+    const sentimentScore= await analyzeSentiment(content)
+    const sentimentLabel= getSentimentLabel(sentimentScore.score)
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id
-    const post =await  createPost(userId, content, image_url)
+    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, image_url)
     return res.status(200).json(post)
 
   } catch (error:any) {
