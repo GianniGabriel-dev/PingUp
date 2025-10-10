@@ -42,6 +42,7 @@ model Post {
   image_url       String?   @db.VarChar(350)
   sentiment       String?   @db.VarChar(20)
   sentiment_score Float?
+  language        String    @db.VarChar(50)
   created_at      DateTime  @default(now())
 
   user      User @relation(fields: [user_id], references: [id], onDelete: Cascade)

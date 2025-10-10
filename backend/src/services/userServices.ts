@@ -15,7 +15,9 @@ export const createPost = async (
   content: string,
   sentiment: string,
   sentiment_score: number,
+  language:string,
   imageUrl?: string,
+  
   
 ) => {
   return prisma.post.create({
@@ -25,12 +27,17 @@ export const createPost = async (
       sentiment,
       sentiment_score,
       image_url: imageUrl,
+      language
     }
   });
 };
 
-export const getAllPosts = async ()=>{
+export const getAllPosts = async (limit:number, skip:number)=>{
   return await prisma.post.findMany({
+    //skip es una función de prisma equivalente al offset, este se salta los resultados anteriores para crear paginación
+    skip,
+    //take coge cuantos posts mostrar por pagina
+    take:limit,
     //join para incluir username y avatar en la consulta
     include:{
       user: {select:{username:true, avatar_url:true}},

@@ -11,11 +11,13 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
   }
   try {
     const {content, image_url}=req.body
+    //analisis de sentimientos
     const sentimentScore= await analyzeSentiment(content)
     const sentimentLabel= getSentimentLabel(sentimentScore.score)
+    
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id
-    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, image_url)
+    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, image_url, )
     return res.status(200).json(post)
 
   } catch (error:any) {
@@ -26,7 +28,11 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 
 export const getPosts= async(req:Request, res:Response)=>{
   try{
-    const posts= await getAllPosts()
+    const page = parseInt(typeof req.query.page === "string" ? req.query.page : "1");
+    const limit = parseInt(typeof req.query.limit === "string" ? req.query.limit : "1");
+    //paginación para los posts, se calcula la cantidad de posts que skipear (offset) antes de cargar los siguientes 
+    const skip=(page-1)*limit
+    const posts= await getAllPosts(limit, skip)
     return res.status(200).json(posts)
     
 
