@@ -1,8 +1,9 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import { createPost, deleteLike, getAllPosts, likePost, likeExisting} from "../services/userServices.js";
+import {  deleteLike, likePost, likeExisting} from "../services/userServices.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { translatePostContent, translateText } from "../services/translationService.js";
+import { createPost, getAllPosts } from "../queries/postQueries.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -64,6 +65,7 @@ export const like= async(req:Request, res:Response)=> {
 export const translatePost = async (req: Request, res: Response) => {
   try {
     const post_id = Number(req.params.post_id);
+    //se obtiene el idioma del usuario a través del endpoint query
     const target = req.query.target as string;
     if (!target) return res.status(400).json({ error: "Idioma objetivo no especificado" });
 
