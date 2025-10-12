@@ -1,7 +1,8 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import { createPost, deleteLike, getAllPosts, likePost, likeExisting} from "../services/userServices.js";
+import { createPost, deleteLike, getAllPosts, likePost, likeExisting, getContentById, createTranslation} from "../services/userServices.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
+import { translatePostContent, translateText } from "../services/translationService.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -59,3 +60,17 @@ export const like= async(req:Request, res:Response)=> {
     return res.status(500).json({ error: error.message });
   }
 }
+
+export const translatePost = async (req: Request, res: Response) => {
+  try {
+    const post_id = Number(req.params.post_id);
+    const target = req.query.target as string;
+    if (!target) return res.status(400).json({ error: "Idioma objetivo no especificado" });
+
+    const translation = await translatePostContent(post_id, target);
+
+    res.json({ translation });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};

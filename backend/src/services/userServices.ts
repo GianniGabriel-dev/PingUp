@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ContentType } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -44,6 +44,29 @@ export const getAllPosts = async (limit:number, skip:number)=>{
       _count: {select:{likes: true}}
     },
     orderBy: {created_at:"desc"}
+  })
+}
+
+export const getContentById= async(id:number)=>{
+  return await prisma.post.findUnique({
+    where:{
+      id
+    },
+    select:{
+      content: true
+    }
+  })
+}
+export const createTranslation= async(
+  content_type: ContentType, 
+  content_id:number, 
+  original_text:string,
+  translated_text:string,
+  target_language:string,
+  source_language:string,
+)=>{
+  return await prisma.translation.create({
+    data:{ content_type, content_id, original_text,translated_text,target_language,source_language,}
   })
 }
 
