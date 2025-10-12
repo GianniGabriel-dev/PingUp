@@ -1,6 +1,6 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import { createPost, deleteLike, getAllPosts, likePost, likeExisting, getContentById, createTranslation} from "../services/userServices.js";
+import { createPost, deleteLike, getAllPosts, likePost, likeExisting} from "../services/userServices.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { translatePostContent, translateText } from "../services/translationService.js";
 
@@ -69,7 +69,7 @@ export const translatePost = async (req: Request, res: Response) => {
 
     const translation = await translatePostContent(post_id, target);
 
-    res.json({ translation });
+    res.json({ translation }); 
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
