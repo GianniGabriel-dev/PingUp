@@ -38,3 +38,19 @@ export const getAllPosts = async (limit:number, skip:number)=>{
     orderBy: {created_at:"desc"}
   })
 }
+
+export const createComment=async(
+  content:string,
+  user_id:number,
+  post_id:number,
+  parent_comment_id?:number
+)=>{
+  return prisma.comment.create({
+    data:{
+      content,
+      user_id,
+      post_id,
+      parent_comment_id
+    }
+  })
+}

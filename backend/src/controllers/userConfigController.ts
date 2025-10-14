@@ -1,13 +1,27 @@
 
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { upload, uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
 import { updateAvatar } from "../services/userServices.js";
 import { validateAvatarImg } from "../validations/avatarValidation.js";
+import multer from "multer";
 
 // array de middlewares: procesa archivo → valida → sube a Cloudinary
 export const uploadAvatar = [
- //el file se guarde en req
-  upload.single("avatar"),
+ //el file se guarde en req, "avatar" es el nombre que tiene que tener el campo del formualrio
+(req:Request, res:Response, next:NextFunction) => {
+  upload.single("avatar")(req, res, (err) => {
+    //se muestra un error controlado si se ha enviado mas de un archivo a multer
+    if (err) {
+      const message =
+        err instanceof multer.MulterError && err.code === "LIMIT_UNEXPECTED_FILE"
+          ? "Solo puedes subir una imagen."
+          : err.message;
+
+      return res.status(400).json({ error: message });
+    }
+    next();
+  });
+},
 
   validateAvatarImg, 
 

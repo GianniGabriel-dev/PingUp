@@ -3,6 +3,7 @@ import passport from '../config/passport.js'
 import { postValidator } from '../validations/postsValidations.js'
 
 import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
+import { comment } from '../controllers/socialController.js'
 export const postsRouter = express.Router()
 
 postsRouter.post('/post', 
@@ -17,5 +18,10 @@ postsRouter.post("/like/:post_id",
     like
 )
 postsRouter.post("/post/:post_id/translate", translatePost)
+
+postsRouter.post("/post/:post_id/comment",
+    passport.authenticate ('jwt', {session:false}), 
+    comment
+)
 
 
