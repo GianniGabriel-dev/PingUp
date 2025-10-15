@@ -39,7 +39,7 @@ model Post {
   id              Int       @id @default(autoincrement())
   user_id         Int
   content         String    @db.VarChar(280)
-  image_url       String?   @db.VarChar(350)
+  media_url       String?   @db.VarChar(350)
   sentiment       String?   @db.VarChar(20)
   sentiment_score Float?
   language        String    @db.VarChar(50)
@@ -57,6 +57,9 @@ model Comment {
   updated_at         DateTime  @default(now()) @updatedAt
   user_id            Int
   post_id            Int
+  sentiment       String?   @db.VarChar(20)
+  sentiment_score Float?
+  media_url       String?   @db.VarChar(350)
   parent_comment_id  Int?
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -116,4 +119,3 @@ model Notification {
   sender   User @relation("Sender", fields: [sender_id], references: [id], onDelete: Cascade)
   receiver User @relation("Receiver", fields: [receiver_id], references: [id], onDelete: Cascade)
 }
-

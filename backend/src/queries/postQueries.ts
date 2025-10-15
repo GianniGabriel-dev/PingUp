@@ -8,7 +8,7 @@ export const createPost = async (
   sentiment: string,
   sentiment_score: number,
   language:string,
-  imageUrl?: string|null,
+  media_url?: string|null,
   
   
 ) => {
@@ -18,8 +18,8 @@ export const createPost = async (
       content,
       sentiment,
       sentiment_score,
-      image_url: imageUrl,
-      language
+      language,
+      media_url
     }
   });
 };
@@ -43,6 +43,9 @@ export const createComment=async(
   content:string,
   user_id:number,
   post_id:number,
+  sentiment: string,
+  sentiment_score: number,
+  media_url?:string|null,
   parent_comment_id?:number
 )=>{
   return prisma.comment.create({
@@ -50,7 +53,11 @@ export const createComment=async(
       content,
       user_id,
       post_id,
+      sentiment,
+      sentiment_score,
+      media_url,
       parent_comment_id
+      
     }
   })
 }

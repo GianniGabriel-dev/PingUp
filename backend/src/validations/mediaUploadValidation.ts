@@ -40,33 +40,28 @@ export const validateAvatarImg = (
   next();
 };
 
-
-
 export const validatePostMedia = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-    // Verifica si existe el archivo
-  if (!req.file) {
-    return res.status(400).json({ error: "No se envió ningún archivo" });
-  }
+  if (req.file) {
+    // Verifica el formato
+    if (!ALLOWED_POST_TYPES.includes(req.file.mimetype)) {
+      //mimetype es una propiedad de multer que identifica el tipo de formato que tiene un archivo
+      return res.status(400).json({
+        error: "Formato no permitido. Use JPEG, PNG , WebP, MP4 o Webm",
+      });
+    }
 
-  // Verifica el formato
-  if (!ALLOWED_POST_TYPES.includes(req.file.mimetype)) {
-    //mimetype es una propiedad de multer que identifica el tipo de formato que tiene un archivo
-    return res.status(400).json({
-      error: "Formato no permitido. Use JPEG, PNG , WebP, MP4 o Webm",
-    });
-  }
-
-  // Verifica el tamaño por si la restricción de multer falla
-  if (req.file.size > MAX_POST_SIZE) {
-    return res.status(400).json({
-      error: "Archivo demasiado grande. Máximo 20MB",
-    });
+    // Verifica el tamaño por si la restricción de multer falla
+    if (req.file.size > MAX_POST_SIZE) {
+      return res.status(400).json({
+        error: "Archivo demasiado grande. Máximo 20MB",
+      });
+    }
   }
   //si no hay errores se pasa a la siguente funcion
   next();
+  
 };
-
