@@ -8,7 +8,7 @@ export const createPost = async (
   sentiment: string,
   sentiment_score: number,
   language:string,
-  imageUrl?: string,
+  imageUrl?: string|null,
   
   
 ) => {

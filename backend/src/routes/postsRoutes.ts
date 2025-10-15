@@ -4,11 +4,15 @@ import { postValidator } from '../validations/postsValidations.js'
 
 import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
 import { comment } from '../controllers/socialController.js'
+import { uploadMedia } from '../middlewares/uploadMedia.js'
+import { validatePostMedia } from '../validations/mediaUploadValidation.js'
 export const postsRouter = express.Router()
 
 postsRouter.post('/post', 
+    passport.authenticate ('jwt', {session:false}),
+    uploadMedia("media"),
+    validatePostMedia, 
     postValidator, 
-    passport.authenticate ('jwt', {session:false}), 
     newPost
 ) 
 postsRouter.get("/post", getPosts)

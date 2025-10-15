@@ -4,6 +4,7 @@ import {  deleteLike, likePost, likeExisting} from "../services/userServices.js"
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { translatePostContent, translateText } from "../services/translationService.js";
 import { createPost, getAllPosts } from "../queries/postQueries.js";
+import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -12,14 +13,24 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
     return res.status(400).json({ errors: errors.array() })
   }
   try {
-    const {content, image_url}=req.body
+    const {content}=req.body
+    console.log(content)
+    //media_url puede se string o null
+    let media_url:string | null = null;
+
+    //upload a cloudinary
+    if (req.file) {
+      const result = await uploadToCloudinary(req.file.buffer, "media");
+      media_url = result.secure_url;
+    }
+
     //analisis de sentimientos
     const sentimentScore= await analyzeSentiment(content)
     const sentimentLabel= getSentimentLabel(sentimentScore.score)
     
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id
-    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, image_url, )
+    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, media_url, )
     return res.status(200).json(post)
 
   } catch (error:any) {

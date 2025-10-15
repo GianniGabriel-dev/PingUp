@@ -4,7 +4,7 @@ import multer from "multer";
 // Se almacena el archivo en la memoria (req.buffer)
 const storage = multer.memoryStorage();
 export const upload = multer({ storage,
-  limits:{fileSize:5*1024*1024}
+  limits:{fileSize:20*1024*1024} //20MB de tamaño máximo por archivo
  });
 
 //conexión con cloudinary
