@@ -8,6 +8,7 @@ import { validationResult } from "express-validator";
 import { createComment } from "../queries/postQueries.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
+import { translateContent } from "../services/translationService.js";
 
 export const follow = async (req: Request, res: Response) => {
   //user id sería el follower id, el usuario que decida seguir a alguien
@@ -53,11 +54,28 @@ export const comment = async (req: Request, res: Response) => {
       postId,
       sentimentLabel,
       sentiment_score.score,
+      sentiment_score.language,
       media_url,
       Number(parent_comment_id)
     );
     return res.json({ content: content, parent_comment_id: parent_comment_id });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
+  }
+};
+export const translateComment = async (req: Request, res: Response) => {
+  try {
+    const comment_id = Number(req.params.comment_id);
+    //se obtiene el idioma del usuario y el parent_comment_id a través del endpoint query
+    const target = req.query.target as string;
+  
+    if (!target)
+      return res.status(400).json({ error: "Idioma objetivo no especificado" });
+
+    const translation = await translateContent(comment_id, target, "comment");
+
+    res.json({ translation });
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
   }
 };

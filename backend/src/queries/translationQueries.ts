@@ -3,7 +3,7 @@ import { PrismaClient, ContentType } from "@prisma/client";
 const prisma = new PrismaClient();
 
 //se obtiene el content y el idioma del post para tradicirlo
-export const getContentById= async(id:number)=>{
+export const getPostContentById= async(id:number)=>{
   return await prisma.post.findUnique({
     where:{
       id
@@ -15,12 +15,27 @@ export const getContentById= async(id:number)=>{
     }
   })
 }
+
+//se obtiene el content y el idioma del comment para tradicirlo
+export const getCommentContentById= async(id:number)=>{
+  return await prisma.comment.findUnique({
+    where:{
+      id
+    },
+    select:{
+      content: true,
+      language:true,
+      id:true
+    }
+  })
+}
+
 //devuelve un booleano si existe o no la traducción
-export const existingTranslationPost= async(id:number, )=>{
+export const existingTranslationPost= async(id:number,content_type:ContentType )=>{
   const existing =await prisma.translation.findFirst({
     where:{ 
       id, 
-      content_type:"post"
+      content_type
     },
     select:{id:true}
   })

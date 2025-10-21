@@ -6,7 +6,7 @@ import {
   likeExisting,
 } from "../services/userServices.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
-import {translatePostContent} from "../services/translationService.js";
+import {translateContent} from "../services/translationService.js";
 import { createPost, getAllPosts } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
 
@@ -95,7 +95,7 @@ export const translatePost = async (req: Request, res: Response) => {
     if (!target)
       return res.status(400).json({ error: "Idioma objetivo no especificado" });
 
-    const translation = await translatePostContent(post_id, target);
+    const translation = await translateContent(post_id, target, "post");
 
     res.json({ translation });
   } catch (error: any) {

@@ -45,6 +45,7 @@ export const createComment=async(
   post_id:number,
   sentiment: string,
   sentiment_score: number,
+  language:string,
   media_url?:string|null,
   parent_comment_id?:number
 )=>{
@@ -55,6 +56,7 @@ export const createComment=async(
       post_id,
       sentiment,
       sentiment_score,
+      language,
       media_url,
       parent_comment_id
       

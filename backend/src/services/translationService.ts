@@ -1,5 +1,6 @@
 import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
-import { createTranslation, existingTranslationPost, getContentById } from "../queries/translationQueries.js";
+import { createTranslation, existingTranslationPost, getCommentContentById, getPostContentById } from "../queries/translationQueries.js";
+import { ContentType } from "@prisma/client";
 
 
 //se inicializa el cliente de la api, los datos para acceder a esta están en el archivo oculto json con las credenciales de google
@@ -16,11 +17,24 @@ export async function translateText(text:string, target:string):Promise<{
   return {translation,detectedSourceLanguage};
 }
 
-export async function translatePostContent(post_id: number, target: string) {
-  //se obtiene el content del post
-  const text = await getContentById(post_id);
+export async function translateContent(id: number, target: string, content_type:ContentType){
+  interface TextContent {
+    id: number;
+    language: string;
+    content: string;
+  }
+  let text: TextContent | null = null;
+
+  if (content_type=="post"){
+    //se obtiene el content del post
+    text = await getPostContentById(id);
+  }else{
+    //se obtiene el content del comment
+    text = await getCommentContentById(id);
+  }
+  
   //se comprueba si ya existe una traducción del post en el idioma objetivo
-  const existingTranslation = await existingTranslationPost(post_id)
+  const existingTranslation = await existingTranslationPost(id, content_type)
 
   if (!text) throw new Error("Post no encontrado");
   
@@ -32,7 +46,7 @@ export async function translatePostContent(post_id: number, target: string) {
     const translation = await translateText(text.content, target);
     if (!translation) throw new Error("Error al traducir el texto");
     //se guarda la traducción en la base de datos
-    await createTranslation("post", post_id, text.content, translation.translation, target, translation.detectedSourceLanguage);
+    await createTranslation(content_type, id, text.content, translation.translation, target, translation.detectedSourceLanguage);
 
     return translation;
   }
