@@ -2,7 +2,6 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import passport from "passport";
 import { getUserById } from "../services/userServices";
 
-
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   // a las variables de entorno en ts hay que darles el tipo porque no lo infiere al ser string | undefined

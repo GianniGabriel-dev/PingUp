@@ -26,8 +26,9 @@ export const createPost = async (
       content,
       sentiment,
       sentiment_score,
-      image_url: imageUrl,
-      language
+      language,
+      media_url: imageUrl,
+      
     }
   });
 };
