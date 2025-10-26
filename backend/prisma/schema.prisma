@@ -10,10 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ContentType {
-  post
-  comment
-}
 
 model User {
   id        Int     @id @default(autoincrement())
@@ -27,7 +23,6 @@ model User {
   created_at DateTime @default(now())
   
   posts      Post[]
-  comments   Comment[]
   likes      Like[]
   followers  Follow[] @relation("Follower")
   following  Follow[] @relation("Following")
@@ -37,6 +32,7 @@ model User {
 
 model Post {
   id              Int       @id @default(autoincrement())
+  parent_post_id  Int?
   user_id         Int
   content         String    @db.VarChar(280)
   media_url       String?   @db.VarChar(350)
@@ -45,27 +41,11 @@ model Post {
   language        String    @db.VarChar(50)
   created_at      DateTime  @default(now())
 
-  user      User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  comments  Comment[]
-  likes     Like[]
-}
-
-model Comment {
-  id                 Int       @id @default(autoincrement())
-  content            String    @db.VarChar(280)
-  created_at         DateTime  @default(now())
-  updated_at         DateTime  @default(now()) @updatedAt
-  user_id            Int
-  post_id            Int
-  sentiment       String?   @db.VarChar(20)
-  sentiment_score Float?
-  media_url       String?   @db.VarChar(350)
-  parent_comment_id  Int?
-
-  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
-  parent Comment? @relation("CommentReplies", fields: [parent_comment_id], references: [id], onDelete: Cascade)
-  replies Comment[] @relation("CommentReplies")
+  user     User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  likes    Like[]
+  translations Translation[]
+  parent   Post?   @relation("PostReplies", fields: [parent_post_id], references: [id], onDelete: Cascade)
+  replies  Post[]  @relation("PostReplies")
 }
 
 model Like {
@@ -94,7 +74,6 @@ model Follow {
 
 model Translation {
   id               Int         @id @default(autoincrement())
-  content_type     ContentType
   content_id       Int
   original_text    String      @db.Text
   translated_text  String      @db.Text
@@ -102,7 +81,9 @@ model Translation {
   source_language  String?     @db.VarChar(10)
   created_at       DateTime    @default(now())
 
-  @@unique([content_type, content_id, target_language])
+
+  @@unique([content_id, target_language])
+  post Post @relation(fields: [content_id], references: [id], onDelete: Cascade)
 }
 
 model Notification {
@@ -114,7 +95,6 @@ model Notification {
   sender_id   Int
   receiver_id Int
   post_id     Int?
-  comment_id  Int?
 
   sender   User @relation("Sender", fields: [sender_id], references: [id], onDelete: Cascade)
   receiver User @relation("Receiver", fields: [receiver_id], references: [id], onDelete: Cascade)
