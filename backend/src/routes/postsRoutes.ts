@@ -3,7 +3,6 @@ import passport from '../config/passport.js'
 import { commentValidator, postValidator } from '../validations/postsValidations.js'
 
 import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
-import { comment } from '../controllers/socialController.js'
 import { uploadMedia } from '../middlewares/uploadMedia.js'
 import { validatePostMedia } from '../validations/mediaUploadValidation.js'
 export const postsRouter = express.Router()
@@ -23,12 +22,5 @@ postsRouter.post("/like/:post_id",
 )
 postsRouter.post("/post/:post_id/translate", translatePost)
 
-postsRouter.post("/post/:post_id/comment",
-    passport.authenticate ('jwt', {session:false}),
-    uploadMedia("media"),
-    validatePostMedia, 
-    commentValidator, 
-    comment
-)
 
 

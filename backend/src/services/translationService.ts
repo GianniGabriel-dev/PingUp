@@ -32,7 +32,7 @@ export async function translatePostContent(post_id: number, target: string) {
     const translation = await translateText(text.content, target);
     if (!translation) throw new Error("Error al traducir el texto");
     //se guarda la traducción en la base de datos
-    await createTranslation("post", post_id, text.content, translation.translation, target, translation.detectedSourceLanguage);
+    await createTranslation(post_id, text.content, translation.translation, target, translation.detectedSourceLanguage);
 
     return translation;
   }

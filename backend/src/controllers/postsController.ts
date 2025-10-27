@@ -13,8 +13,11 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
     return res.status(400).json({ errors: errors.array() })
   }
   try {
-    const {content}=req.body
-    console.log(content)
+    const {content, parent_post_id}=req.body
+    //parseo del parent_post_id, se pasa originalmente como un string en el formualario 
+    const parent_id:number | null = Number(parent_post_id)
+
+    console.log(`Content: ${content}, ID del post padre: ${parent_post_id}`)
     //media_url puede se string o null
     let media_url:string | null = null;
 
@@ -30,7 +33,7 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
     
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id
-    const post =await  createPost(userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, media_url, )
+    const post =await  createPost( userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, parent_id, media_url)
     return res.status(200).json(post)
 
   } catch (error:any) {

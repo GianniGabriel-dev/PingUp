@@ -1,4 +1,4 @@
-import { PrismaClient, ContentType } from "@prisma/client";
+import { PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -8,6 +8,7 @@ export const createPost = async (
   sentiment: string,
   sentiment_score: number,
   language:string,
+  parent_post_id?:number|null,
   media_url?: string|null,
   
   
@@ -19,6 +20,7 @@ export const createPost = async (
       sentiment,
       sentiment_score,
       language,
+      parent_post_id,
       media_url
     }
   });
@@ -39,25 +41,4 @@ export const getAllPosts = async (limit:number, skip:number)=>{
   })
 }
 
-export const createComment=async(
-  content:string,
-  user_id:number,
-  post_id:number,
-  sentiment: string,
-  sentiment_score: number,
-  media_url?:string|null,
-  parent_comment_id?:number
-)=>{
-  return prisma.comment.create({
-    data:{
-      content,
-      user_id,
-      post_id,
-      sentiment,
-      sentiment_score,
-      media_url,
-      parent_comment_id
-      
-    }
-  })
-}
+

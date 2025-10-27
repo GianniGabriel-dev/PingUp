@@ -1,4 +1,4 @@
-import { PrismaClient, ContentType } from "@prisma/client";
+import { PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -20,7 +20,6 @@ export const existingTranslationPost= async(id:number, )=>{
   const existing =await prisma.translation.findFirst({
     where:{ 
       id, 
-      content_type:"post"
     },
     select:{id:true}
   })
@@ -29,7 +28,6 @@ export const existingTranslationPost= async(id:number, )=>{
 
 //creacion de traduccion
 export const createTranslation= async(
-  content_type: ContentType, 
   content_id:number, 
   original_text:string,
   translated_text:string,
@@ -37,6 +35,6 @@ export const createTranslation= async(
   source_language:string,
 )=>{
   return await prisma.translation.create({
-    data:{ content_type, content_id, original_text,translated_text,target_language,source_language,}
+    data:{content_id, original_text,translated_text,target_language,source_language,}
   })
 }

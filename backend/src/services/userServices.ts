@@ -1,4 +1,4 @@
-import { PrismaClient, ContentType } from "@prisma/client";
+import { PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -10,27 +10,6 @@ export const getUserById = async (id:number) => {
   });
 };
 
-export const createPost = async (
-  user_id: number,
-  content: string,
-  sentiment: string,
-  sentiment_score: number,
-  language:string,
-  imageUrl?: string,
-  
-  
-) => {
-  return prisma.post.create({
-    data: {
-      user_id,
-      content,
-      sentiment,
-      sentiment_score,
-      image_url: imageUrl,
-      language
-    }
-  });
-};
 
 export const getAllPosts = async (limit:number, skip:number)=>{
   return await prisma.post.findMany({
