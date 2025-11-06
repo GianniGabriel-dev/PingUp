@@ -1,10 +1,10 @@
 import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
-import {  deleteLike, likePost, likeExisting} from "../services/userServices.js";
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
-import { translatePostContent, translateText } from "../services/translationService.js";
+import { translatePostContent } from "../services/translationService.js";
 import { createPost, getAllPosts } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
+import { toggleLike } from "../services/likeAndFollowServices.js";
 
 export const newPost = async (req: Request, res: Response): Promise<Response> => {
   const errors = validationResult(req)
@@ -60,17 +60,11 @@ export const getPosts= async(req:Request, res:Response)=>{
 }
 
 export const like= async(req:Request, res:Response)=> {
-  const userId = (req.user as {id:number}).id
-  const post_id= Number(req.params.post_id)
-  const existing= await likeExisting(userId, post_id)
   try{
-    if(existing){
-      await deleteLike(userId, post_id)
-      return res.json({msg: "like quitado"})
-    }else{
-      await likePost(userId, post_id)
-      return res.json({msg: "like dado"})
-    }
+    const userId = (req.user as {id:number}).id
+    const post_id= Number(req.params.post_id)
+    const result= await toggleLike(userId, post_id)
+    return res.json(result)
   }catch(error:any){
     return res.status(500).json({ error: error.message });
   }

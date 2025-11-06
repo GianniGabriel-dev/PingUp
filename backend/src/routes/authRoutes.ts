@@ -2,7 +2,6 @@ import express from 'express'
 import {login, signUp } from '../controllers/authController'
 import passport from '../config/passport.js'
 import { loginValidator, signupValidator } from '../validations/authFormValidation.js'
-import { uploadMedia } from '../middlewares/uploadMedia.js'
 import { uploadAvatar } from '../controllers/mediaController.js'
 export const authRouter = express.Router()
 

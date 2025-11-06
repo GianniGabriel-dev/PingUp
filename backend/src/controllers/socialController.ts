@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { deleteFollow, followExisting, followUser } from '../services/userServices.js';
+import { deleteFollow, followExisting, followUser } from '../queries/likeAndFollowQueries.js';
+
 
 export const follow= async(req:Request, res:Response)=> {
   //user id sería el follower id, el usuario que decida seguir a alguien
