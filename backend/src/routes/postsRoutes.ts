@@ -1,6 +1,6 @@
 import express from 'express'
 import passport from '../config/passport.js'
-import { commentValidator, postValidator } from '../validations/postsValidations.js'
+import { postValidator } from '../validations/postsValidations.js'
 
 import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
 import { uploadMedia } from '../middlewares/uploadMedia.js'
