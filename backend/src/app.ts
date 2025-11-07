@@ -1,11 +1,13 @@
 import express from 'express'
 import dotenv from 'dotenv'
+dotenv.config()
 import { authRouter } from './routes/authRoutes'
 import "./config/passport"
 import passport from 'passport'
 import { postsRouter } from './routes/postsRoutes.js'
 import { userRouter } from './routes/userRoutes.js'
-dotenv.config()
+
+
 const app = express()
 
 app.use(express.json());
