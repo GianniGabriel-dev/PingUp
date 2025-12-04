@@ -1,5 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
+import cors from 'cors'
+
 dotenv.config()
 import { authRouter } from './routes/authRoutes'
 import "./config/passport"
@@ -9,7 +11,11 @@ import { userRouter } from './routes/userRoutes.js'
 
 
 const app = express()
-
+app.use(cors({
+    origin: "http://localhost:5173", // front-end URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}))
 app.use(express.json());
 app.use(passport.initialize());// passport sirve para proteger rutas, autenticar usuarios,etc
 app.use(express.json())// sirve para que express entienda json en las peticiones

@@ -1,14 +1,56 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { Input } from "../inputs.js";
+import { api } from "../../lib/axios.js";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function RegisterModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const navigate= useNavigate();
 
   const closeModal = () => {
     setOpen(false);
     setStep(1);
   };
+
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const data = {
+    username: formData.get("username"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+  };
+
+  console.log("Datos del formulario enviados:", data);
+  // Validación simple
+  
+  try {
+    const res = await api.post("/signup", data);
+  
+    console.log(res)
+    console.log(res.data)
+
+    // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
+    const { token } = res.data;
+    localStorage.setItem("token", token);
+
+    navigate("/")
+    closeModal();
+
+  } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+    console.log(error.response?.data); // <- aquí verás exactamente qué validación falla
+  }
+    console.error(error);
+    const errorMessage = error instanceof Error ? error.message : "Error al registrar";
+    alert(errorMessage);
+  }
+};
+
   return (
     <div className=" text-white">
       <button
@@ -126,13 +168,13 @@ export default function RegisterModal() {
                     <span className="sr-only">Close modal</span>
                   </button>
                 </div>
-                <form className="flex  flex-col gap-7">
+                <form  onSubmit={handleSubmit} className="flex  flex-col gap-7">
                   <Input type="text" id="username" name="username" placeholder="Nombre de usuario"/>
                   <Input type="email" id="email" name="email" placeholder="Email"/>
 
                   <div className="flex  max-sm:gap-7 max-sm:flex-col ">
                     <Input type="password" id="password" name="password" placeholder="Contrseña"/>
-                    <Input type="confirmPassword" id="confirmPassword" name="confirmPassword" placeholder="Confirmar contraseña"/>
+                    <Input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar contraseña"/>
                   </div>
 
                   <button

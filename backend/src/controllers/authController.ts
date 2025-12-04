@@ -15,7 +15,17 @@ export const signUp = async (req: Request, res: Response): Promise<Response> => 
 
     const encryptedPassword= await bcrypt.hash(password, 10)
     const newUser= await normalSignUp(email, username, encryptedPassword)
+     //payload que será guardado en el token jwt, esta info es accesible por req cada vez que se autentica con passport
+    const payload={
+      id: newUser.id,
+      username: newUser.username
+    }
+    //se firma el token con la clave secreta y se le da una fecha de expiracion
+    const token=jwt.sign(payload, process.env.JWT_SECRET as string,{
+      expiresIn: '7d'
+    })
     return res.status(201).json({
+        token,
         msg: "new user created",
         id: newUser.id,
         username: newUser.username,

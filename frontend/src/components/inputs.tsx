@@ -6,7 +6,7 @@ export function Input({type ,id ,name,placeholder}: {type: string; id: string; n
           type={type}
           id={id}
           name={name}
-          className="peer appearance-none bg-transparent h-10 w-10/12 rounded-lg text-gray-200 placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600"
+          className="peer  bg-transparent h-10 w-10/12 rounded-lg text-gray-200 placeholder-transparent ring-2 px-2 ring-gray-500 focus:ring-sky-600 focus:outline-none focus:border-rose-600"
           placeholder={placeholder}
         />
         <label
