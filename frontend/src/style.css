@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow:
+    0 0 0px 1000px #09090b inset,
+    0 0 0 2px rgb(2,132,199) !important; /* ring-sky-600 */
+
+  -webkit-text-fill-color: #e5e5e5 !important;
+}
+input:-webkit-autofill + label {
+  color: #0284c7 !important;          /* mismo color que el borde */
+  top: -0.75rem !important;           /* fuerza la posición como si estuviera enfocado */
+  font-size: 0.875rem !important;     /* 14px */
+}
+body{
+background-color: black;
+color: white
+}
 /* ---- Variables ---- */
 :root {
   --color-bg-primary: #FFFFFF;
