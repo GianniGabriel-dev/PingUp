@@ -11,8 +11,8 @@ input:-webkit-autofill:focus {
 }
 input:-webkit-autofill + label {
   color: #0284c7 !important;          /* mismo color que el borde */
-  top: -0.75rem !important;           /* fuerza la posición como si estuviera enfocado */
-  font-size: 0.875rem !important;     /* 14px */
+  top: -0.90rem !important;           /* fuerza la posición como si estuviera enfocado */
+  font-size: 18px !important;     /* 14px */
 }
 body{
 background-color: black;

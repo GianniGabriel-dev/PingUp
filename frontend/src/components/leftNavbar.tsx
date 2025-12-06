@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import RegisterModal from "./dialogs/register.js";
+
 import { useAuth } from "../context/useAuth.js";
+import RegisterModal from "./dialogs/register/register.js";
 
 export function LeftNavbar() {
   const { user, loading } = useAuth();
