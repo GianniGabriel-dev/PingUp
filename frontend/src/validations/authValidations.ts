@@ -5,6 +5,7 @@ export const registerSchema = z.object({
     .string()
     .trim()
     .min(1, "¿Como te llamas?")
+    .max(30, "El nombre de usuario no puede tener más de 30 caracteres")
     .regex(/^[a-zA-Z0-9_]+$/, "El nombre de usuario no puede contener caracteres especiales"),
 
     email: z
@@ -25,3 +26,26 @@ export const registerSchema = z.object({
     path:["confirmPassword"]
 
 })
+
+export const loginSchema = z.object({
+  identifier: z
+    .string()
+    .nonempty("Introduce un email o nombre de usuario")
+    .refine((value) => {
+      if (value.includes("@")) {
+        // Validación como email
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) && value.length <= 255;
+      } else {
+        // Validación como username
+        return /^[a-zA-Z0-9_]+$/.test(value) && value.length >= 3 && value.length <= 30;
+      }
+    }, {
+      message: "Introduce un email o nombre de usuario válido",
+    }),
+
+  password: z
+    .string()
+    .nonempty("Introduce tu contraseña")
+    .min(6, "Introduce una contraseña válida")
+    .max(255, "Introduce una contraseña válida"),
+});

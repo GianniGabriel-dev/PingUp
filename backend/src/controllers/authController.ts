@@ -50,7 +50,16 @@ export const login = async (req: Request, res: Response): Promise<Response> => {
 
     const match= await bcrypt.compare(password, user?.password || "")//si se regista con oAuth no tiene password, para evitar error le paso cadena vacía
     if(!match){
-        return res.status(401).json({error: "Contraseña incorrecta"})
+        return res.status(401).json({
+          errors:[{
+            type: "field",
+            value: password ,
+            msg: "Contraseña incorrecta",
+            path: "password",
+            location: "body"
+          }]
+        })
+
     }
     //payload que será guardado en el token jwt, esta info es accesible por req cada vez que se autentica con passport
     const payload={

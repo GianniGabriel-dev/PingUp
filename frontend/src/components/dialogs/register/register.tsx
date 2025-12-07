@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { api } from "../../../lib/axios.js";
+import { api, ApiErrors } from "../../../lib/axios.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RegisterStep2 } from "./registerStep2.js";
@@ -8,13 +8,7 @@ import { AuthDialog } from "../../authDialog.js";
 import z from "zod";
 import { registerSchema } from "../../../validations/authValidations.js";
 
-export type ApiErrors = {
-  type: string;
-  value: string;
-  msg: string;
-  path: string;
-  location: string;
-}[];
+
 
 export default function RegisterModal() {
   const [open, setOpen] = useState(false);

@@ -3,7 +3,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import { registerSchema } from "../../../validations/authValidations.js";
-import { ApiErrors } from "./register.js";
+import { ApiErrors } from "../../../lib/axios.js";
+
 
 export function RegisterStep2({
   handleSubmit,
@@ -21,7 +22,7 @@ export function RegisterStep2({
 }) {
   // Define el tipo de los datos del formulario basado en el esquema creado
   type RegisterFormData = z.infer<typeof registerSchema>;
-  //se crea el hook de react-hook-form, se usa zod como validador y comprueba los campos al cambiar de foco y ahce otra validación al cambiar el valor
+  //se crea el hook de react-hook-form, se usa zod como validador y comprueba los campos al cambiar de foco , una vez haya un error al cambiar el valor, se vuelve a validar
   const {
     register,
     handleSubmit: rhfSubmit,
