@@ -1,10 +1,11 @@
 
 import { Request, Response } from "express";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
-import { updateAvatar } from "../services/userServices.js";
+
 import { validateAvatarImg} from "../validations/mediaUploadValidation.js";
 
 import { uploadMedia } from "../middlewares/uploadMedia.js";
+import { updateAvatar } from "../queries/userQueries.js";
 
 // array de middlewares: procesa archivo → valida → sube a Cloudinary
 export const uploadAvatar = [

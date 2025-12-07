@@ -1,8 +1,8 @@
 import { Strategy, ExtractJwt } from "passport-jwt";
 import passport from "passport";
-import { getUserById } from "../services/userServices";
 import dotenv from 'dotenv'
 import path from 'path'
+import { getUserById } from "../queries/userQueries.js";
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 

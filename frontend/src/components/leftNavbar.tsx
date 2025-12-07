@@ -5,10 +5,11 @@ import RegisterModal from "./dialogs/register/register.js";
 import LoginModal from "./dialogs/login/login.js";
 
 export function LeftNavbar() {
+  //se accede a las propiedades guardadas en el contexto de autenticación
   const { user, loading } = useAuth();
 
   return (
-    <aside>
+    <aside className="max-sm:max-w-1/12 ">
       {loading ? (
         // Podrías mostrar un skeleton o spinner aquí si lo prefieres
         <p>cargando...</p>

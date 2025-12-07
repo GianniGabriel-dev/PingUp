@@ -1,13 +1,20 @@
 import { createContext } from "react";
 
-export interface UserPayload {
-  id: string;
-  username: string;
+export type UserInfo = {
+   id:number,
+   username:string,
+   email:string,
+   googleId:string,
+   avatar_url:string,
+   bio:string,
+   created_at:Date
 }
 
 export interface AuthContextType {
-  user: UserPayload | null;
+  user: UserInfo | null;
   loading:boolean;
+  token: string | null;
+  setToken:(token:string|null)=>void
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

@@ -7,6 +7,7 @@ import { LoginStep1 } from "./loginStep1.js";
 import { AuthDialog } from "../../authDialog.js";
 import z from "zod";
 import { loginSchema } from "../../../validations/authValidations.js";
+import { useAuth } from "../../../context/useAuth.js";
 
 
 
@@ -15,6 +16,7 @@ export default function LoginModal() {
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
+  const {setToken}= useAuth()
 
   const closeModal = () => {
     setOpen(false);
@@ -35,6 +37,7 @@ export default function LoginModal() {
       // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
       const { token } = res.data;
       localStorage.setItem("token", token);
+      setToken(token)
 
       navigate("/");
       closeModal();

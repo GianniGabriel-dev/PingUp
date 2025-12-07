@@ -7,6 +7,7 @@ import { RegisterStep1 } from "./registerStep1.js";
 import { AuthDialog } from "../../authDialog.js";
 import z from "zod";
 import { registerSchema } from "../../../validations/authValidations.js";
+import { useAuth } from "../../../context/useAuth.js";
 
 
 
@@ -15,6 +16,7 @@ export default function RegisterModal() {
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
+  const{setToken}= useAuth()
 
   const closeModal = () => {
     setOpen(false);
@@ -35,6 +37,8 @@ export default function RegisterModal() {
       // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
       const { token } = res.data;
       localStorage.setItem("token", token);
+      //se usa setToken del contexto para actualizar el token globalmente y actualizar la página sin recargar
+      setToken(token)
 
       navigate("/");
       closeModal();
