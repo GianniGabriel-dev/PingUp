@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useAuth } from "../context/useAuth.js";
 import RegisterModal from "./dialogs/register/register.js";
+import LoginModal from "./dialogs/login/login.js";
 
 export function LeftNavbar() {
   const { user, loading } = useAuth();
@@ -23,7 +24,11 @@ export function LeftNavbar() {
           </nav>
         </>
       ) : (
-        <RegisterModal />
+        <div>
+          <RegisterModal />
+          <LoginModal />
+        </div>
+
       )}
     </aside>
   );

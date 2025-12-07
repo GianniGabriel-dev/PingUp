@@ -1,34 +1,90 @@
 import { Input } from "../../inputs.js";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import z from "zod";
+import { registerSchema } from "../../../validations/authValidations.js";
+import { ApiErrors } from "./register.js";
 
 export function RegisterStep2({
   handleSubmit,
+  apiError,
+  setApiError,
 }: {
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleSubmit: (data: {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => Promise<void>;
+  apiError: ApiErrors;
+  setApiError: React.Dispatch<React.SetStateAction<ApiErrors>>;
 }) {
+  // Define el tipo de los datos del formulario basado en el esquema creado
+  type RegisterFormData = z.infer<typeof registerSchema>;
+  //se crea el hook de react-hook-form, se usa zod como validador y comprueba los campos al cambiar de foco y ahce otra validación al cambiar el valor
+  const {
+    register,
+    handleSubmit: rhfSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+  });
+
+  //se obtiene el error de la api indicado (si existe)
+  const getApiError = (field: string) => {
+    return apiError?.find((err) => err.path === field)?.msg;
+  };
   return (
     <div className="flex flex-col gap-10">
       <h2 className="text-3xl text-center font-bold">Crea tu cuenta</h2>
-      <form onSubmit={handleSubmit} className="flex  flex-col gap-10">
+      <form
+        onSubmit={rhfSubmit(handleSubmit)}
+        className="flex  flex-col gap-10"
+      >
         <Input
           type="text"
           id="username"
-          name="username"
+          {...register("username", {
+            onChange: () => {
+              setApiError((prev) =>
+                prev.filter((err) => err.path !== "username")
+              );
+            },
+          })}
           placeholder="Nombre de usuario"
+          error={errors.username?.message || getApiError("username")}
         />
-        <Input type="email" id="email" name="email" placeholder="Email" />
+
+        <Input
+          type="email"
+          id="email"
+          {...register("email", {
+            onChange: () => {
+              setApiError((prev) =>
+                prev.filter((err) => err.path !== "email")
+              );
+            },
+          })}
+          placeholder="Email"
+          error={errors.email?.message || getApiError("email")}
+        />
 
         <div className="flex  max-sm:gap-10 max-sm:flex-col ">
           <Input
             type="password"
             id="password"
-            name="password"
-            placeholder="Contrseña"
+            {...register("password")}
+            placeholder="Contraseña"
+            error={errors.password?.message || getApiError("password")}
           />
           <Input
             type="password"
             id="confirmPassword"
-            name="confirmPassword"
+            {...register("confirmPassword")}
             placeholder="Confirmar contraseña"
+            error={errors.confirmPassword?.message}
           />
         </div>
         <div className="flex justify-center">

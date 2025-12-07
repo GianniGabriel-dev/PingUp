@@ -2,38 +2,34 @@ import { useState } from "react";
 import { api } from "../../../lib/axios.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { RegisterStep2 } from "./registerStep2.js";
-import { RegisterStep1 } from "./registerStep1.js";
+import { LoginStep2 } from "./loginStep2.js";
+import { LoginStep1 } from "./loginStep1.js";
 import { AuthDialog } from "../../authDialog.js";
-import z from "zod";
-import { registerSchema } from "../../../validations/authValidations.js";
 
-export type ApiErrors = {
-  type: string;
-  value: string;
-  msg: string;
-  path: string;
-  location: string;
-}[];
-
-export default function RegisterModal() {
+export default function LoginModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
-  const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
 
   const closeModal = () => {
     setOpen(false);
     setStep(1);
-    setApiError([])
   };
-  type RegisData = z.infer<typeof registerSchema>;
- //Función que maneja el envío del formulario
-  const handleSubmit = async (data:RegisData) => {
-    console.log("Datos dulario enviados:", data);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      identifier: formData.get("identifier"),
+      password: formData.get("password"),
+    };
+
+    console.log("Datos del formulario enviados:", data);
+    // Validación simple
 
     try {
-      const res = await api.post("/signup", data);
+      const res = await api.post("/login", data);
 
       console.log(res);
       console.log(res.data);
@@ -44,13 +40,14 @@ export default function RegisterModal() {
 
       navigate("/");
       closeModal();
-      setApiError([])//se limpian los errors si todo está correcto
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data.errors)
-        setApiError(error.response?.data.errors); // Si hay un error al comunicarte con el backend, lo guardas en el estado
-        console.log(apiError)
+        console.log(error.response?.data); // <- aquí verás exactamente qué validación falla
       }
+      console.error(error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Error al registrar";
+      alert(errorMessage);
     }
   };
 
@@ -60,7 +57,7 @@ export default function RegisterModal() {
         onClick={() => setOpen(true)}
         className="p-1 text-sm cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 transition-all duration-300 rounded-xl shadow"
       >
-        Registrarte
+        Iniciar sesión
       </button>
 
       <AuthDialog
@@ -70,8 +67,8 @@ export default function RegisterModal() {
         onStepBack={() => setStep(step - 1)}
         showBackButton={step === 2}
       >
-        {step === 1 && <RegisterStep1 setStep={setStep} />}
-        {step === 2 && <RegisterStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
+        {step === 1 && <LoginStep1 setStep={setStep} />}
+        {step === 2 && <LoginStep2 handleSubmit={handleSubmit} />}
       </AuthDialog>
     </div>
   );

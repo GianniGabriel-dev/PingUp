@@ -26,8 +26,8 @@ export const signupValidator = [
     .notEmpty()
     .trim()
     .withMessage("El username es obligatorio")
-    .isLength({ min: 3, max: 30 })
-    .withMessage("El username debe tener entre 3 y 30 caracteres")
+    .isLength({ max: 30 })
+    .withMessage("El username debe tener entre 0 y 30 caracteres")
     .matches(/^[a-zA-Z0-9_]+$/)
     .withMessage("El username no puede contener caracteres especiales")
     .custom(async (username) => {
