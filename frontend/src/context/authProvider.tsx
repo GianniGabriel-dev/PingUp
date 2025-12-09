@@ -16,7 +16,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(false);
         return;
       } 
-      //si hay token, se decodifica y se guarda el usuario en el estado
+      //si hay token, se intenta obtener la información del usuario con ese token mediante una petición a la API, cada token contiene el id y el nombre de usuario
       try {
         const res =  await api.get("/me",{
           headers:{

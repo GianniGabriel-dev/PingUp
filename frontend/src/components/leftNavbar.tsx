@@ -1,26 +1,39 @@
-import { Link } from "react-router-dom";
-
 import { useAuth } from "../context/useAuth.js";
 import RegisterModal from "./dialogs/register/register.js";
 import LoginModal from "./dialogs/login/login.js";
+import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "../assets/icons/index.js";
+import { NavItem } from "./navItems.js";
+
 
 export function LeftNavbar() {
   //se accede a las propiedades guardadas en el contexto de autenticación
   const { user, loading } = useAuth();
 
   return (
-    <aside className="max-sm:max-w-1/12 ">
+    <aside className="flex flex-col items-center  gap-6 p-4 max-md:p-1 ">
       {loading ? (
         // Podrías mostrar un skeleton o spinner aquí si lo prefieres
         <p>cargando...</p>
       ) : user ? (
         <>
           <p>Hola {user.username}</p>
-          <nav>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/explore">Explore</Link></li>
-              <li><Link to="/notifications">Notifications</Link></li>
+          <nav className="w-3xs max-md:w-max">
+            <ul className="flex flex-col gap-2">
+              <li>
+                <NavItem to="/" icon={HomeIcon} label="Inicio" />
+              </li>
+              <li>
+                <NavItem to="/explore" icon={ExploreIcon} label="Explorar" />
+              </li>
+              <li>
+                <NavItem to="/notifications" icon={NotificationIcon} label="Notificaciones" />
+              </li>
+              <li>
+                <NavItem to="/profile" icon={UserIcon} label="Perfil" />
+              </li>
+              <li>
+                <NavItem to="/settings" icon={ConfigIcon} label="Ajustes" />
+              </li>
             </ul>
           </nav>
         </>
