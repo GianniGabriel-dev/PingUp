@@ -1,4 +1,4 @@
-import { Input } from "../../inputs.js";
+import { Input } from "../../ui/inputs.js";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";

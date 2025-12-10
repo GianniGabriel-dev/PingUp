@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import { LeftNavbar } from "../components/leftNavbar"
-import { RightNavbar } from "../components/rightNavbar.js"
+import { LeftNavbar } from "../components/navbar/leftNavbar"
+import { RightNavbar } from "../components/navbar/rightNavbar.js"
 
 
 export function MainLayout() {

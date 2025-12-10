@@ -11,7 +11,7 @@ export function NavItem({ to, icon: Icon, label }: NavItemProps) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `flex items-center gap-4 px-5 max-md:px-4 py-3 rounded-full transition-colors hover:bg-zinc-800 ${
+        `flex cursor-pointer items-center gap-4 px-3 py-3 rounded-full transition-colors hover:bg-neutral-900 ${
           isActive ? "font-bold" : ""
         }`
       }

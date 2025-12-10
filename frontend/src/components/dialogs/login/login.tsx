@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { LoginStep2 } from "./loginStep2.js";
 import { LoginStep1 } from "./loginStep1.js";
-import { AuthDialog } from "../../authDialog.js";
+import { AuthDialog } from "../authDialog.js";
 import z from "zod";
 import { loginSchema } from "../../../validations/authValidations.js";
 import { useAuth } from "../../../context/useAuth.js";

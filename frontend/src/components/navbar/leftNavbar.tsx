@@ -1,8 +1,9 @@
-import { useAuth } from "../context/useAuth.js";
-import RegisterModal from "./dialogs/register/register.js";
-import LoginModal from "./dialogs/login/login.js";
-import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "../assets/icons/index.js";
+import { useAuth } from "../../context/useAuth.js";
+import RegisterModal from "../dialogs/register/register.js";
+import LoginModal from "../dialogs/login/login.js";
+import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "../../assets/icons/index.js";
 import { NavItem } from "./navItems.js";
+import { UserInfoCard } from "./userInfoCard.js";
 
 
 export function LeftNavbar() {
@@ -12,11 +13,9 @@ export function LeftNavbar() {
   return (
     <aside className="flex flex-col items-center  gap-6 p-4 max-md:p-1 ">
       {loading ? (
-        // Podrías mostrar un skeleton o spinner aquí si lo prefieres
         <p>cargando...</p>
       ) : user ? (
         <>
-          <p>Hola {user.username}</p>
           <nav className="w-3xs max-md:w-max">
             <ul className="flex flex-col gap-2">
               <li>
@@ -36,6 +35,10 @@ export function LeftNavbar() {
               </li>
             </ul>
           </nav>
+          <section className="max-md:hidden">
+            <UserInfoCard user={user}/>
+          </section>
+          
         </>
       ) : (
         <div>

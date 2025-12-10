@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RegisterStep2 } from "./registerStep2.js";
 import { RegisterStep1 } from "./registerStep1.js";
-import { AuthDialog } from "../../authDialog.js";
+import { AuthDialog } from "../authDialog.js";
 import z from "zod";
 import { registerSchema } from "../../../validations/authValidations.js";
 import { useAuth } from "../../../context/useAuth.js";
