@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { AuthContext, UserInfo } from "./authContext.js";
+import { api } from "@/lib/axios.js";
 
-import { AuthContext, UserInfo} from "./authContext.js";
-import { api } from "../lib/axios.js";
+
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserInfo | null>(null);

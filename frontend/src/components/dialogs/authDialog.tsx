@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 // @ts-expect-error no types available
-import backIcon from "../../assets/back.svg";
+import backIcon from "@/assets/back.svg";
 // @ts-expect-error no types available
-import cross from "../../assets/cross.svg";
+import cross from "@/assets/cross.svg";
 
 interface AuthDialogProps {
   open: boolean;

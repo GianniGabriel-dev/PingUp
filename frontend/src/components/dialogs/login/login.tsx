@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { api, ApiErrors } from "../../../lib/axios.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { LoginStep2 } from "./loginStep2.js";
-import { LoginStep1 } from "./loginStep1.js";
-import { AuthDialog } from "../authDialog.js";
 import z from "zod";
-import { loginSchema } from "../../../validations/authValidations.js";
-import { useAuth } from "../../../context/useAuth.js";
+import { api, ApiErrors } from "@/lib/axios.js";
+import { useAuth } from "@/context/useAuth.js";
+import { loginSchema } from "@/validations/authValidations.js";
+import { AuthDialog } from "../authDialog.js";
+import { LoginStep1 } from "./loginStep1.js";
+import { LoginStep2 } from "./loginStep2.js";
 
 
 

@@ -1,10 +1,13 @@
-import { UserIcon, MoreOptionsIcon, LogoutIcon } from "../../assets/icons/index.js";
-import { UserInfo } from "../../context/authContext.js";
+import { UserInfo } from "@/context/authContext.js";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "../ui/popover.js";
+import { MoreOptionsIcon } from "@/assets/icons/MoreOptionsIcon.js";
+import { UserIcon } from "@/assets/icons/UserIcon.js";
+import { LogoutIcon } from "@/assets/icons/LogoutIcon.js";
+
 type Props = {
   user: UserInfo;
 };
@@ -18,14 +21,14 @@ export const UserInfoCard = ({ user }: Props) => {
             {user.avatar_url ? (
               <img
                 src={user.avatar_url}
-                width={40}
-                alt={`User ${user.username} without profile picture`}
+                width={50}
+                alt={`Profile picture of ${user.username}`}
               />
             ) : (
               <img
                 src="/user1.svg"
                 width={50}
-                alt={`Profile picture of ${user.username}`}
+                alt={`User ${user.username} without profile picture`}
               />
             )}
             <div className="flex flex-col ">

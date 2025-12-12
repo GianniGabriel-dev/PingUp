@@ -1,9 +1,11 @@
-import { Input } from "../../ui/inputs.js";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
-import { registerSchema } from "../../../validations/authValidations.js";
-import { ApiErrors } from "../../../lib/axios.js";
+import { ApiErrors } from "@/lib/axios.js";
+import { registerSchema } from "@/validations/authValidations.js";
+import { Input } from "@/components/ui/inputs.js";
+
 
 
 export function RegisterStep2({

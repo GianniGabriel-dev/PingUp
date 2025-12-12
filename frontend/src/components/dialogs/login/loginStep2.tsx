@@ -1,9 +1,9 @@
 import z from "zod";
-import { ApiErrors } from "../../../lib/axios.js";
-import { Input } from "../../ui/inputs.js";
-import { loginSchema } from "../../../validations/authValidations.js";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ApiErrors } from "@/lib/axios.js";
+import { loginSchema } from "@/validations/authValidations.js";
+import { Input } from "@/components/ui/inputs.js";
 
 export function LoginStep2({
   handleSubmit,

@@ -1,9 +1,11 @@
-import { useAuth } from "../../context/useAuth.js";
-import RegisterModal from "../dialogs/register/register.js";
-import LoginModal from "../dialogs/login/login.js";
-import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "../../assets/icons/index.js";
+import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "@/assets/icons/index.js";
+import { useAuth } from "@/context/useAuth.js";
 import { NavItem } from "./navItems.js";
 import { UserInfoCard } from "./userInfoCard.js";
+import RegisterModal from "../dialogs/register/register.js";
+import LoginModal from "../dialogs/login/login.js";
+
+
 
 
 export function LeftNavbar() {
