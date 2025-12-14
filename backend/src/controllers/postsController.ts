@@ -33,7 +33,7 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
     
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id
-    const post =await  createPost( userId, content, sentimentLabel, sentimentScore.score, sentimentScore.language, parent_id, media_url)
+    const post =await  createPost( userId, content.trim(), sentimentLabel, sentimentScore.score, sentimentScore.language, parent_id, media_url)
     return res.status(200).json(post)
 
   } catch (error:any) {
