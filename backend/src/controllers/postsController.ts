@@ -44,19 +44,30 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 
 export const getPosts= async(req:Request, res:Response)=>{
   try{
-    const page = parseInt(typeof req.query.page === "string" ? req.query.page : "1");
-    const limit = parseInt(typeof req.query.limit === "string" ? req.query.limit : "1");
-    //paginación para los posts, se calcula la cantidad de posts que skipear (offset) antes de cargar los siguientes 
-    const skip=(page-1)*limit
-    const posts= await getAllPosts(limit, skip)
-    return res.status(200).json(posts)
-    
+    const MAX_LIMIT=20;
+    let cursor= req.query.cursor ? JSON.parse(req.query.cursor as string) : undefined;
+    //si el limit no es proporcionado por el usuario, se usa el maximo por defecto
+    let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
+    // Forzar límites si el usuario intenta excederlos
+    if (limit > MAX_LIMIT || limit<1) limit = MAX_LIMIT;
 
+    const posts= await getAllPosts(limit, cursor)
+    //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
+    const nextCursor= posts.length > 0 ? { 
+      createdAt: posts[posts.length - 1].created_at.toISOString(), 
+      id: posts[posts.length - 1].id 
+    } : null;
+    return res.status(200).json({
+     posts,
+     nextCursor,
+     //normalmente si la cantidad de posts obtenidos es menor que el limite, significa que no hay mas posts que obtener
+     hasMore: posts.length === limit,
+    })
+    
   }catch(error:any){
     console.error(error.message)
     return res.status(500).json({ error: 'Error getting posts' });
   }
-
 }
 
 export const like= async(req:Request, res:Response)=> {

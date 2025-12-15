@@ -1,6 +1,6 @@
 export const CharCounter = ({ length }: { length: number }) => {
   const MAX_CHARS = 280;
-  const radius = 14;
+  const radius = 13;
   const circumference = 2 * Math.PI * radius;
 
   const progress = Math.min(length / MAX_CHARS, 1);
@@ -21,7 +21,6 @@ export const CharCounter = ({ length }: { length: number }) => {
           strokeWidth="3"
           fill="transparent"
         />
-
         {/* Progreso */}
         <circle
           cx="20"

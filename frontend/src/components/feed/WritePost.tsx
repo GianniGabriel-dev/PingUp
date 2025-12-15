@@ -54,7 +54,7 @@ export const WritePost = ({ user, token }: Props) => {
       className="border-t border-b border-gray-600 w-full p-4 pb-0"
       onSubmit={handleSubmit}
     >
-      <div className="flex items-center gap-4 p-4">
+      <div className="flex items-center gap-3 p-4">
         <img
           className="w-10 h-10 self-start -mt-1"
           src="/user1.svg"
@@ -68,7 +68,7 @@ export const WritePost = ({ user, token }: Props) => {
           placeholder="¿En qué estás pensando?"
         ></textarea>
       </div>
-      <div className="border-t flex place-items-center gap-3 justify-end border-gray-600 p-4 ">
+      <div className="border-t flex place-items-center gap-3 justify-end border-gray-600 p-3 ">
         {/*no carga el contador de carcteres si no se ha escrito nada*/}
         {contentTrimmed  >0 && <CharCounter length={contentTrimmed}/>}
         <button
