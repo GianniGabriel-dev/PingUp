@@ -16,7 +16,7 @@ model User {
   username  String  @unique @db.VarChar(30)
   email     String  @unique @db.VarChar(255)
   password  String? @db.VarChar(255)
-  avatar_url String? @db.VarChar(350)
+  avatar_url String @default("https://res.cloudinary.com/dssbrks07/image/upload/v1766150505/user1_wznohf.svg") @db.VarChar(350)
   bio       String? @db.VarChar(280)
   auth_provider String @default("email") @db.VarChar(15)
   googleId  String? @unique @db.VarChar(30)

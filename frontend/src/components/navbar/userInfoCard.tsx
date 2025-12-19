@@ -18,22 +18,14 @@ export const UserInfoCard = ({ user }: Props) => {
       <PopoverTrigger asChild>
         <div className="cursor-pointer w-3xs flex items-center justify-between px-2  py-2 rounded-full transition-colors hover:bg-neutral-900">
           <div className="flex gap-2">
-            {user.avatar_url ? (
-              <img
-                src={user.avatar_url}
-                width={50}
-                alt={`Profile picture of ${user.username}`}
-              />
-            ) : (
-              <img
-                src="/user1.svg"
-                width={50}
-                alt={`User ${user.username} without profile picture`}
-              />
-            )}
+            <img
+              src={user.avatar_url}
+              width={50}
+              alt={`Profile picture of ${user.username}`}
+            />
             <div className="flex flex-col ">
               <p className="text-s">{user.username}</p>
-              <p className="text-gray-600 text-sm">@{user.username}</p>
+              <p className="text-gray-500 text-sm">@{user.username}</p>
             </div>
           </div>
           <MoreOptionsIcon size={30}/>

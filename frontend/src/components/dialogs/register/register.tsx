@@ -10,8 +10,6 @@ import { RegisterStep1 } from "./registerStep1.js";
 import { RegisterStep2 } from "./registerStep2.js";
 
 
-
-
 export default function RegisterModal() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -59,9 +57,8 @@ export default function RegisterModal() {
         onClick={() => setOpen(true)}
         className="p-1 text-sm cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 transition-all duration-300 rounded-xl shadow"
       >
-        Registrarte
+        Registrarse
       </button>
-
       <AuthDialog
         open={open}
         onClose={closeModal}

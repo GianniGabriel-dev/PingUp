@@ -56,8 +56,8 @@ export const WritePost = ({ user, token }: Props) => {
     >
       <div className="flex items-center gap-3 p-4">
         <img
-          className="w-10 h-10 self-start -mt-1"
-          src="/user1.svg"
+          className="w-10 h-10 self-start -mt-2"
+          src={user.avatar_url}
           alt={`image of user${user.username}`}
         />
         <textarea
