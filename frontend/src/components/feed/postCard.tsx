@@ -1,4 +1,6 @@
+import { formatDate } from "@/utils/formatDate.js"
 import { Post } from "./typesPost.js"
+import LikeButton from "./likeButton.js"
 
 export const IndividualPost = (post: Post) => {
     return (
@@ -10,15 +12,16 @@ export const IndividualPost = (post: Post) => {
             alt={`image of user${post.user.username}`}
             />
             <div className="flex flex-col">
-                <div>
-                    <p className="text-gray-500">@{post.user.username}</p>
-                    <p className="text-gray-500">{post.created_at}</p>
+                <div className="flex gap-1">
+                      <p className="text-white font-extrabold mr-1">{post.user.username}</p>
+                      <p className="text-gray-500">@{post.user.username}</p>
+                      <p className="text-gray-500">· {formatDate(post.created_at)}</p>
                 </div>
                 
-                <p>{post.content}</p>
+                <p className="font-normal">{post.content}</p>
             </div>
-            
           </div>
+          <LikeButton/>
         </div>
     )
 }

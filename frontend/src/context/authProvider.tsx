@@ -25,6 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           }
         })
         setUser(res.data);
+        console.log("consolaaaaa")
       } catch {
         setToken(null);
       }finally{
