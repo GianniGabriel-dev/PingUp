@@ -5,11 +5,11 @@ export default function CommentButton({ totalComments }: { totalComments: number
   return (
     <>
         <button
-            className="cursor-pointer rounded-full transition-all duration-300 hover:bg-blue-500/25 p-1 hover:scale-110 active:scale-95"
+            className="flex gap-0.5 items-center cursor-pointer transition-all duration-300 hover:text-blue-500 active:scale-95"
         >
             <CommentIcon size={20}/>
+            <span>{totalComments >0? totalComments:""}</span>
         </button>
-        {totalComments > 0 ? <p>{totalComments}</p>: ""}
     </>
 
   );

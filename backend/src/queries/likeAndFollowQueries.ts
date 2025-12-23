@@ -1,6 +1,5 @@
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "./prisma.js"
 
-const prisma= new PrismaClient()
 export const likePost = async(user_id:number,post_id:number )=>{
     return await prisma.like.create({
       data:{user_id, post_id}

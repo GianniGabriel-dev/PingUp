@@ -1,6 +1,4 @@
-import { PrismaClient} from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prisma.js"
 
 export const createPost = async (
   user_id: number,
@@ -45,7 +43,8 @@ export const getAllPostsAdmin = async (limit:number, skip:number)=>{
 export const getAllPosts = async (
   limit: number,
   //El cursor esta formado por la fecha del ultimo post mas su id
-  cursor?: {createdAt:string; id:number }
+  cursor?: {createdAt:string; id:number },
+  currentUserId? :number
 ) => {
   return await prisma.post.findMany({
     take: limit,
@@ -60,7 +59,15 @@ export const getAllPosts = async (
     } : undefined,
     include: {
       user: { select: { username: true, avatar_url: true } },
-      _count: { select: { likes: true } }
+      _count: { select: { likes: true } },
+
+      likes: currentUserId
+        ? {
+            where: {user_id: currentUserId },
+            select: { id: true },
+            take: 1,
+          }
+        : false,
     },
     orderBy:[
       { created_at: "desc" },

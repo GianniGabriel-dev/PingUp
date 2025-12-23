@@ -45,13 +45,16 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 export const getPosts= async(req:Request, res:Response)=>{
   try{
     const MAX_LIMIT=20;
+    //userId puede ser undefined si el usuario no está autenticado
+    const userId = (req.user as {id:number})?.id
+    
     let cursor= req.query.cursor ? JSON.parse(req.query.cursor as string) : undefined;
     //si el limit no es proporcionado por el usuario, se usa el maximo por defecto
     let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
     // Forzar límites si el usuario intenta excederlos
     if (limit > MAX_LIMIT || limit<1) limit = MAX_LIMIT;
 
-    const posts= await getAllPosts(limit, cursor)
+    const posts= await getAllPosts(limit, cursor, userId)
     //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
     const nextCursor= posts.length > 0 ? { 
       createdAt: posts[posts.length - 1].created_at.toISOString(), 

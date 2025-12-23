@@ -5,6 +5,7 @@ import { postValidator } from '../validations/postsValidations.js'
 import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
 import { uploadMedia } from '../middlewares/uploadMedia.js'
 import { validatePostMedia } from '../validations/mediaUploadValidation.js'
+import { optionalAuth } from '../middlewares/optionalAuth.js'
 export const postsRouter = express.Router()
 
 postsRouter.post('/post', 
@@ -14,7 +15,7 @@ postsRouter.post('/post',
     postValidator, 
     newPost
 ) 
-postsRouter.get("/post", getPosts)
+postsRouter.get("/post", optionalAuth , getPosts)
 
 postsRouter.post("/like/:post_id",
     passport.authenticate ('jwt', {session:false}),

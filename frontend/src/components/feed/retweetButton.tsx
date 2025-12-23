@@ -7,7 +7,7 @@ export default function RetweetButton() {
   return (
       <button
         onClick={() => setIsReisRetweeted(!isRetweeted)}
-        className="cursor-pointer  rounded-full transition-all duration-300 hover:bg-emerald-600/25 p-1 hover:scale-110 active:scale-95"
+        className="flex gap-0.5 items-center cursor-pointer transition-all duration-300 hover:text-emerald-600 active:scale-95"
       >
         <RetweetIcon isRetweeted={isRetweeted} size={20}/>
       </button>

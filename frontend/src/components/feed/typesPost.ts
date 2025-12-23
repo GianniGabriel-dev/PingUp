@@ -22,6 +22,7 @@ export interface Post {
   created_at: string; // ISO string
   user: User;
   _count: PostCount;
+  likes: [{id:number}]  //sirve apra ver si el usuario ha dado like a un post
 }
 
 // Cursor para paginación

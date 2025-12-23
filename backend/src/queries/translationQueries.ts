@@ -1,6 +1,4 @@
-import { PrismaClient} from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "./prisma.js"
 
 //se obtiene el content y el idioma del post para tradicirlo
 export const getContentById= async(id:number)=>{
