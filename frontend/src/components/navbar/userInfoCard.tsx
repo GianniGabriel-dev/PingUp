@@ -16,7 +16,7 @@ export const UserInfoCard = ({ user }: Props) => {
     <Popover>
       {/*Lo que abre el popover, componente de shadcn */}
       <PopoverTrigger asChild>
-        <div className="cursor-pointer w-3xs flex items-center justify-between px-2  py-2 rounded-full transition-colors hover:bg-neutral-900">
+        <div className="cursor-pointer  flex w-full items-center px-3 py-2 justify-between rounded-full transition-colors hover:bg-neutral-900">
           <div className="flex gap-2">
             <img
               src={user.avatar_url}
@@ -32,7 +32,7 @@ export const UserInfoCard = ({ user }: Props) => {
         </div>
       </PopoverTrigger>
       {/*Contenido dentro del popUp*/}
-      <PopoverContent className="mt-1 w-3xs relative max-md:hidden ">
+      <PopoverContent className="mt-1 w-50 relative max-md:hidden ">
         {/*Flecha que aparce arriba del popover para indicar de donde viene */}
         <svg
           className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full"
@@ -44,7 +44,7 @@ export const UserInfoCard = ({ user }: Props) => {
         >
           <polygon fill="black" points="0,8 8,0 16,8" />
         </svg>
-        <div className=" w-full p-3 flex z-90 flex-col gap-2">
+        <div className="w-full p-3 flex z-90 flex-col gap-2">
           <a
             className="p-1 flex place-items-center gap-3 text-lg rounded transition-colors hover:bg-neutral-900 cursor-pointer "
             href={`/${user.username}`}

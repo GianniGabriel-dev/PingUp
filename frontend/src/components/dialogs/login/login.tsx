@@ -55,7 +55,7 @@ export default function LoginModal() {
     <div className="text-white">
       <button
         onClick={() => setOpen(true)}
-        className="p-1 text-sm cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 transition-all duration-300 rounded-xl shadow"
+        className="p-1 text-lg cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 w-full transition-all duration-300 rounded-full shadow"
       >
         Iniciar sesión
       </button>

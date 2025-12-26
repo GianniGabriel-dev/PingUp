@@ -55,7 +55,7 @@ export default function RegisterModal() {
     <div className="text-white">
       <button
         onClick={() => setOpen(true)}
-        className="p-1 text-sm cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 transition-all duration-300 rounded-xl shadow"
+        className="p-1 text-lg  w-full cursor-pointer font-bold text-black hover:bg-white/80 bg-white transition-all duration-300 rounded-full shadow"
       >
         Registrarse
       </button>

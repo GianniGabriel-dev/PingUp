@@ -8,7 +8,7 @@ export function MainLayout() {
     <>
         <main className="flex justify-center">
             <LeftNavbar/>
-            <section className="border-r-1 border-l-1 max-sm:border-r-0 border-gray-600 flex-grow min-h-screen  max-w-2xl">
+            <section className="border-r-1 border-l-1 max-sm:border-r-0 border-gray-600 flex-grow min-h-screen  max-w-2xl max-lg:w-full">
                 <Outlet/>
             </section>
             <RightNavbar />

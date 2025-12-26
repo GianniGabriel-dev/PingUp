@@ -1,11 +1,7 @@
-import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon } from "@/assets/icons/index.js";
+import {HomeIcon, ExploreIcon, NotificationIcon, UserIcon, ConfigIcon} from "@/assets/icons/index.js";
 import { useAuth } from "@/context/useAuth.js";
 import { NavItem } from "./navItems.js";
 import { UserInfoCard } from "./userInfoCard.js";
-import RegisterModal from "../dialogs/register/register.js";
-import LoginModal from "../dialogs/login/login.js";
-
-
 
 
 export function LeftNavbar() {
@@ -13,13 +9,17 @@ export function LeftNavbar() {
   const { user, loading } = useAuth();
 
   return (
-    <aside className="flex flex-col items-center  gap-6 p-4 max-md:p-1 ">
+    <aside className="flex flex-col items-start max-sm:items-center gap-6 p-2 max-md:p-1 w-3xs max-md:w-max min-h-screen ">
+      <div className="max-md:w-max flex justify-items-start">
+        <img  className="p-2 rounded-full hover:bg-neutral-900 cursor-pointer transition-colors duration-300" width={50} height={50} src="/signalCircle.png" alt="Logo of PingUp"/>
+      </div>
+      
       {loading ? (
-        <p>cargando...</p>
-      ) : user ? (
+        <></>
+      ) : user && (
         <>
-          <nav className="w-3xs max-md:w-max">
-            <ul className="flex flex-col gap-2">
+          <nav className="w-full max-sm:w-max max-sm:h-full">
+        <ul className="flex flex-col gap-4 max-sm:h-full max-sm:justify-between max-sm:gap-0">
               <li>
                 <NavItem to="/" icon={HomeIcon} label="Inicio" />
               </li>
@@ -37,17 +37,11 @@ export function LeftNavbar() {
               </li>
             </ul>
           </nav>
-          <section className="max-md:hidden">
+          <section className="w-full max-md:hidden">
             <UserInfoCard user={user}/>
           </section>
           
         </>
-      ) : (
-        <div>
-          <RegisterModal />
-          <LoginModal />
-        </div>
-
       )}
     </aside>
   );

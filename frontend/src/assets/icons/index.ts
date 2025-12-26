@@ -8,3 +8,4 @@ export { LogoutIcon } from "./LogoutIcon";
 export { HearthIcon } from "./HearthIcon";
 export { CommentIcon } from "./CommentIcon";
 export { RetweetIcon } from "./RetweetIcon";
+export { LoadingIcon } from "./LoadingIcon";
