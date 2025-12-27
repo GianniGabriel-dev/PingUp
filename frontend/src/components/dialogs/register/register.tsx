@@ -8,20 +8,24 @@ import { registerSchema } from "@/validations/authValidations.js";
 import { AuthDialog } from "../authDialog.js";
 import { RegisterStep1 } from "./registerStep1.js";
 import { RegisterStep2 } from "./registerStep2.js";
+import { useModal } from "@/hooks/useModal.js";
 
 
 export default function RegisterModal() {
-  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
   const{setToken}= useAuth()
 
-  const closeModal = () => {
-    setOpen(false);
+  const { closeModal } = useModal()
+  //al cerrar el modal se resetean los pasos y los errores de la api
+  const handleCloseModal = () => {
+    navigate("/");
+    closeModal();
     setStep(1);
-    setApiError([])
+    setApiError([]);
   };
+
   type RegisData = z.infer<typeof registerSchema>;
  //Función que maneja el envío del formulario
   const handleSubmit = async (data:RegisData) => {
@@ -39,9 +43,7 @@ export default function RegisterModal() {
       //se usa setToken del contexto para actualizar el token globalmente y actualizar la página sin recargar
       setToken(token)
 
-      navigate("/");
-      closeModal();
-      setApiError([])//se limpian los errors si todo está correcto
+      handleCloseModal()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data.errors)
@@ -53,14 +55,8 @@ export default function RegisterModal() {
 
   return (
     <div className="text-white">
-      <button
-        onClick={() => setOpen(true)}
-        className="p-1 text-lg  w-full cursor-pointer font-bold text-black hover:bg-white/80 bg-white transition-all duration-300 rounded-full shadow"
-      >
-        Registrarse
-      </button>
       <AuthDialog
-        open={open}
+        open={true}
         onClose={closeModal}
         step={step}
         onStepBack={() => setStep(step - 1)}

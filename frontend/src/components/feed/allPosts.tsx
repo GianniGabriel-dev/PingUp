@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Post, PostsResponse } from "./typesPost.js";
 import { IndividualPost } from "./postCard.js";
 import { useAuth } from "@/context/useAuth.js";
+import { LoadingIcon } from "@/assets/icons/LoadingIcon.js";
 
 
 export const AllPosts = () => {
@@ -23,7 +24,7 @@ export const AllPosts = () => {
     },
     staleTime: 1000 * 60 * 5, // 5 minutos
   })
-  if (isLoading) return <p>Cargando posts...</p>;
+  if (isLoading) return <LoadingIcon size={40}/>
   if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;
   console.log(data)

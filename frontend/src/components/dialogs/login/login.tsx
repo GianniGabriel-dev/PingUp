@@ -8,20 +8,21 @@ import { loginSchema } from "@/validations/authValidations.js";
 import { AuthDialog } from "../authDialog.js";
 import { LoginStep1 } from "./loginStep1.js";
 import { LoginStep2 } from "./loginStep2.js";
+import { useModal } from "@/hooks/useModal.js";
 
 
 
 export default function LoginModal() {
-  const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
   const {setToken}= useAuth()
 
-  const closeModal = () => {
-    setOpen(false);
+  const { closeModal } = useModal()
+  const handleCloseModal = () => {
+    closeModal();
     setStep(1);
-    setApiError([])
+    setApiError([]);
   };
   type LoginData= z.infer<typeof loginSchema>
    //Función que maneja el envío del formulario
@@ -40,8 +41,7 @@ export default function LoginModal() {
       setToken(token)
 
       navigate("/");
-      closeModal();
-      setApiError([]) //se limpian los errors si todo está correcto
+      handleCloseModal()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         console.log(error)
@@ -52,24 +52,15 @@ export default function LoginModal() {
   };
 
   return (
-    <div className="text-white">
-      <button
-        onClick={() => setOpen(true)}
-        className="p-1 text-lg cursor-pointer font-bold hover:bg-blue-600 bg-blue-500 w-full transition-all duration-300 rounded-full shadow"
-      >
-        Iniciar sesión
-      </button>
-
-      <AuthDialog
-        open={open}
-        onClose={closeModal}
-        step={step}
-        onStepBack={() => setStep(step - 1)}
-        showBackButton={step === 2}
-      >
-        {step === 1 && <LoginStep1 setStep={setStep} />}
-        {step === 2 && <LoginStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
-      </AuthDialog>
-    </div>
+    <AuthDialog
+      open={true}
+      onClose={handleCloseModal}
+      step={step}
+      onStepBack={() => setStep(step - 1)}
+      showBackButton={step === 2}
+    >
+      {step === 1 && <LoginStep1 setStep={setStep} />}
+      {step === 2 && <LoginStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
+    </AuthDialog>
   );
 }
