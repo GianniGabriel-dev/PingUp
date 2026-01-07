@@ -4,6 +4,7 @@ import { RightNavbar } from "../components/navbar/rightNavbar.js"
 import RegisterModal from "@/components/dialogs/register/register.js";
 import LoginModal from "@/components/dialogs/login/login.js";
 import { useModal } from "@/hooks/useModal.js";
+import OnboardingProfile from "@/components/dialogs/uploadAvatar/OnboardingProfile.js";
 
 
 export function MainLayout() {
@@ -19,9 +20,10 @@ export function MainLayout() {
         <RightNavbar />
       </main>
 
-      {/* Modal Layer */}
+      {/* Conjunto de modales */}
       {isOpen && modalType === 'login' && <LoginModal/>}
       {isOpen && modalType === 'register' && <RegisterModal/>}
+      {isOpen && modalType === 'onboarding-profile' && <OnboardingProfile/>}
     </>
   )
 }

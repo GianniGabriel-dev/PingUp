@@ -6,17 +6,17 @@ import { api, ApiErrors } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
 import { loginSchema } from "@/validations/authValidations.js";
 import { AuthDialog } from "../authDialog.js";
-import { LoginStep1 } from "./loginStep1.js";
-import { LoginStep2 } from "./loginStep2.js";
 import { useModal } from "@/hooks/useModal.js";
+import { ProfileStep1 } from "./ProfileStep1.js";
+import { ProfileStep2 } from "./ProfileStep2.js";
 
 
 
-export default function LoginModal() {
+export default function OnboardingProfile() {
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
   const navigate = useNavigate();
-  const {setToken}= useAuth()
+  const {setToken, user}= useAuth()
 
   const { closeModal } = useModal()
   //al cerrar el modal se resetean los pasos y los errores de la api
@@ -61,8 +61,8 @@ export default function LoginModal() {
       onStepBack={() => setStep(step - 1)}
       showBackButton={step === 2}
     >
-      {step === 1 && <LoginStep1 setStep={setStep} />}
-      {step === 2 && <LoginStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
+      {step === 1 && <ProfileStep1 setStep={setStep} user={user} />}
+      {step === 2 && <ProfileStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
     </AuthDialog>
   );
 }

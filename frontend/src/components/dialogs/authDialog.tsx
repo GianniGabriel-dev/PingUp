@@ -34,8 +34,8 @@ export function AuthDialog({
       >
         <div className="flex justify-center items-center">
           <img
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             src="/signalCircle.png"
             alt="Logo of PingUp"
           />

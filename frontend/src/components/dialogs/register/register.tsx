@@ -18,12 +18,11 @@ export default function RegisterModal() {
   const{setToken}= useAuth()
 
   const { closeModal } = useModal()
-  //al cerrar el modal se resetean los pasos y los errores de la api
+  //al cerrar el modal se resetean los pasos y los errores de la api y redirige a una configuración opcional extra
   const handleCloseModal = () => {
-    navigate("/");
-    closeModal();
     setStep(1);
     setApiError([]);
+    navigate("/?modal=onboarding-profile");
   };
 
   type RegisData = z.infer<typeof registerSchema>;
@@ -43,6 +42,9 @@ export default function RegisterModal() {
       //se usa setToken del contexto para actualizar el token globalmente y actualizar la página sin recargar
       setToken(token)
 
+      //se establece aparte del token en el local storage si el usuario ya ha completado la config inicial despues de registrarse, en este caaso es falso
+      localStorage.setItem("onboardingProfileCompleted", "false");
+      
       handleCloseModal()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {

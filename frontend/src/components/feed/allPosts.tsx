@@ -13,6 +13,7 @@ export const AllPosts = () => {
     //si el token cambia (si el usuario se loguea o desloguea), se vuelve a ejecutar la query para obtener los posts correspondientes
     queryKey: ["allPosts" , token ? "authenticated" : "guest"],
     queryFn: async()=>{ 
+         console.log(data)
       const res= await api.get<PostsResponse>("post",{
         params: { limit, cursor: "" },
         //En caso de que el usario esté autenticado se podrá obtener su id desde el token para mostrar si ha dado like a algún comentario
@@ -27,7 +28,7 @@ export const AllPosts = () => {
   if (isLoading) return <LoadingIcon size={40}/>
   if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;
-  console.log(data)
+  
 
   return (
     <>
