@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import z from "zod";
 import { api, ApiErrors } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
-import { loginSchema } from "@/validations/authValidations.js";
 import { AuthDialog } from "../authDialog.js";
 import { useModal } from "@/hooks/useModal.js";
 import { ProfileStep1 } from "./ProfileStep1.js";
@@ -12,9 +10,11 @@ import { ProfileStep2 } from "./ProfileStep2.js";
 
 
 
+
 export default function OnboardingProfile() {
   const [step, setStep] = useState(1);
   const[apiError,setApiError]=useState<ApiErrors>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
   const {setToken, user}= useAuth()
 
@@ -26,8 +26,8 @@ export default function OnboardingProfile() {
     setApiError([]);
   };
 
-  type LoginData= z.infer<typeof loginSchema>
-   //Función que maneja el envío del formulario
+
+   //Función que maneja el guardado de los datos y el update de los mismos en la bd
   const handleSubmit = async (data:LoginData) => {
     console.log("Datos del formulario enviados:", data);
 
@@ -55,14 +55,16 @@ export default function OnboardingProfile() {
 
   return (
     <AuthDialog
+      showLogo={false}
       open={true}
       onClose={handleCloseModal}
       step={step}
       onStepBack={() => setStep(step - 1)}
       showBackButton={step === 2}
     >
-      {step === 1 && <ProfileStep1 setStep={setStep} user={user} />}
-      {step === 2 && <ProfileStep2 handleSubmit={handleSubmit} apiError={apiError} setApiError={setApiError} />}
+      {/*Se comprueba en que step está el usuario y si user obtenido del contexto existe para evitar errores*/}
+      {step === 1 && user && <ProfileStep1 setStep={setStep} user={user} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
+      {step === 2 && user && <ProfileStep2 setStep={setStep} selectedFile={selectedFile} />}
     </AuthDialog>
   );
 }

@@ -58,6 +58,7 @@ export default function RegisterModal() {
   return (
     <div className="text-white">
       <AuthDialog
+        showLogo={true}
         open={true}
         onClose={closeModal}
         step={step}

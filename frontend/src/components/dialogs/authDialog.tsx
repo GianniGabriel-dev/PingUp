@@ -1,10 +1,8 @@
 import { ReactNode } from "react";
-// @ts-expect-error no types available
-import backIcon from "@/assets/back.svg";
-// @ts-expect-error no types available
-import cross from "@/assets/cross.svg";
+import { CloseIcon, BackIcon } from "@/assets/icons/index.js";
 
 interface AuthDialogProps {
+  showLogo:boolean
   open: boolean;
   onClose: () => void;
   step?: number;
@@ -14,6 +12,7 @@ interface AuthDialogProps {
 }
 
 export function AuthDialog({
+  showLogo,
   open,
   onClose,
   onStepBack,
@@ -34,6 +33,7 @@ export function AuthDialog({
       >
         <div className="flex justify-center items-center">
           <img
+            className={`${showLogo ? "": "hidden" }`}
             width={40}
             height={40}
             src="/signalCircle.png"
@@ -43,24 +43,18 @@ export function AuthDialog({
           {/* Muestra el botón de ir hacia atrás solo si showBackButton es true */}
           {showBackButton && onStepBack && (
             <button type="button" onClick={onStepBack}>
-              <img
-                src={backIcon}
-                width={30}
-                height={30}
-                className="absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
-                alt="Volver"
+              <BackIcon 
+                size={30}
+                className={"absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"}
               />
               <span className="sr-only">Volver</span>
             </button>
           )}
           {/* Botón x para cerrar modal */}
           <button type="button" onClick={onClose}>
-            <img
-              width={30}
-              height={30}
-              className="absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
-              alt="Cerrar"
-              src={cross}
+            <CloseIcon
+              size={30}
+              className={"absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"}
             />
             <span className="sr-only">Cerrar modal</span>
           </button>

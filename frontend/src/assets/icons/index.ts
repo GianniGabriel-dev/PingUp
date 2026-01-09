@@ -9,3 +9,6 @@ export { HearthIcon } from "./HearthIcon";
 export { CommentIcon } from "./CommentIcon";
 export { RetweetIcon } from "./RetweetIcon";
 export { LoadingIcon } from "./LoadingIcon";
+export { AddPhotoIcon } from "./AddPhotoIcon"
+export { BackIcon } from "./BackIcon"
+export { CloseIcon } from "./CloseIcon"

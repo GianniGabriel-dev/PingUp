@@ -55,6 +55,7 @@ export default function LoginModal() {
 
   return (
     <AuthDialog
+      showLogo={true}
       open={true}
       onClose={handleCloseModal}
       step={step}

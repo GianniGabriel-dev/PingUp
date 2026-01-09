@@ -1,5 +1,6 @@
 
 export function Input({
+  value,
   type,
   id,
   name,
@@ -8,23 +9,23 @@ export function Input({
 
   ...rest
 }: {
+  value?:string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: string;   
   id: string;
   name: string;
   placeholder: string;
   error:string | undefined;
-
-
 }) {
   return (
     <>
       <div className="bg-zinc-950  w-full rounded-lg">
         <div className="relative flex justify-center bg-inherit">
           <input
+            {...(value !== undefined ? { value } : {})}
             type={type}
             id={id}
             name={name}
-            defaultValue={""}
             className={`peer text-lg  bg-transparent  h-12 w-10/12 rounded-lg  placeholder-transparent ring-2 px-2 focus:outline-none
                ${error  ? "error ring-rose-500  text-rose-500 focus:ring-rose-500" :"text-gray-200 ring-gray-500 focus:ring-sky-600"}`}
 
