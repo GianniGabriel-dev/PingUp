@@ -4,9 +4,9 @@ export const LoginStep1 = ({
   setStep: (step: number) => void;
 }) => {
   return (
-    <>
+    <section className="p-4">
       <div>
-        <h2 className="text-3xl text-center  font-bold">Iniciar sesión en PingUp</h2>
+        <h2 className="text-3xl text-center mb-10 font-bold">Iniciar sesión en PingUp</h2>
       </div>
       {/*Botones de registro*/}
       <div className="flex text-xl  place-items-center flex-col gap-4">
@@ -49,6 +49,6 @@ export const LoginStep1 = ({
           </button>
         </div>
       </div>
-    </>
+    </section>
   );
 };

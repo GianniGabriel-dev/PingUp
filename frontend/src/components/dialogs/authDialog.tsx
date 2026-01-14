@@ -28,17 +28,21 @@ export function AuthDialog({
     >
       {/* Modal - El stopPropagation hace que al pulsar el diálogo para escribir no se comporte como si se pulsara fuera para cerrarlo */}
       <div
-        className="bg-zinc-950 flex flex-col gap-6 rounded-2xl p-4 w-xl max-sm:h-full max-sm:rounded-none h-4/6 shadow-xl relative"
+        className="bg-zinc-950 flex flex-col gap-6 rounded-2xl w-xl max-sm:h-full max-sm:rounded-none h-4/6 shadow-xl relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-center items-center">
-          <img
-            className={`${showLogo ? "": "hidden" }`}
-            width={40}
-            height={40}
-            src="/signalCircle.png"
-            alt="Logo of PingUp"
-          />
+        <header className="flex justify-center p-2.5 items-center">
+          {
+            showLogo &&(
+              <img
+                width={40}
+                height={40}
+                src="/signalCircle.png"
+                alt="Logo of PingUp"
+              />
+            )
+          }
+
 
           {/* Muestra el botón de ir hacia atrás solo si showBackButton es true */}
           {showBackButton && onStepBack && (
@@ -58,10 +62,13 @@ export function AuthDialog({
             />
             <span className="sr-only">Cerrar modal</span>
           </button>
-        </div>
+        </header>
 
         {/* Contenido dinámico */}
-        {children}
+        <main className="h-full">
+          {children}
+        </main>
+       
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ export function RegisterStep2({
     return apiError?.find((err) => err.path === field)?.msg;
   };
   return (
-    <div className="flex flex-col gap-10">
+    <div className="p-4 flex flex-col gap-10">
       <h2 className="text-3xl text-center font-bold">Crea tu cuenta</h2>
       <form
         onSubmit={rhfSubmit(handleSubmit)}

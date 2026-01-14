@@ -22,7 +22,7 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
     inputRef.current?.click();
   };
   return (
-    <div className="pr-9 pl-9 max-sm:p-3 flex flex-col justify-between items-center h-full">
+    <div className="pr-9 pl-9  h-full max-sm:p-3 justify-between flex flex-col  items-center">
       <article className="self-start">
         <h2 className="text-3xl  font-bold">Edita tu perfil</h2>
         <p className="text-gray-500">
@@ -88,7 +88,7 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
           hasChanged
             ? "text-zinc-950 bg-white hover:bg-white/55"
             : "text-white border-2 border-gray-500 hover:bg-zinc-500/5"
-        } cursor-pointer  h-12 w-10/12 max-sm:w-full text-2xl py-2 transition-all duration-300  font-bold rounded-3xl shadow`}
+        } cursor-pointer  h-12 w-10/12 max-sm:w-full text-2xl mb-4 py-2 transition-all duration-300  font-bold rounded-3xl shadow`}
       >
         {hasChanged ? "Siguiente" : "Descartar por ahora"}
       </button>

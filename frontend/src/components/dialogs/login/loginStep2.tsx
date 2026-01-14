@@ -34,7 +34,7 @@ export function LoginStep2({
   };
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 p-4">
       <h2 className="text-3xl text-center font-bold">Iniciar sesión en PingUp</h2>
       <form onSubmit={rhfSubmit(handleSubmit)} className="flex  flex-col gap-10">
         <Input

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
+
 /* Estilos para input autofill */
 input:-webkit-autofill + label {
 
@@ -25,6 +26,21 @@ color: white;
 font-family: 'Inter', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 /* ---- Variables ---- */
+
+/* Imagen */
+.reactEasyCrop_Image {
+  object-fit: cover !important;
+}
+.reactEasyCrop_Container {
+  background-color: #171717 !important; 
+}
+
+/* Área de recorte */
+.reactEasyCrop_CropArea {
+  border: 3px solid rgb(2,132,199) !important; 
+    box-shadow: 0 0 0 9999px rgba(23, 23, 23, 0.685) !important;
+
+}
 
 :root {
 

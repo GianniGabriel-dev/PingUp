@@ -17,6 +17,7 @@ export default function OnboardingProfile() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const navigate = useNavigate();
   const {setToken, user}= useAuth()
+  console.log(user)
 
   const { closeModal } = useModal()
   //al cerrar el modal se resetean los pasos y los errores de la api
@@ -64,7 +65,7 @@ export default function OnboardingProfile() {
     >
       {/*Se comprueba en que step está el usuario y si user obtenido del contexto existe para evitar errores*/}
       {step === 1 && user && <ProfileStep1 setStep={setStep} user={user} setSelectedFile={setSelectedFile} selectedFile={selectedFile} />}
-      {step === 2 && user && <ProfileStep2 setStep={setStep} selectedFile={selectedFile} />}
+      {step === 2 && user && selectedFile && <ProfileStep2 setStep={setStep} selectedFile={selectedFile} />}
     </AuthDialog>
   );
 }
