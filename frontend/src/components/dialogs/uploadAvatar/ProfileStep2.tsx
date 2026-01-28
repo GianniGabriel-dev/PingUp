@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CropAvatar } from "./cropAvatar.js";
 import { Slider } from "@/components/ui/slider"
+import { normalizeImage } from "./hooks/normalizeImage.js";
 
 type Props = {
   setStep: (step: number) => void;
@@ -8,7 +9,15 @@ type Props = {
 };
 
 export const ProfileStep2 =({setStep, selectedFile }: Props)=>{
+    const fileURL = URL.createObjectURL(selectedFile) 
     const [zoom, setZoom] = useState(1)
+    const [imgSrc, setImgSrc] = useState<string | File>(fileURL)
+
+    useEffect(()=>{
+        normalizeImage(selectedFile, 536).then(setImgSrc)
+    },[selectedFile])
+
+    if(!imgSrc || !selectedFile) return null
 
     const onZoomChange = (zoom:number) => {
         setZoom(zoom)
@@ -16,7 +25,7 @@ export const ProfileStep2 =({setStep, selectedFile }: Props)=>{
     return(
     <>
         <article className="p-4 flex-1 h-full max-sm:h-10/12 flex items-center justify-center bg-neutral-900">
-            <CropAvatar selectedFile={URL.createObjectURL(selectedFile)} zoom={zoom} onZoomChange={onZoomChange}/>
+            <CropAvatar selectedFile={imgSrc} zoom={zoom} onZoomChange={onZoomChange}/>
         </article>
 
         <footer className="p-2.5 flex max-sm:flex-col max-sm:h-2/12 justify-center  items-center gap-7 w-full  text-center bg-zinc-950 text-white rounded-b-2xl">

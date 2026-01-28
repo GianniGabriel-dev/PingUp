@@ -52,6 +52,7 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
                 accept="image/jpeg,image/png,image/webp"
                 ref={inputRef}
                 onChange={(e) => {
+                  //si no se selecciona un archivo impide ir al sigiuente paso
                   if (!e.target.files?.[0]) return;
 
                   const file = e.target.files[0];

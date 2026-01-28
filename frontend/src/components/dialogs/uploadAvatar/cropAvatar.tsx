@@ -2,7 +2,7 @@ import React from 'react'
 import Cropper from 'react-easy-crop'
 
 type CropAvatarProps={
-    selectedFile:string
+    selectedFile:File | string
     zoom:number
     onZoomChange: (zoom: number) => void
 }
