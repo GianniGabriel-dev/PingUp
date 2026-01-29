@@ -4,11 +4,14 @@ import { UserInfo } from "@/context/authContext.js";
 import { useRef, useState } from "react";
 import { useFileUpload } from "./hooks/handleFileChange.js";
 
+
 type Props = {
   user: UserInfo;
+  setFullName: (name: string) => void;
   setStep: (step: number) => void;
   setSelectedFile: (selectedFile: File) => void;
-  selectedFile: File;
+  selectedFile: File | null;
+  token: string | null;
 };
 export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Props) => {
   const [fullName, setFullName]= useState(user.name)
@@ -20,7 +23,8 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
     // Abrir el input al hacer click en el div
   const handleClick = () => {
     inputRef.current?.click();
-  };
+  }
+
   return (
     <div className="pr-9 pl-9  h-full max-sm:p-3 justify-between flex flex-col  items-center">
       <article className="self-start">
@@ -59,6 +63,7 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
                   if (!validateFile(file)) return;
 
                   setSelectedFile(file); 
+                  setHasChanged(true); // detecta que el input ha cambiado
                   setStep(2);
                 }}
                 className="hidden"
@@ -81,7 +86,19 @@ export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Pr
                   id="fullName"
                   placeholder="Nombre"
                   error={""}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e) => {
+                        const value = e.target.value;
+                        //valida que elnombre tenga menos de 30 caracters
+                        if (value.trim().length <= 30 ){
+                          setFullName(value) 
+                        }
+                        if (value.trim() == "" || value == user.name) {
+                          setHasChanged(false); //resetea el estado si el input vuelve a su valor original
+                          
+                        }else {
+                          setHasChanged(true); // detecta que el input ha cambiado
+                        }
+                      }}
                 />
       <button
         type="submit"

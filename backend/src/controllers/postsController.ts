@@ -49,7 +49,7 @@ export const getPosts= async(req:Request, res:Response)=>{
     const userId = (req.user as {id:number})?.id
     
     let cursor= req.query.cursor ? JSON.parse(req.query.cursor as string) : undefined;
-    //si el limit no es proporcionado por el usuario, se usa el maximo por defecto
+    //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
     let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
     // Forzar límites si el usuario intenta excederlos
     if (limit > MAX_LIMIT || limit<1) limit = MAX_LIMIT;

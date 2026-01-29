@@ -9,7 +9,6 @@ export const normalizeImage = (file: File, size:number): Promise<string> => {
 
     img.onload = () => {
      if(img.width<size && img.height<size){
-
      // calcula cuanto escalar la imagen
       const scale = Math.max(size / img.width, size / img.height, 1);
 
