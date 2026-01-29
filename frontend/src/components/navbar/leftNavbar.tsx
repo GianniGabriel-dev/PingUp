@@ -6,7 +6,7 @@ import { UserInfoCard } from "./userInfoCard.js";
 
 export function LeftNavbar() {
   //se accede a las propiedades guardadas en el contexto de autenticación
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
 
   return (
     <aside className="flex flex-col items-start max-sm:items-center gap-6 p-2 max-md:p-1 w-3xs max-md:w-max min-h-screen ">
@@ -14,7 +14,7 @@ export function LeftNavbar() {
         <img  className="p-2 rounded-full hover:bg-neutral-900 cursor-pointer transition-colors duration-300" width={50} height={50} src="/signalCircle.png" alt="Logo of PingUp"/>
       </div>
       
-      {loading ? (
+      {isLoading ? (
         <></>
       ) : user && (
         <>

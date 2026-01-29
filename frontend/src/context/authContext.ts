@@ -13,7 +13,7 @@ export type UserInfo = {
 
 export interface AuthContextType {
   user: UserInfo | null;
-  loading:boolean;
+  isLoading:boolean;
   token: string | null;
   setToken:(token:string|null)=>void
 }

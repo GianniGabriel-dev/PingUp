@@ -13,7 +13,7 @@ import { userRouter } from './routes/userRoutes.js'
 const app = express()
 app.use(cors({
     origin: "http://localhost:5173", // front-end URL
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
 }))
 app.use(express.json());
