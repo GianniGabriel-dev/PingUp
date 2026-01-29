@@ -10,7 +10,7 @@ export const IndividualPost = (post: Post) => {
         <article className="border-b border-gray-600 p-3 hover:bg-neutral-950 cursor-pointer">
           <div className="flex gap-2">
             <img 
-            className="w-12 h-12  rounded-full flex-shrink-0"
+            className="w-12 h-12  rounded-full shrink-0"
             src={post.user.avatar_url || "https://res.cloudinary.com/dssbrks07/image/upload/v1766150505/user1_wznohf.svg"}
             alt={`image of user${post.user.username}`}
             />
@@ -18,7 +18,7 @@ export const IndividualPost = (post: Post) => {
                 {/* header del post con los datos del usuario */}
                 <header className="flex gap-1 ml-1">
                       <span className="text-white font-extrabold">{post.user.username}</span>
-                      <span className="text-gray-500">@{post.user.username}</span>
+                      <span className="text-gray-500">@{post.user.name}</span>
                       <span className="text-gray-500">· {formatDate(post.created_at)}</span>
                 </header>
                 {/* contenido del post */}

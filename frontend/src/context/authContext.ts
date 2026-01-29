@@ -7,7 +7,8 @@ export type UserInfo = {
    googleId:string,
    avatar_url:string,
    bio:string,
-   created_at:Date
+   created_at:Date,
+   name:string
 }
 
 export interface AuthContextType {

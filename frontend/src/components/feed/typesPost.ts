@@ -2,6 +2,7 @@
 export interface User {
   username: string;
   avatar_url: string | null;
+  name: string;
 }
 
 // Conteos (likes, etc.)

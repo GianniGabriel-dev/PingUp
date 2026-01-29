@@ -11,7 +11,7 @@ type Props = {
   selectedFile: File;
 };
 export const ProfileStep1 = ({ user, setStep, setSelectedFile, selectedFile}: Props) => {
-  const [fullName, setFullName]= useState(user.username)
+  const [fullName, setFullName]= useState(user.name)
   //estado que detecta si ha cambiado la imagen o el usuario por defecto
     const { validateFile } = useFileUpload({});
   const [hasChanged, setHasChanged] = useState(false);

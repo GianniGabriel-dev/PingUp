@@ -19,12 +19,13 @@ export const UserInfoCard = ({ user }: Props) => {
         <div className="cursor-pointer  flex w-full items-center px-3 py-2 justify-between rounded-full transition-colors hover:bg-neutral-900">
           <div className="flex gap-2">
             <img
+              className="rounded-full"
               src={user.avatar_url}
               width={50}
               alt={`Profile picture of ${user.username}`}
             />
             <div className="flex flex-col ">
-              <p className="text-s">{user.username}</p>
+              <p className="text-s">{user.name}</p>
               <p className="text-gray-500 text-sm">@{user.username}</p>
             </div>
           </div>

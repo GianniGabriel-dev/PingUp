@@ -56,7 +56,7 @@ export const WritePost = ({ user, token }: Props) => {
     >
       <div className="flex items-center gap-3 p-4">
         <img
-          className="w-10 h-10 self-start -mt-2"
+          className="w-10 h-10 self-start -mt-2 rounded-full"
           src={user.avatar_url}
           alt={`image of user${user.username}`}
         />

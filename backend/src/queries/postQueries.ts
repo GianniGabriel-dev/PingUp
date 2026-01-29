@@ -58,7 +58,7 @@ export const getAllPosts = async (
       ]
     } : undefined,
     include: {
-      user: { select: { username: true, avatar_url: true } },
+      user: { select: { username: true, avatar_url: true, name: true } },
       _count: { select: { likes: true } },
 
       likes: currentUserId

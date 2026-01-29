@@ -5,7 +5,9 @@ import { NextFunction, Request, Response } from "express";
 //el file se guarde en req
 export const uploadMedia=(fileName:string)=>{
     return (req:Request, res:Response, next:NextFunction)=>{
+      console.log("uploadMEdia")
       upload.single(fileName)(req, res, (err) => {
+              console.log("upload")
         //se muestra un error controlado si se ha enviado mas de un archivo a multer
         if (err) {
           let message=""

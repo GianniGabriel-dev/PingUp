@@ -20,6 +20,7 @@ model User {
   bio       String? @db.VarChar(280)
   auth_provider String @default("email") @db.VarChar(15)
   googleId  String? @unique @db.VarChar(30)
+  name      String? @db.VarChar(30)
   created_at DateTime @default(now())
   
   posts      Post[]
