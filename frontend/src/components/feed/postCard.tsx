@@ -17,8 +17,8 @@ export const IndividualPost = (post: Post) => {
             <div className="flex flex-col w-full ">
                 {/* header del post con los datos del usuario */}
                 <header className="flex gap-1 ml-1">
-                      <span className="text-white font-extrabold">{post.user.username}</span>
-                      <span className="text-gray-500">@{post.user.name}</span>
+                      <span className="text-white font-extrabold">{post.user.name}</span>
+                      <span className="text-gray-500">@{post.user.username}</span>
                       <span className="text-gray-500">· {formatDate(post.created_at)}</span>
                 </header>
                 {/* contenido del post */}

@@ -12,9 +12,9 @@ export function MainLayout() {
 
   return (
     <>
-      <main className="flex justify-center">
+      <main className="flex  justify-center p-0">
         <LeftNavbar/>
-        <section className="border-r border-l max-sm:border-r-0 border-gray-600 grow min-h-screen max-w-2xl max-lg:w-full">
+        <section className="border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full ">
           <Outlet/>
         </section>
         <RightNavbar />

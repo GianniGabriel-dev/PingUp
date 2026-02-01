@@ -9,7 +9,7 @@ export const normalizeImage = (file: File, size:number): Promise<string> => {
 
     img.onload = () => {
      if(img.width<size && img.height<size){
-     // calcula cuanto escalar la imagen
+     // calcula cuanto escalar la imagen, si es mayor al tamaño oginal se mantiene, si es menor se escala
       const scale = Math.max(size / img.width, size / img.height, 1);
 
       const newWidth = img.width * scale;
@@ -26,9 +26,10 @@ export const normalizeImage = (file: File, size:number): Promise<string> => {
       const x = (size - newWidth) / 2;
       const y = (size - newHeight) / 2;
 
+      // dibuja la imagen redimensionada centrada en el canvas
       ctx.drawImage(img, x, y, newWidth, newHeight);        
       
-      resolve(canvas.toDataURL("image/png"));
+      resolve(canvas.toDataURL("image/webp"));
     };
 }
 

@@ -1,8 +1,8 @@
 import { UserInfo } from "@/context/authContext.js";
 import { api } from "@/lib/axios.js";
-import axios from "axios";
 import { useState } from "react";
 import { CharCounter } from "./CharCounter.js";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type Props = {
   user: UserInfo;
@@ -14,30 +14,37 @@ export const WritePost = ({ user, token }: Props) => {
   //constante que utilizo para detectar si el contenido del post es valido, para desactivar el boton de envio o no
   const isValidContent = contentTrimmed > 0 && contentTrimmed<280;
 
-  //fucnión que maneja la creción del post comunicándose con el backend
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await api.post(
+    const queryClient = useQueryClient();
+
+  // función que maneja la creación del post comunicándose con el backend
+  const createPostMutation = useMutation({
+    mutationFn: async () => {
+      return await api.post(
         "/post",
-        {
-          content: content,
-        },
+        { content },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      //si el post se publica se borra el texot del input
+    },
+
+    // cuando el post se crea correctamente
+    onSuccess: () => {
+      // si el post se publica se borra el texto del input
       setContent("");
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        console.log(token);
-        console.log(error);
-      }
+      // se recargan los posts en la cache de react query para mostar el nuevo post sin actualizar la pagina
+      queryClient.invalidateQueries({ queryKey: ["allPosts"] });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (isValidContent) {
+      createPostMutation.mutate();
     }
-  };
+  }
 
   // Función que se ejecuta cada vez que se escribe en el textarea.
   // Ajusta dinámicamente la altura del textarea para que crezca con el contenido
@@ -72,13 +79,13 @@ export const WritePost = ({ user, token }: Props) => {
         {/*no carga el contador de carcteres si no se ha escrito nada*/}
         {contentTrimmed  >0 && <CharCounter length={contentTrimmed}/>}
         <button
-          disabled={!isValidContent}
+          disabled={createPostMutation.isPending || !isValidContent}
           className={`p-1 text-s rounded-2xl w-28 transition-colors duration-300 text-black font-bold ${
-            isValidContent ? "bg-white" : "bg-gray-500"
+            isValidContent && !createPostMutation.isPending ? "bg-white" : "bg-gray-500"
           }`}
           type="submit"
         >
-          Publicar
+          {createPostMutation.isPending ? "Publicando" : "Publicar"}
         </button>
       </div>
     </form>

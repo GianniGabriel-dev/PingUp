@@ -4,16 +4,16 @@ import { useModal } from "@/hooks/useModal.js";
 
 export function RightNavbar() {
   const { openModal } = useModal();
-  const { user, loading } = useAuth();
+  const { user, isLoading } = useAuth();
   return (
-    <aside className="w-2xs flex flex-col items-center gap-6 p-2 max-md:p-1 min-h-screen  max-lg:hidden">
+    <aside className="w-2xs flex flex-col items-center gap-6 p-2 max-md:p-1 sticky top-0 h-screen  max-lg:hidden">
       {
         /*Si no hay usuario, se musetran los botones de login y register*/
         !user &&
-          (loading ? (
+          (isLoading ? (
             <LoadingIcon size={50} />
           ) : (
-            <div className="w-full border-gray-500 border-1 flex flex-col gap-3 rounded-2xl p-2 max-md:w-max">
+            <div className="w-full border-gray-500 border flex flex-col gap-3 rounded-2xl p-2 max-md:w-max">
               <div>
                 <p className="text-xl font-extrabold">¿Nuevo en PingUp?</p>
                 <span className="text-sm text-gray-500">

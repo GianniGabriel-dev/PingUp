@@ -20,7 +20,6 @@ const { data: user, isLoading } = useQuery({
     enabled: !!token, // solo ejecuta si hay token
     initialData: null,
         refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5, // 5 minutos
   });
 
   return (

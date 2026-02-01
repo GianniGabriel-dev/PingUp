@@ -9,7 +9,7 @@ export function LeftNavbar() {
   const { user, isLoading } = useAuth();
 
   return (
-    <aside className="flex flex-col items-start max-sm:items-center gap-6 p-2 max-md:p-1 w-3xs max-md:w-max min-h-screen ">
+    <aside className="flex flex-col items-start max-sm:items-center gap-6 p-2 max-md:p-1 w-3xs max-md:w-max sticky top-0 h-screen  max-lg:left-0">
       <div className="max-md:w-max flex justify-items-start">
         <img  className="p-2 rounded-full hover:bg-neutral-900 cursor-pointer transition-colors duration-300" width={50} height={50} src="/signalCircle.png" alt="Logo of PingUp"/>
       </div>

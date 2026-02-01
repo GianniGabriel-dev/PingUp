@@ -23,6 +23,8 @@ input:-webkit-autofill.error {
 body{
 background-color: black;
 color: white;
+overflow-y:auto;
+height: auto;
 font-family: 'Inter', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 /* ---- Variables ---- */

@@ -24,15 +24,18 @@ export const ProfileStep1 = ({
   avatarCanvas,
   setAvatarCanvas,
   handleSubmit,
-  onClose
+  onClose,
 }: Props) => {
   const [fullName, setFullName] = useState(user.name);
+
+  // hook personalizado para validar el archivo
   const { validateFile } = useFileUpload({});
 
-  //estado que detecta si ha cambiado la imagen o el usuario por defecto
+  //estado que detecta si ha cambiado la imagen o el usuario por defecto para activar o cambiar estilo del boton de siguiente
   const [hasChanged, setHasChanged] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // efecto que detecta si ha habido cambios en el nombre o la imagen de perfil
   useEffect(() => {
     const nameChanged = fullName.trim() !== user.name && fullName.trim() !== "";
     const avatarChanged = avatarCanvas !== null;
@@ -40,11 +43,11 @@ export const ProfileStep1 = ({
     setHasChanged(nameChanged || avatarChanged);
   }, [fullName, avatarCanvas, user.name]);
 
-  // Abrir el input al hacer click en el div
+  // se abre el selector de archivos al hacer click en el icono
   const handleClick = () => {
     inputRef.current?.click();
   };
-  console.log(avatarCanvas);
+
   return (
     <div className="pr-9 pl-9  h-full max-sm:p-3 justify-between flex flex-col  items-center">
       <article className="self-start">
@@ -80,8 +83,8 @@ export const ProfileStep1 = ({
                 onChange={(e) => {
                   //si no se selecciona un archivo impide ir al sigiuente paso
                   if (!e.target.files?.[0]) return;
-
                   const file = e.target.files[0];
+                  //si el archivo pesa mas de lo permitido o no es un tipo valido, impide ir al siguiente paso
                   if (!validateFile(file)) return;
                   setSelectedFile(file);
                   setStep(2);
@@ -90,10 +93,11 @@ export const ProfileStep1 = ({
               />
             </div>
             {selectedFile && (
-              <div className=" cursor-pointer bg-gray-900/50 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all"
+              <div
+                className=" cursor-pointer bg-gray-900/50 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all"
                 onClick={() => {
-                  setAvatarCanvas(null)
-                  setSelectedFile(null)
+                  setAvatarCanvas(null);
+                  setSelectedFile(null);
                 }}
               >
                 <CloseIcon size={27} className={""} />
@@ -111,7 +115,7 @@ export const ProfileStep1 = ({
         error={""}
         onChange={(e) => {
           const value = e.target.value;
-          //valida que el nombre tenga menos de 30 caracters
+          //impide que se escriban mas de 30 caracteres sin incluir espacios al inicio o final
           if (value.trim().length <= 30) {
             setFullName(value);
           }
@@ -127,7 +131,6 @@ export const ProfileStep1 = ({
         onClick={hasChanged ? handleSubmit : onClose}
       >
         {hasChanged ? "Siguiente" : "Descartar por ahora"}
-
       </button>
     </div>
   );

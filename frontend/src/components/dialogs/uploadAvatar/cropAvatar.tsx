@@ -12,16 +12,18 @@ type CropAvatarProps = {
   selectedFile: string
   zoom: number
   onZoomChange: (zoom: number) => void
-  onCropComplete?: (croppedAreaPixels: CroppedArea) => void // callback al padre
+  onCropComplete?: (croppedAreaPixels: CroppedArea) => void 
 }
 
 export const CropAvatar = ({ selectedFile, zoom, onZoomChange, onCropComplete }: CropAvatarProps) => {
   const [crop, setCrop] = React.useState({ x: 0, y: 0 })
 
-  const handleCropChange = (crop: { x: number, y: number }) => setCrop(crop)
+  // maneja la posición del área de recorte mientras el usuario arrastra la imagen (solo estado visual)
+  const handleCropChange = (crop: { x: number; y: number }) => setCrop(crop)
 
-  const handleCropComplete = (_: any, croppedPixels: CroppedArea) => {
-    if (onCropComplete) onCropComplete(croppedPixels)
+  // devuelve el área de recorte FINAL en píxeles reales cuando el usuario termina de mover o hacer zoom
+  const handleCropComplete = (_: unknown, croppedPixels: CroppedArea) => {
+    onCropComplete?.(croppedPixels)
   }
 
   return (

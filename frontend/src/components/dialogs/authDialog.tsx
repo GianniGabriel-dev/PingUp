@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { CloseIcon, BackIcon } from "@/assets/icons/index.js";
 
 interface AuthDialogProps {
-  showLogo:boolean
+  showLogo: boolean;
   open: boolean;
   onClose: () => void;
   step?: number;
@@ -32,24 +32,23 @@ export function AuthDialog({
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex justify-center p-2.5 items-center">
-          {
-            showLogo &&(
-              <img
-                width={40}
-                height={40}
-                src="/signalCircle.png"
-                alt="Logo of PingUp"
-              />
-            )
-          }
-
+          {showLogo && (
+            <img
+              width={40}
+              height={40}
+              src="/signalCircle.png"
+              alt="Logo of PingUp"
+            />
+          )}
 
           {/* Muestra el botón de ir hacia atrás solo si showBackButton es true */}
           {showBackButton && onStepBack && (
             <button type="button" onClick={onStepBack}>
-              <BackIcon 
+              <BackIcon
                 size={30}
-                className={"absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"}
+                className={
+                  "absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
+                }
               />
               <span className="sr-only">Volver</span>
             </button>
@@ -58,17 +57,16 @@ export function AuthDialog({
           <button type="button" onClick={onClose}>
             <CloseIcon
               size={30}
-              className={"absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"}
+              className={
+                "absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
+              }
             />
             <span className="sr-only">Cerrar modal</span>
           </button>
         </header>
 
         {/* Contenido dinámico */}
-        <main className="h-full">
-          {children}
-        </main>
-       
+        <main className="h-full">{children}</main>
       </div>
     </div>
   );
