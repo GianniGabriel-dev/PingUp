@@ -4,10 +4,17 @@ import LikeButton from "./likeButton.js"
 import { MoreOptionsIcon } from "@/assets/icons/MoreOptionsIcon.js"
 import CommentButton from "./commentButton.js"
 import RetweetButton from "./retweetButton.js"
+import { useNavigate } from "react-router-dom"
 
 export const IndividualPost = (post: Post) => {
+  const navigate = useNavigate()
     return (
-        <article className="border-b border-gray-600 p-3 hover:bg-neutral-950 cursor-pointer">
+        <article 
+        onClick={() => {
+          navigate(`post/${post.id}/`);
+        }}
+        className="border-b border-gray-600 p-3 hover:bg-neutral-950 cursor-pointer"
+        >
           <div className="flex gap-2">
             <img 
             className="w-12 h-12  rounded-full shrink-0"
@@ -25,7 +32,7 @@ export const IndividualPost = (post: Post) => {
                 <p className="font-normal ml-1">{post.content}</p>
                 {/* Footer con los botones de interaccion */}
                 <footer className="w-full flex justify-between mt-2 text-gray-500">
-                  <CommentButton totalComments={1}/>
+                  <CommentButton totalComments={0} postId={post.id}/>
                   {/*initialIsLiked-> gracias al id del usuario detecta en cada post si el usaurio ya ha dado like, se comprueba si post.likes existe*/}
                   {/*si existe se le pasa true o false si el usuario le ha dado like o no, y si no se encuentra post.likes significa que no se está logeuado y se le pasa al boton false*/}
                   <LikeButton postId={post.id} likes={post._count.likes}  initialIsLiked={post.likes ? post.likes.length > 0 : false}/>

@@ -49,7 +49,8 @@ export default function LikeButton({
     },
   });
  //si no existe el token no actualiza el estado del num de likes
-  const handleLike = () => {
+  const handleLike = (e: React.MouseEvent) => {
+    e?.stopPropagation(); // Evita el click en el like se propague al post y lo abra
     if (token){
       if (likeMutation.isPending) return;
       likeMutation.mutate();

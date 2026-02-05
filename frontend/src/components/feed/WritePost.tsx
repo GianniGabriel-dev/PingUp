@@ -3,6 +3,7 @@ import { api } from "@/lib/axios.js";
 import { useState } from "react";
 import { CharCounter } from "./CharCounter.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 
 type Props = {
   user: UserInfo;
@@ -10,6 +11,7 @@ type Props = {
 };
 export const WritePost = ({ user, token }: Props) => {
   const [content, setContent] = useState("");
+  const parent_post_id= useParams().postId
   const contentTrimmed= content.trim().length 
   //constante que utilizo para detectar si el contenido del post es valido, para desactivar el boton de envio o no
   const isValidContent = contentTrimmed > 0 && contentTrimmed<280;
@@ -21,7 +23,7 @@ export const WritePost = ({ user, token }: Props) => {
     mutationFn: async () => {
       return await api.post(
         "/post",
-        { content },
+        { content, parent_post_id },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -58,7 +60,7 @@ export const WritePost = ({ user, token }: Props) => {
 
   return (
     <form
-      className="border-t border-b border-gray-600 w-full p-4 pb-0"
+      className="border-b border-gray-600 w-full p-4 pb-0"
       onSubmit={handleSubmit}
     >
       <div className="flex items-center gap-3 p-4">

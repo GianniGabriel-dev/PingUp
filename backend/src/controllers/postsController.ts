@@ -46,7 +46,38 @@ export const getPosts= async(req:Request, res:Response)=>{
   try{
     const MAX_LIMIT=20;
     //userId puede ser undefined si el usuario no está autenticado
-    const userId = (req.user as {id:number})?.id
+    const userId = (req.user as {id:number})?.id    
+    let cursor= req.query.cursor ? JSON.parse(req.query.cursor as string) : undefined;
+    //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
+    let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
+    // Forzar límites si el usuario intenta excederlos
+    if (limit > MAX_LIMIT || limit<1) limit = MAX_LIMIT;
+
+    const posts= await getAllPosts(limit, cursor, userId)
+    //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
+    const nextCursor= posts.length > 0 ? { 
+      createdAt: posts[posts.length - 1].created_at.toISOString(), 
+      id: posts[posts.length - 1].id 
+    } : null;
+    return res.status(200).json({
+     posts,
+     nextCursor,
+     //normalmente si la cantidad de posts obtenidos es menor que el limite, significa que no hay mas posts que obtener
+     hasMore: posts.length === limit,
+    })
+    
+  }catch(error:any){
+    console.error(error.message)
+    return res.status(500).json({ error: 'Error getting posts' });
+  }
+}
+
+export const detailPost= async(req:Request, res:Response)=>{
+  try{
+    const MAX_LIMIT=20;
+    //userId puede ser undefined si el usuario no está autenticado
+    const userId = (req.user as {id:number})?.id    
+    const postId= Number(req.params.post_id)
     
     let cursor= req.query.cursor ? JSON.parse(req.query.cursor as string) : undefined;
     //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
@@ -72,6 +103,8 @@ export const getPosts= async(req:Request, res:Response)=>{
     return res.status(500).json({ error: 'Error getting posts' });
   }
 }
+
+
 
 export const like= async(req:Request, res:Response)=> {
   try{

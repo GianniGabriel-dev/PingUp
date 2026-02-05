@@ -11,7 +11,7 @@ export const AllPosts = () => {
   const {token}= useAuth()
   const {data, isLoading, error}=useQuery<PostsResponse>({
     //si el token cambia (si el usuario se loguea o desloguea), se vuelve a ejecutar la query para obtener los posts correspondientes
-    queryKey: ["allPosts" , token ? "authenticated" : "guest"],
+    queryKey: ["allPosts"],
     queryFn: async()=>{ 
          console.log(data)
       const res= await api.get<PostsResponse>("post",{

@@ -5,6 +5,7 @@ import RegisterModal from "@/components/dialogs/register/register.js";
 import LoginModal from "@/components/dialogs/login/login.js";
 import { useModal } from "@/hooks/useModal.js";
 import OnboardingProfile from "@/components/dialogs/uploadAvatar/OnboardingProfile.js";
+import ComposePost from "@/components/dialogs/writePost/composePost";
 
 
 export function MainLayout() {
@@ -24,6 +25,7 @@ export function MainLayout() {
       {isOpen && modalType === 'login' && <LoginModal/>}
       {isOpen && modalType === 'register' && <RegisterModal/>}
       {isOpen && modalType === 'onboarding-profile' && <OnboardingProfile/>}
+      {isOpen && modalType === 'compose' && <ComposePost/>}
     </>
   )
 }
