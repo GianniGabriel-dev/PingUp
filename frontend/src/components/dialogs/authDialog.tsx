@@ -5,7 +5,7 @@ interface AuthDialogProps {
   showLogo: boolean;
   open: boolean;
   onClose: () => void;
-  step?: number;
+  style:string
   onStepBack?: () => void;
   showBackButton?: boolean;
   children: ReactNode;
@@ -15,6 +15,7 @@ export function AuthDialog({
   showLogo,
   open,
   onClose,
+  style="h-4/6 w-xl max-sm:h-full ",
   onStepBack,
   showBackButton = false,
   children,
@@ -28,7 +29,7 @@ export function AuthDialog({
     >
       {/* Modal - El stopPropagation hace que al pulsar el diálogo para escribir no se comporte como si se pulsara fuera para cerrarlo */}
       <div
-        className="bg-zinc-950 flex flex-col gap-6 rounded-2xl w-xl max-sm:h-full max-sm:rounded-none h-4/6 shadow-xl relative"
+        className={`${style} bg-zinc-950 flex flex-col gap-6 rounded-2xl max-sm:rounded-none shadow-xl relative`}
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex justify-center p-2.5 items-center">
