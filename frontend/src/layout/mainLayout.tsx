@@ -16,11 +16,12 @@ export function MainLayout() {
   const navigate= useNavigate()
 
   useEffect(()=>{
-    if(isLoading && isOpen && modalType === 'onboarding-profile' && !user){
-      navigate('/');
-    }
-    if(isLoading && isOpen && modalType === 'compose' && !user){
-      navigate('/');
+    if (isLoading || user===undefined) return
+
+    // Si intenta abrir compose u onboarding sin estar logueado → bloqueamos
+    if (isOpen && (modalType === "compose" || modalType === "onboarding-profile") && user===null) {   
+      console.log(`open:${isOpen}, modalTy:${modalType}, user:${user} `)
+      navigate("/", { replace: true });
     }
   },[isLoading, isOpen, modalType, user, navigate])
 
@@ -29,7 +30,7 @@ export function MainLayout() {
     <>
       <main className="flex  justify-center p-0">
         <LeftNavbar/>
-        <section className="border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full ">
+        <section className="border-r pt-4 border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full ">
           <Outlet/>
         </section>
         <RightNavbar />

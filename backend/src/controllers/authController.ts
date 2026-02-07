@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt'
-import { getUserByEmailOrUsername, normalSignUp } from '../services/authServices.js';
+import { getUserByEmailOrUsername, normalSignUp } from '../queries/authServices.js';
 import jwt from 'jsonwebtoken'
 
 export const signUp = async (req: Request, res: Response): Promise<Response> => {

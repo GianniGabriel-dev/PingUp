@@ -18,8 +18,7 @@ const { data: user, isLoading } = useQuery({
       return res.data;
     },
     enabled: !!token, // solo ejecuta si hay token
-    initialData: null,
-        refetchOnWindowFocus: false,
+    refetchOnWindowFocus: false,
   });
 
   return (

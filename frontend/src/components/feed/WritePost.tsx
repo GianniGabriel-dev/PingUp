@@ -8,8 +8,9 @@ import { useParams } from "react-router-dom";
 type Props = {
   user: UserInfo;
   token: string;
+  isReply: boolean;
 };
-export const WritePost = ({ user, token }: Props) => {
+export const WritePost = ({ user, token, isReply }: Props) => {
   const [content, setContent] = useState("");
   const parent_post_id= useParams().postId
   const contentTrimmed= content.trim().length 
@@ -60,21 +61,21 @@ export const WritePost = ({ user, token }: Props) => {
 
   return (
     <form
-      className="border-b border-gray-600 w-full p-4 pb-0"
+      className={`border-b border-gray-600 w-full p-4 pb-0 ${isReply? "pt-4" : ""}`}
       onSubmit={handleSubmit}
     >
-      <div className="flex items-center gap-3 p-4">
+      <div className={`flex items-center gap-3 p-4 ${isReply? "pt-1" : ""}`}>
         <img
-          className="w-10 h-10 self-start -mt-2 rounded-full"
+          className="w-12 h-12 self-start -mt-2 rounded-full"
           src={user.avatar_url}
-          alt={`image of user${user.username}`}
+          alt={`image of user ${user.username}`}
         />
         <textarea
           name="content"
           value={content}
           onChange={handleInput}
           className="w-full h-auto max-h-60 text-lg outline-none  focus:outline-none focus:ring-0 border-none resize-none placeholder-gray-500"
-          placeholder="¿En qué estás pensando?"
+          placeholder={isReply? "Postea tu respuesta": "¿En qué estás pensando?"}
         ></textarea>
       </div>
       <div className="border-t flex place-items-center gap-3 justify-end border-gray-600 p-3 ">

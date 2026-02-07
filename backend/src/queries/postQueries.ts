@@ -94,7 +94,7 @@ export const getDetailsOfPost = async (
     where: cursor
       ? {
           AND: [
-            { parent_post_id: postId }, //solo se devuelven los posts principales, no los comentarios
+            { parent_post_id: postId }, //solo se devuelven los coemntarios del post principal, no los posts principales
             {
               OR: [
                 //si la fecha de creacion es menor que la del cursor
@@ -111,26 +111,6 @@ export const getDetailsOfPost = async (
       : { parent_post_id: postId }, //si no hay cursor, igualmente se devulven solo los posts principales, no los comentarios
     include: {
       user: { select: { username: true, avatar_url: true, name: true } },
-
-      //contenido del post al que se reponde
-      parent: {
-        where: { parent_post_id: postId },
-        select: {
-          id: true,
-          content: true,
-          user_id: true,
-          created_at: true,
-          user: { select: { username: true, avatar_url: true, name: true } },
-          likes: currentUserId
-            ? {
-                where: { user_id: currentUserId },
-                select: { id: true },
-                take: 1,
-              }
-            : false,
-          _count: { select: { likes: true } },
-        },
-      },
 
       _count: { select: { likes: true } },
 

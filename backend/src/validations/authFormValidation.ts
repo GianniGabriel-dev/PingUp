@@ -2,7 +2,7 @@ import { body } from "express-validator";
 import {
   isEmailTaken,
   isUsernameOrEmailTaken,
-} from "../services/authServices.js";
+} from "../queries/authServices.js";
 
 //validaciones para registro
 export const signupValidator = [

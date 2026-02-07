@@ -6,8 +6,7 @@ export function MainFeed() {
   const { user, token } = useAuth();
   return (
     <>
-        <h1 className="text-amber-200">Main Feed</h1>
-        {user && token && <WritePost user={user} token={token}/>}
+        {user && token && <WritePost user={user} token={token} isReply={false}/>}
         <AllPosts/>
     </>
   )

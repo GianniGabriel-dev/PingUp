@@ -2,7 +2,7 @@ import {
   createNotification,
   deleteNotification,
   findReceiverId,
-} from "./notificationsService.js";
+} from "../queries/notificationsService.js";
 import {
   deleteFollow,
   deleteLike,
