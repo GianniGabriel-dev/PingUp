@@ -14,8 +14,12 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
   }
   try {
     const {content, parent_post_id}=req.body
-    //parseo del parent_post_id, se pasa originalmente como un string en el formualario 
-    const parent_id:number | null = Number(parent_post_id)
+    //se establece parent_id como null, si luego se ve que parent_id tiene un valor, se apsa el string a num y se guarda en la bd
+    let parent_id: number | null = null
+
+    if (parent_post_id && !isNaN(Number(parent_post_id))) {
+      parent_id = Number(parent_post_id)
+    }
 
     console.log(`Content: ${content}, ID del post padre: ${parent_post_id}`)
     //media_url puede se string o null

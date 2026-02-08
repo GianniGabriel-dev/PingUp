@@ -5,9 +5,10 @@ export interface User {
   name: string;
 }
 
-// Conteos (likes, etc.)
+// Conteos (likes, comentarios etc.)
 export interface PostCount {
   likes: number;
+  replies: number;
 }
 
 // Post individual

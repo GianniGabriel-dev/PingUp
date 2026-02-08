@@ -2,7 +2,6 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import passport from "passport";
 import dotenv from 'dotenv'
 import path from 'path'
-import { getUserById } from "../queries/userQueries.js";
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
 
 
@@ -14,9 +13,7 @@ const opts = {
 passport.use(
   new Strategy(opts, async (jwt_payload, done) => {
     try {
-      const user = await getUserById(jwt_payload.id);
-      if (user) return done(null, user);
-      return done(null, false);
+      return done(null, jwt_payload);
     } catch (err) {
       return done(err, false);
     }

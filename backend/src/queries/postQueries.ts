@@ -67,7 +67,12 @@ export const getAllPosts = async (
       : { parent_post_id: null }, //si no hay cursor, igualmente se devulven solo los posts principales, no los comentarios
     include: {
       user: { select: { username: true, avatar_url: true, name: true } },
-      _count: { select: { likes: true } },
+      _count: { 
+        select: {
+         likes: true, 
+         replies: true
+        }
+       },
 
       likes: currentUserId
         ? {

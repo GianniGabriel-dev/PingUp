@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CharCounter } from "./CharCounter.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
+import { useModal } from "@/hooks/useModal.js";
 
 type Props = {
   user: UserInfo;
@@ -14,12 +15,13 @@ export const WritePost = ({ user, token, isReply }: Props) => {
   const [content, setContent] = useState("");
   const parent_post_id= useParams().postId
   const contentTrimmed= content.trim().length 
+  const { closeModal }= useModal()
   //constante que utilizo para detectar si el contenido del post es valido, para desactivar el boton de envio o no
   const isValidContent = contentTrimmed > 0 && contentTrimmed<280;
 
-    const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
-  // función que maneja la creación del post comunicándose con el backend
+  // función que maneja la creación del post comunicándose con el backend, si no se responde a un post, parent_post_id se envía vacío y el abckend lo asigna como null
   const createPostMutation = useMutation({
     mutationFn: async () => {
       return await api.post(
@@ -37,6 +39,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
     onSuccess: () => {
       // si el post se publica se borra el texto del input
       setContent("");
+      closeModal()
       // se recargan los posts en la cache de react query para mostar el nuevo post sin actualizar la pagina
       queryClient.invalidateQueries({ queryKey: ["allPosts"] });
     },
@@ -61,7 +64,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
 
   return (
     <form
-      className={`border-b border-gray-600 w-full p-4 pb-0 ${isReply? "pt-4" : ""}`}
+      className={`border-b border-gray-600 w-full p-4 pb-0 ${isReply? "pt-2" : ""}`}
       onSubmit={handleSubmit}
     >
       <div className={`flex items-center gap-3 p-4 ${isReply? "pt-1" : ""}`}>
@@ -84,7 +87,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
         <button
           disabled={createPostMutation.isPending || !isValidContent}
           className={`p-1 text-s rounded-2xl w-28 transition-colors duration-300 text-black font-bold ${
-            isValidContent && !createPostMutation.isPending ? "bg-white" : "bg-gray-500"
+            isValidContent && !createPostMutation.isPending ? "bg-white cursor-pointer" : "bg-gray-500"
           }`}
           type="submit"
         >

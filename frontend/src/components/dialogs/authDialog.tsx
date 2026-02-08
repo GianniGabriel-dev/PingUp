@@ -48,7 +48,7 @@ export function AuthDialog({
               <BackIcon
                 size={30}
                 className={
-                  "absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
+                  "absolute top-2 left-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800 cursor-pointer"
                 }
               />
               <span className="sr-only">Volver</span>
@@ -59,7 +59,7 @@ export function AuthDialog({
             <CloseIcon
               size={30}
               className={
-                "absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800"
+                "absolute top-2 right-2 transition-all duration-300 rounded-3xl p-0.5 hover:bg-zinc-800 cursor-pointer"
               }
             />
             <span className="sr-only">Cerrar modal</span>

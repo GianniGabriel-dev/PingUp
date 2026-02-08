@@ -14,10 +14,12 @@ export function useModal() {
     setSearchParams(params);
   };
 
+  
   const closeModal = () => {
     const params = new URLSearchParams(searchParams);
     params.delete('modal');
-    setSearchParams(params);
+    //replace:true para que al cerrar el modal no se guarde el estado del modal en el historial del navegador, evitando que al hacer click en "atrás" se vuelva a abrir el modal
+    setSearchParams(params, {replace:true});
   };
 
   return {
