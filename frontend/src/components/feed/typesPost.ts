@@ -22,6 +22,7 @@ export interface Post {
   sentiment_score: number;
   language: string;
   created_at: string; // ISO string
+  replies: Post[]; 
   user: User;
   _count: PostCount;
   likes: [{id:number}]  //sirve apra ver si el usuario ha dado like a un post

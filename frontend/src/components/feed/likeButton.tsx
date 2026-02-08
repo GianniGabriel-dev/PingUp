@@ -3,11 +3,12 @@ import {  useMutation, useQueryClient } from "@tanstack/react-query";
 import { HearthIcon } from "@/assets/icons";
 import { api } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
+import { useParams } from "react-router-dom";
 
 type Props = {
   postId: number;
   likes: number | null;
-  initialIsLiked: boolean
+  initialIsLiked: boolean;
 };
 
 export default function LikeButton({
@@ -16,6 +17,8 @@ export default function LikeButton({
   initialIsLiked,
 }: Props) {
   const queryClient = useQueryClient();
+  //se obtiene parent_post_id si existe para invalidar la query
+  const  parent_post_id = useParams().postId
   const [numLikes, setNumLikes] = useState(likes ?? 0);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const {token} = useAuth()
@@ -40,6 +43,7 @@ export default function LikeButton({
     //se invalidan la querry de posts para que al cambiar de pestaña se actualicen los likes
     onSuccess: ()=>{
       queryClient.invalidateQueries({ queryKey:["allPosts"]})
+      queryClient.invalidateQueries({ queryKey: ["posts", "detail", parent_post_id] });
     },
 
     // Si hay un error una vez realizada la petición, revertimos los cambios

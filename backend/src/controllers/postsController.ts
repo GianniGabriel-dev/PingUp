@@ -2,7 +2,7 @@ import { validationResult } from "express-validator";
 import { Request, Response } from 'express';
 import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { translatePostContent } from "../services/translationService.js";
-import { createPost, getAllPosts } from "../queries/postQueries.js";
+import { createPost, getAllPosts, getDetailsOfPost } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
 import { toggleLike } from "../services/likeAndFollowServices.js";
 
@@ -89,7 +89,12 @@ export const detailPost= async(req:Request, res:Response)=>{
     // Forzar límites si el usuario intenta excederlos
     if (limit > MAX_LIMIT || limit<1) limit = MAX_LIMIT;
 
-    const posts= await getAllPosts(limit, cursor, userId)
+    const posts= await getDetailsOfPost(postId, limit, cursor, userId)
+    // Validar que el post existe
+    if (!posts) {
+      return res.status(404).json({ error: "Post not found" });
+    }
+    
     //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
     const nextCursor= posts.length > 0 ? { 
       createdAt: posts[posts.length - 1].created_at.toISOString(), 

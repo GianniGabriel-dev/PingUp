@@ -61,7 +61,6 @@ export default function RegisterModal() {
         showLogo={true}
         open={true}
         onClose={closeModal}
-        step={step}
         onStepBack={() => setStep(step - 1)}
         showBackButton={step === 2}
       >

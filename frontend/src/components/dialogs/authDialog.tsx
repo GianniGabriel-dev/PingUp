@@ -5,7 +5,7 @@ interface AuthDialogProps {
   showLogo: boolean;
   open: boolean;
   onClose: () => void;
-  style:string
+  style?:string
   onStepBack?: () => void;
   showBackButton?: boolean;
   children: ReactNode;

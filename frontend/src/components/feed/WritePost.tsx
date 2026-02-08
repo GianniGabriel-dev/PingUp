@@ -42,6 +42,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
       closeModal()
       // se recargan los posts en la cache de react query para mostar el nuevo post sin actualizar la pagina
       queryClient.invalidateQueries({ queryKey: ["allPosts"] });
+            queryClient.invalidateQueries({ queryKey: ["posts", "detail", parent_post_id] });
     },
   });
 

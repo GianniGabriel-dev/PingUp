@@ -89,36 +89,42 @@ export const getAllPosts = async (
 export const getDetailsOfPost = async (
   postId: number,
   limit: number,
-  //El cursor esta formado por la fecha del ultimo post mas su id
   cursor?: { createdAt: string; id: number },
   currentUserId?: number,
 ) => {
-  return await prisma.post.findMany({
-    take: limit,
-    //condicion where que solo se cumple si el cursor existe, si no existe devuelve undefined
-    where: cursor
-      ? {
-          AND: [
-            { parent_post_id: postId }, //solo se devuelven los coemntarios del post principal, no los posts principales
-            {
+  return await prisma.post.findUnique({
+    where: { id: postId },
+    include: {
+      user: { select: { username: true, avatar_url: true, name: true } },
+
+      replies: {
+        take: limit,
+        where: cursor
+          ? {
               OR: [
-                //si la fecha de creacion es menor que la del cursor
                 { created_at: { lt: new Date(cursor.createdAt) } },
-                //si la fecha de creacion es igual a la del cursor, se compara el id para evitar duplicados
                 {
                   created_at: new Date(cursor.createdAt),
                   id: { lt: cursor.id },
                 },
               ],
-            },
-          ],
-        }
-      : { parent_post_id: postId }, //si no hay cursor, igualmente se devulven solo los posts principales, no los comentarios
-    include: {
-      user: { select: { username: true, avatar_url: true, name: true } },
+            }
+          : undefined,
+        orderBy: [{ created_at: "desc" }, { id: "desc" }],
+        include: {
+          user: { select: { username: true, avatar_url: true, name: true } },
+          _count: { select: { likes: true } },
+          likes: currentUserId
+            ? {
+                where: { user_id: currentUserId },
+                select: { id: true },
+                take: 1,
+              }
+            : false,
+        },
+      },
 
-      _count: { select: { likes: true } },
-
+      _count: { select: { likes: true, replies:true } },
       likes: currentUserId
         ? {
             where: { user_id: currentUserId },
@@ -127,6 +133,5 @@ export const getDetailsOfPost = async (
           }
         : false,
     },
-    orderBy: [{ created_at: "desc" }, { id: "desc" }],
   });
 };

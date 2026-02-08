@@ -12,7 +12,7 @@ export const IndividualPost = (post: Post) => {
     return (
         <article 
         onClick={() => {
-          navigate(`post/${post.id}`,{
+          navigate(`/post/${post.id}`,{
             replace:false,
             //guardado de coord del scroll actual
             state:{ scrollY: window.scrollY }
