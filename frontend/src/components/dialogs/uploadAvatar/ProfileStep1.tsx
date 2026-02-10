@@ -2,7 +2,7 @@ import { AddPhotoIcon, CloseIcon } from "@/assets/icons/index.js";
 import { Input } from "@/components/ui/inputs.js";
 import { UserInfo } from "@/context/authContext.js";
 import { useEffect, useRef, useState } from "react";
-import { useFileUpload } from "./hooks/handleFileChange.js";
+import { useFileUpload } from "../../../hooks/handleFileChange.js";
 
 type Props = {
   user: UserInfo;

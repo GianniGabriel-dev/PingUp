@@ -6,7 +6,7 @@ import { useModal } from "@/hooks/useModal.js";
 import { ProfileStep1 } from "./ProfileStep1.js";
 import { ProfileStep2 } from "./ProfileStep2.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { canvasToFile } from "./hooks/canvasHandler.js";
+import { canvasToFile } from "../../../hooks/canvasHandler.js";
 
 export default function OnboardingProfile() {
   const queryClient = useQueryClient();

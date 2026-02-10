@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { CropAvatar, CroppedArea } from "./cropAvatar.js";
 import { Slider } from "@/components/ui/slider";
-import { normalizeImage } from "./hooks/normalizeImage.js";
-import { getCroppedImage } from "./hooks/canvasHandler.js";
+import { normalizeImage } from "../../../hooks/normalizeImage.js";
+import { getCroppedImage } from "../../../hooks/canvasHandler.js";
 
 type Props = {
   setStep: (step: number) => void;

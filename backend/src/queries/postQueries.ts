@@ -113,7 +113,7 @@ export const getDetailsOfPost = async (
         orderBy: [{ created_at: "desc" }, { id: "desc" }],
         include: {
           user: { select: { username: true, avatar_url: true, name: true } },
-          _count: { select: { likes: true } },
+          _count: { select: { likes: true, replies:true } },
           likes: currentUserId
             ? {
                 where: { user_id: currentUserId },

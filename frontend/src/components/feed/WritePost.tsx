@@ -13,11 +13,11 @@ type Props = {
 };
 export const WritePost = ({ user, token, isReply }: Props) => {
   const [content, setContent] = useState("");
-  const parent_post_id= useParams().postId
-  const contentTrimmed= content.trim().length 
-  const { closeModal }= useModal()
+  const parent_post_id = useParams().postId;
+  const contentTrimmed = content.trim().length;
+  const { closeModal } = useModal();
   //constante que utilizo para detectar si el contenido del post es valido, para desactivar el boton de envio o no
-  const isValidContent = contentTrimmed > 0 && contentTrimmed<280;
+  const isValidContent = contentTrimmed > 0 && contentTrimmed < 280;
 
   const queryClient = useQueryClient();
 
@@ -31,7 +31,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
     },
 
@@ -39,10 +39,12 @@ export const WritePost = ({ user, token, isReply }: Props) => {
     onSuccess: () => {
       // si el post se publica se borra el texto del input
       setContent("");
-      closeModal()
+      closeModal();
       // se recargan los posts en la cache de react query para mostar el nuevo post sin actualizar la pagina
       queryClient.invalidateQueries({ queryKey: ["allPosts"] });
-            queryClient.invalidateQueries({ queryKey: ["posts", "detail", parent_post_id] });
+      queryClient.invalidateQueries({
+        queryKey: ["posts", "detail", parent_post_id],
+      });
     },
   });
 
@@ -51,7 +53,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
     if (isValidContent) {
       createPostMutation.mutate();
     }
-  }
+  };
 
   // Función que se ejecuta cada vez que se escribe en el textarea.
   // Ajusta dinámicamente la altura del textarea para que crezca con el contenido
@@ -65,10 +67,10 @@ export const WritePost = ({ user, token, isReply }: Props) => {
 
   return (
     <form
-      className={`border-b border-gray-600 w-full p-4 pb-0 ${isReply? "pt-2" : ""}`}
+      className={`border-b border-gray-600 w-full p-4 pb-0 ${isReply ? "pt-3" : ""}`}
       onSubmit={handleSubmit}
     >
-      <div className={`flex items-center gap-3 p-4 ${isReply? "pt-1" : ""}`}>
+      <div className={`flex items-center gap-3 p-4 ${isReply ? "pt-1" : ""}`}>
         <img
           className="w-12 h-12 self-start -mt-2 rounded-full"
           src={user.avatar_url}
@@ -79,20 +81,28 @@ export const WritePost = ({ user, token, isReply }: Props) => {
           value={content}
           onChange={handleInput}
           className="w-full h-auto max-h-60 text-lg outline-none  focus:outline-none focus:ring-0 border-none resize-none placeholder-gray-500"
-          placeholder={isReply? "Postea tu respuesta": "¿En qué estás pensando?"}
+          placeholder={
+            isReply ? "Postea tu respuesta" : "¿En qué estás pensando?"
+          }
         ></textarea>
       </div>
       <div className="border-t flex place-items-center gap-3 justify-end border-gray-600 p-3 ">
         {/*no carga el contador de carcteres si no se ha escrito nada*/}
-        {contentTrimmed  >0 && <CharCounter length={contentTrimmed}/>}
+        {contentTrimmed > 0 && <CharCounter length={contentTrimmed} />}
         <button
           disabled={createPostMutation.isPending || !isValidContent}
           className={`p-1 text-s rounded-2xl w-28 transition-colors duration-300 text-black font-bold ${
-            isValidContent && !createPostMutation.isPending ? "bg-white cursor-pointer" : "bg-gray-500"
+            isValidContent && !createPostMutation.isPending
+              ? "bg-white cursor-pointer"
+              : "bg-gray-500"
           }`}
           type="submit"
         >
-          {createPostMutation.isPending ? "Publicando" : "Publicar"}
+          {createPostMutation.isPending
+            ? "Publicando"
+            : isReply
+              ? "Responder"
+              : "Publicar"}
         </button>
       </div>
     </form>

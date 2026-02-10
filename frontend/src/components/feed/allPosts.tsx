@@ -26,6 +26,8 @@ export const AllPosts = () => {
     staleTime: 1000 * 60 * 5, // 5 minutos
     refetchOnWindowFocus: false,
   })
+  console.log(data)
+
   if (isLoading) return <LoadingIcon size={40}/>
   if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;

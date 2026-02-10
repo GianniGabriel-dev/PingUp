@@ -28,7 +28,7 @@ export interface Post {
   likes: [{id:number}]  //sirve apra ver si el usuario ha dado like a un post
 }
 
-// Cursor para paginación
+// el cursor es el conjunto de la fecha y el id del último post fetcheado
 export interface NextCursor {
   createdAt: string; // ISO string
   id: number;
@@ -36,7 +36,8 @@ export interface NextCursor {
 
 // Respuesta completa del endpoint
 export interface PostsResponse {
-  posts: Post[];
+  posts: Post
   nextCursor: NextCursor | null;
   hasMore: boolean;
 }
+

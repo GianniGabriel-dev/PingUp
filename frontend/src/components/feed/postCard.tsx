@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 export const IndividualPost = (post: Post) => {
   const navigate = useNavigate()
 
+
     return (
         <article 
         onClick={() => {
