@@ -1,32 +1,44 @@
-import { api } from "@/lib/axios.js";
-import { useQuery } from "@tanstack/react-query";
-import { Post, PostsResponse } from "./typesPost.js";
 import { IndividualPost } from "./postCard.js";
-import { useAuth } from "@/context/useAuth.js";
 import { LoadingIcon } from "@/assets/icons/LoadingIcon.js";
+import { useInifnitePosts } from "@/hooks/useAllPosts.js";
+import { useEffect, useRef } from "react";
 
 
 export const AllPosts = () => {
-  const limit = 10;
-  const {token}= useAuth()
-  const {data, isLoading, error}=useQuery<PostsResponse>({
-    //si el token cambia (si el usuario se loguea o desloguea), se vuelve a ejecutar la query para obtener los posts correspondientes
-    queryKey: ["allPosts"],
-    queryFn: async()=>{ 
-         console.log(data)
-      const res= await api.get<PostsResponse>("post",{
-        params: { limit, cursor: "" },
-        //En caso de que el usario esté autenticado se podrá obtener su id desde el token para mostrar si ha dado like a algún comentario
-        headers: token
-          ? { Authorization: `Bearer ${token}` }
-          : undefined, // no enviamos header si no hay token
-      })
-      return res.data
-    },
-    staleTime: 1000 * 60 * 5, // 5 minutos
-    refetchOnWindowFocus: false,
-  })
-  console.log(data)
+
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
+    useInifnitePosts({
+      url: `post`,
+      queryKey: ["allPosts"],
+      parent_post_id: undefined,
+      limit: 10,
+    });
+    console.log(data)
+
+    const loadMoreRef = useRef<HTMLDivElement | null>(null);
+    useEffect(() => {
+      //si no existe el ref o no hay más páginas que cargar, no se crea el observer
+      if (!loadMoreRef.current) return;
+      if (!hasNextPage) return;
+  
+      //Observer que detecta cuando se llega al final de la lista de comentarios para cargar más
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          //si el elemento es visible, se carga la siguiente página de comentarios
+          if (entry.isIntersecting) {
+            fetchNextPage();
+          }
+        },
+        //threshold: 1 hace que el callback se ejecute cuando el 100% del elemento sea visible.
+        { threshold: 1 },
+      );
+      observer.observe(loadMoreRef.current);
+      //se desconecta el observer al desmontar el componente para evitar fugas de memoria
+      return () => observer.disconnect();
+    }, [fetchNextPage, hasNextPage]);
+
+
 
   if (isLoading) return <LoadingIcon size={40}/>
   if (error) return <p>Error al cargar posts</p>;
@@ -35,9 +47,14 @@ export const AllPosts = () => {
 
   return (
     <>
-        {data.posts.map((post:Post)=>(
-          <IndividualPost key={post.id} {...post}/>
-        ))}
+        {data?.pages.map((page) =>
+          page.posts.map((post) => (
+            <IndividualPost key={post.id} {...post} />
+          )),
+        )}
+        {isFetchingNextPage && <LoadingIcon size={30} />}
+        {/*Observer que detecta cuando se llega al final de la lista de comentarios para cargar más */}
+        {hasNextPage && <div ref={loadMoreRef} style={{ height: 1 }} />}
     </>
   )
 };

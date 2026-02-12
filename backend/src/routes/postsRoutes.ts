@@ -2,7 +2,7 @@ import express from 'express'
 import passport from '../config/passport.js'
 import { postValidator } from '../validations/postsValidations.js'
 
-import { detailPost, getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
+import { getPosts, like, newPost, translatePost } from '../controllers/postsController.js'
 import { uploadMedia } from '../middlewares/uploadMedia.js'
 import { validatePostMedia } from '../validations/mediaUploadValidation.js'
 import { optionalAuth } from '../middlewares/optionalAuth.js'
@@ -17,7 +17,7 @@ postsRouter.post('/post',
 ) 
 postsRouter.get("/post", optionalAuth , getPosts)
 
-postsRouter.get("/post/:post_id", optionalAuth , detailPost)
+postsRouter.get("/post/:post_id", optionalAuth , getPosts)
 
 postsRouter.post("/like/:post_id",
     passport.authenticate ('jwt', {session:false}),

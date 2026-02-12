@@ -34,7 +34,6 @@ export const DetailsPost = () => {
       parent_post_id: parent_post_id ? parseInt(parent_post_id) : undefined,
       limit: 10,
     });
-  console.log(hasNextPage);
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
