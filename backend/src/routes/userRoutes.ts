@@ -1,9 +1,10 @@
 import express from 'express'
 import passport from '../config/passport.js'
 import { follow } from '../controllers/socialController.js'
-import { getUserData, updateProfile } from '../controllers/meController.js'
+import { getPostsUser, getUserData, updateProfile } from '../controllers/usersController.js'
 import { uploadMedia } from '../middlewares/uploadMedia.js'
 import { validateAvatarImg } from '../validations/mediaUploadValidation.js'
+import { optionalAuth } from '../middlewares/optionalAuth.js'
 export const userRouter = express.Router()
 
 userRouter.get("/me",
@@ -22,3 +23,7 @@ userRouter.patch("/updateProfile",
     validateAvatarImg,
     updateProfile
 )
+
+userRouter.get("/:user_id/posts", optionalAuth , getPostsUser(false))
+
+userRouter.get("/:user_id/replies", optionalAuth , getPostsUser(true))

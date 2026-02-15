@@ -1,3 +1,4 @@
+import { basePostInclude, cursorFilter} from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js";
 
 export const createPost = async (
@@ -40,48 +41,18 @@ export const getAllPostsAdmin = async (limit: number, skip: number) => {
 
 export const getAllPosts = async (
   limit: number,
-  //El cursor esta formado por la fecha del ultimo post mas su id
   cursor?: { createdAt: string; id: number },
   currentUserId?: number,
 ) => {
-  return await prisma.post.findMany({
+  return prisma.post.findMany({
     take: limit,
-    //condicion where que solo se cumple si el cursor existe, si no existe devuelve undefined
-    where: cursor
-      ? {
-          AND: [
-            { parent_post_id: null }, //solo se devuelven los posts principales, no los comentarios
-            {
-              OR: [
-                //si la fecha de creacion es menor que la del cursor
-                { created_at: { lt: new Date(cursor.createdAt) } },
-                //si la fecha de creacion es igual a la del cursor, se compara el id para evitar duplicados
-                {
-                  created_at: new Date(cursor.createdAt),
-                  id: { lt: cursor.id },
-                },
-              ],
-            },
-          ],
-        }
-      : { parent_post_id: null }, //si no hay cursor, igualmente se devulven solo los posts principales, no los comentarios
-    include: {
-      user: { select: { username: true, avatar_url: true, name: true } },
-      _count: { 
-        select: {
-         likes: true, 
-         replies: true
-        }
-       },
-
-      likes: currentUserId
-        ? {
-            where: { user_id: currentUserId },
-            select: { id: true },
-            take: 1,
-          }
-        : false,
+    where: {
+      parent_post_id: null,
+      //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
+      ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
     },
+    // datos necesarios para renderizar los posts en la feed
+    include: basePostInclude(currentUserId),
     orderBy: [{ created_at: "desc" }, { id: "desc" }],
   });
 };
@@ -92,46 +63,18 @@ export const getDetailsOfPost = async (
   cursor?: { createdAt: string; id: number },
   currentUserId?: number,
 ) => {
-  return await prisma.post.findUnique({
+  return prisma.post.findUnique({
     where: { id: postId },
+    //se incluye el post principal y sus comentarios, con la información del usuario, los likes y el número de likes y comentarios
     include: {
-      user: { select: { username: true, avatar_url: true, name: true } },
+      ...basePostInclude(currentUserId),
 
       replies: {
         take: limit,
-        where: cursor
-          ? {
-              OR: [
-                { created_at: { lt: new Date(cursor.createdAt) } },
-                {
-                  created_at: new Date(cursor.createdAt),
-                  id: { lt: cursor.id },
-                },
-              ],
-            }
-          : undefined,
+        where: cursorFilter(cursor),
         orderBy: [{ created_at: "desc" }, { id: "desc" }],
-        include: {
-          user: { select: { username: true, avatar_url: true, name: true } },
-          _count: { select: { likes: true, replies:true } },
-          likes: currentUserId
-            ? {
-                where: { user_id: currentUserId },
-                select: { id: true },
-                take: 1,
-              }
-            : false,
-        },
+        include: basePostInclude(currentUserId),
       },
-
-      _count: { select: { likes: true, replies:true } },
-      likes: currentUserId
-        ? {
-            where: { user_id: currentUserId },
-            select: { id: true },
-            take: 1,
-          }
-        : false,
     },
   });
 };

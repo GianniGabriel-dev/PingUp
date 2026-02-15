@@ -49,7 +49,7 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 export const getPosts= async(req:Request, res:Response)=>{
   try{
     const MAX_LIMIT=20;
-    //userId puede ser undefined si el usuario no está autenticado
+     //currentUserId se usa para comprobar a que posts el usuario ha dado like, puede ser undefined si el usuario no está autenticado 
     const userId = (req.user as {id:number})?.id    
     const postId= Number(req.params.post_id)
 

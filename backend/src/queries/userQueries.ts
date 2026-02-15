@@ -1,3 +1,4 @@
+import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
 export const getUserById = async (id:number) => {
@@ -37,3 +38,48 @@ export const updateUserData = async(user_id:number, data: { avatar_url?: string;
     data: data
   })
 }
+
+export const getPostsByUser = async (
+  limit: number,
+  userId:number,
+  cursor?: { createdAt: string; id: number },
+  currentUserId?: number
+
+) => {
+  return prisma.post.findMany({
+    take: limit,
+    where: {
+      user_id: userId,
+      //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
+      ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
+    },
+    // datos necesarios para renderizar los posts en la feed
+    include: basePostInclude(currentUserId),
+    orderBy: [{ created_at: "desc" }, { id: "desc" }],
+  });
+};
+
+export const getRepliesByUser = async (
+  userId: number,
+  limit: number,
+  cursor?: { createdAt: string; id: number },
+  currentUserId?: number,
+) => {
+  return prisma.post.findMany({
+    where: {
+      user_id: userId,
+      parent_post_id: { not: null }, // solo replies
+      ...cursorFilter(cursor),
+    },
+    take: limit,
+    orderBy: [{ created_at: "desc" }, { id: "desc" }],
+
+    include: {
+      ...basePostInclude(currentUserId),
+
+      parent: {
+        include: basePostInclude(currentUserId), // post original
+      },
+    },
+  });
+};
