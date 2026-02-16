@@ -24,6 +24,6 @@ userRouter.patch("/updateProfile",
     updateProfile
 )
 
-userRouter.get("/:user_id/posts", optionalAuth , getPostsUser(false))
+userRouter.get("/:username/posts", optionalAuth , getPostsUser(false))
 
-userRouter.get("/:user_id/replies", optionalAuth , getPostsUser(true))
+userRouter.get("/:username/replies", optionalAuth , getPostsUser(true))

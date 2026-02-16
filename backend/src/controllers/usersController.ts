@@ -56,7 +56,7 @@ export const getPostsUser = (isReply: boolean) =>
       const MAX_LIMIT = 20;
       //currentUserId se usa para comprobar a que posts el usuario ha dado like, puede ser undefined si el usuario no está autenticado 
       const currentUserId = (req.user as { id: number })?.id;
-      const userId = Number(req.params.user_id);
+      const username = req.params.username;
 
       let cursor = req.query.cursor
         ? JSON.parse(req.query.cursor as string)
@@ -69,7 +69,7 @@ export const getPostsUser = (isReply: boolean) =>
 
       //si es isReply es true significa se obtienen respuetas del usuario
       if (isReply) {
-        const posts = await getRepliesByUser(userId, limit, cursor, currentUserId);
+        const posts = await getRepliesByUser(username, limit, cursor, currentUserId);
 
         if (!posts) {
           return res.status(404).json({ error: "Posts not found" });
@@ -89,7 +89,7 @@ export const getPostsUser = (isReply: boolean) =>
           hasMore: posts.length === limit,
         });
       }
-      const posts = await getPostsByUser(limit, userId, cursor, currentUserId);
+      const posts = await getPostsByUser(username, limit,  cursor, currentUserId);
       const nextCursor =
         posts.length > 0
           ? {

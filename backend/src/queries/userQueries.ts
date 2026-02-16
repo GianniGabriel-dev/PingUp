@@ -40,8 +40,8 @@ export const updateUserData = async(user_id:number, data: { avatar_url?: string;
 }
 
 export const getPostsByUser = async (
+  username: string,
   limit: number,
-  userId:number,
   cursor?: { createdAt: string; id: number },
   currentUserId?: number
 
@@ -49,7 +49,8 @@ export const getPostsByUser = async (
   return prisma.post.findMany({
     take: limit,
     where: {
-      user_id: userId,
+      user: { username },
+      parent_post_id: null, // solo posts originales
       //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
       ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
     },
@@ -60,14 +61,14 @@ export const getPostsByUser = async (
 };
 
 export const getRepliesByUser = async (
-  userId: number,
+  username: string,
   limit: number,
   cursor?: { createdAt: string; id: number },
   currentUserId?: number,
 ) => {
   return prisma.post.findMany({
     where: {
-      user_id: userId,
+      user: { username },
       parent_post_id: { not: null }, // solo replies
       ...cursorFilter(cursor),
     },
