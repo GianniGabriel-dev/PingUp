@@ -1,10 +1,11 @@
 import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
-export const getUserById = async (id:number) => {
+export const getUserByParam = async (param:number | string) => {
   return await prisma.user.findUnique({
     where: {
-      id,
+      id: typeof param === "number" ? param : undefined,
+      username: typeof param === "string" ? param : undefined
     },
     select:{
         id:true,
@@ -18,6 +19,7 @@ export const getUserById = async (id:number) => {
     }
   });
 };
+
 
 
 export const updateAvatar = async(user_id:number, avatar_url:string )=>{

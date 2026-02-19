@@ -2,15 +2,29 @@ import { Request, Response } from "express";
 import {
   getPostsByUser,
   getRepliesByUser,
-  getUserById,
+  getUserByParam, 
   updateUserData,
 } from "../queries/userQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
+
+//controlador que obtiene los datos del usuario autenticado
 export const getUserData = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
 
-    const result = await getUserById(userId);
+    const result = await getUserByParam(userId);
+    return res.json(result);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+//controlador que obtiene los datos de un usuario a partir de su username, se usa para mostrar el perfil de un usuario a partir de su username
+export const getUserByUsername = async (req: Request, res: Response) => {
+  try {
+    const username = req.params.username;
+
+    const result = await getUserByParam(username);
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
