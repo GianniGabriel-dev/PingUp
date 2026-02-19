@@ -16,7 +16,7 @@ export const AllUserPosts = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    error,
+    isError,
   } = useInifnitePosts({
     url: `${username}/${view}`,
     queryKey: ["userPosts", username, view],
@@ -32,8 +32,7 @@ export const AllUserPosts = () => {
   }, [fetchNextPage, hasNextPage]);
 
   if (isLoading) return <LoadingIcon size={40} />;
-  if (error) return <p>Error al cargar posts</p>;
-  if (!data) return null;
+  if (isError) return null;
 
   return (
     <>

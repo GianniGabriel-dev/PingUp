@@ -22,7 +22,7 @@ export const DetailsPost = () => {
     window.scrollTo(0, scrollRef.current); // restaurar scroll
   };
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage} =
     useInifnitePosts({
       url: `post/${parent_post_id}`,
       queryKey: ["posts", "detail", parent_post_id],
@@ -38,7 +38,6 @@ export const DetailsPost = () => {
 
 
   if (isLoading) return <LoadingIcon size={40}/>
-  if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;
   
   console.log(data);

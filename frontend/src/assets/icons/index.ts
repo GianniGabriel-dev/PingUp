@@ -11,4 +11,5 @@ export { RetweetIcon } from "./RetweetIcon";
 export { LoadingIcon } from "./LoadingIcon";
 export { AddPhotoIcon } from "./AddPhotoIcon"
 export { BackIcon } from "./BackIcon"
+export { SadIcon } from "./SadIcon"
 export { CloseIcon } from "./CloseIcon"
