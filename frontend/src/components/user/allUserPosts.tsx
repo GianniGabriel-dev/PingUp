@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 
 export const AllUserPosts = () => {
   const { username, tab } = useParams();
+  //view decide a que ednpoint de la api pedir datos, replies, o posts de usuario
   const view = tab === "replies" ? "replies" : "posts";
 
   //Posts o respuestas del usuario
@@ -24,8 +25,6 @@ export const AllUserPosts = () => {
     enabledParam: !!username,
   });
 
-  console.log(data);
-
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     osbserverHook(loadMoreRef, hasNextPage, fetchNextPage);
@@ -40,7 +39,7 @@ export const AllUserPosts = () => {
         <ul className="flex justify-between border-b border-gray-600 ">
           <li className="cursor-pointer w-full text-center h-10 place-content-center transition-all hover:bg-zinc-900">
             <Link
-              to={`/${username}/posts`}
+              to={`/${username}`}
               className="relative inline-block px-4 py-2 font-bold"
             > 
               Posts

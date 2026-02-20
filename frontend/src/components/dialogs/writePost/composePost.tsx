@@ -29,7 +29,7 @@ export default function ComposePost() {
           className="w-12 h-12 rounded-full z-10"
           src={
             post.user.avatar_url ||
-            "https://res.cloudinary.com/dssbrks07/image/upload/v1766150505/user1_wznohf.svg"
+            "https://res.cloudinary.com/dssbrks07/image/upload/v1771602464/avatars/d1ozknsuviqhqbjyx1z2.webp"
           }
           alt={`image of user ${post.user.username}`}
         />

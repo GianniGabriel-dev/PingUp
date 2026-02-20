@@ -24,7 +24,7 @@ userRouter.patch("/updateProfile",
     updateProfile
 )
 
-userRouter.get("/:username", getUserByUsername)
+userRouter.get("/:username", optionalAuth, getUserByUsername)
 
 //get post user recibe false o true dependiendo de si se quieren obtener solo los posts originales o también las respuestas
 userRouter.get("/:username/posts", optionalAuth , getPostsUser(false))

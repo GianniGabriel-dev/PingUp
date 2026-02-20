@@ -1,8 +1,8 @@
 import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
-export const getUserByParam = async (param:number | string) => {
-  return await prisma.user.findUnique({
+export const getUserByParam = async (param:number | string, currentUserId?: number) => {
+  const user = await prisma.user.findUnique({
     where: {
       id: typeof param === "number" ? param : undefined,
       username: typeof param === "string" ? param : undefined
@@ -16,8 +16,19 @@ export const getUserByParam = async (param:number | string) => {
         bio:true,
         created_at:true,
         name:true,
+        //si currentUserId existe, se incluye la relación followers para comprobar si el usuario actual sigue al usuario consultado, si no existe currentUserId se omite la relación para optimizar la consulta
+        following: currentUserId
+        ? {
+            where: { follower_id: currentUserId },
+            select: { id: true }
+          }
+        : false
     }
   });
+  return{
+    ...user,
+    isFollowing: !!user?.following?.length
+  }
 };
 
 

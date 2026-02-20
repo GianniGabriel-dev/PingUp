@@ -1,12 +1,14 @@
 import { AllUserPosts } from "@/components/user/allUserPosts.js";
 import { ErrorFindingUser } from "@/components/user/errorFindingUser.js";
 import { HeroUser } from "@/components/user/heroUser.js";
+import { useAuth } from "@/context/useAuth.js";
 import { api } from "@/lib/axios.js";
 import { useQuery } from "@tanstack/react-query";
 import { useRef } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 export function Profile() {
+  const {token}= useAuth()
   const username = useParams().username;
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,13 +22,18 @@ export function Profile() {
   const { data, isLoading } = useQuery({
     queryKey: ["user", username],
     queryFn: async () => {
-      const res = await api.get(`/${username}`);
+      const res = await api.get(`/${username}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       return res.data;
     },
     refetchOnWindowFocus: false,
   });
 
-  if (!data) {
+  //si no está cargando y no se han encontrado datos del usuario, se muestra un mensaje de error
+  if (!isLoading && !data) {
     return <ErrorFindingUser username={username} handleBack={handleBack} />;
   }
   return (

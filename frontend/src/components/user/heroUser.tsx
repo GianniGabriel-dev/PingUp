@@ -1,14 +1,17 @@
 import { Header } from "../ui/header.js";
 import { BackIcon } from "@/assets/icons/BackIcon.js";
 import { LoadingHero } from "./loadingHero.js";
+import { HeroButton } from "./heroButton.js";
 
-interface UserData {
+export interface UserData {
+  id:number;
   username: string;
   banner_url?: string | null;
   avatar_url: string;
   name?: string;
   bio?: string;
   created_at: string;
+  isFollowing: boolean;
 }
 
 export const HeroUser = ({
@@ -70,10 +73,7 @@ export const HeroUser = ({
               alt={data.username}
               className="w-30 h-30 rounded-full border-4 border-black object-cover"
             />
-
-            <button className="cursor-pointer px-5 py-1.5 rounded-full border border-gray-500 font-bold hover:bg-white hover:text-black transition -translate-y-2">
-              Seguir
-            </button>
+            <HeroButton user={data} />
           </div>
 
           {/* Name + username */}

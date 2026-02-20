@@ -24,7 +24,11 @@ export const IndividualPost = (post: Post) => {
           <div className="flex gap-2">
             <img 
             className="w-12 h-12  rounded-full shrink-0"
-            src={post.user.avatar_url || "https://res.cloudinary.com/dssbrks07/image/upload/v1766150505/user1_wznohf.svg"}
+            onClick={(e)=>{
+              e.stopPropagation()
+              navigate(`/${post.user.username}`)
+            }}
+            src={post.user.avatar_url || "https://res.cloudinary.com/dssbrks07/image/upload/v1771602464/avatars/d1ozknsuviqhqbjyx1z2.webp"}
             alt={`image of user${post.user.username}`}
             />
             <div className="flex flex-col w-full ">

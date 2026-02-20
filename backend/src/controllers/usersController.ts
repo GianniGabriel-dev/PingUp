@@ -23,8 +23,10 @@ export const getUserData = async (req: Request, res: Response) => {
 export const getUserByUsername = async (req: Request, res: Response) => {
   try {
     const username = req.params.username;
+    const currentUserId = (req.user as { id: number })?.id;
 
-    const result = await getUserByParam(username);
+    const result = await getUserByParam(username, currentUserId);
+    console.log(result);
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

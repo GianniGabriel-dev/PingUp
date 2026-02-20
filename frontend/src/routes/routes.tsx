@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         element: <Notifications />,
       },
       {
-        path: ":username/:tab",
+        path: ":username/:tab?",
         element: <Profile />,
       },
       {
