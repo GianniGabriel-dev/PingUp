@@ -33,7 +33,7 @@ export const newPost = async (req: Request, res: Response): Promise<Response> =>
 
     //analisis de sentimientos
     const sentimentScore= await analyzeSentiment(content)
-    const sentimentLabel= getSentimentLabel(sentimentScore.score)
+    const sentimentLabel= getSentimentLabel(sentimentScore.score, sentimentScore.magnitude)
     
     //el user id es obtenido desde el post route gracias a la autenticacion de passport que devuelve el id del actual usuario
     const userId = (req.user as {id:number}).id

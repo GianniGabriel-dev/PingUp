@@ -60,8 +60,10 @@ export async function analyzeSentiment(text: string): Promise<{
 
 //se establece el umbral de sentimientos para calificar el tono correctamente
 export function getSentimentLabel(
-  score: number
+  score: number,
+  magnitude: number
 ): "positivo" | "neutral" | "negativo" {
+  if (magnitude < 0.25) return "neutral";
   if (score > 0.25) return "positivo";
   if (score < -0.35) return "negativo";
   return "neutral";

@@ -30,7 +30,7 @@ export function LeftNavbar() {
                 <NavItem to="/notifications" icon={NotificationIcon} label="Notificaciones" />
               </li>
               <li>
-                <NavItem to="/profile" icon={UserIcon} label="Perfil" />
+                <NavItem to={user ? `/${user.username}` : ""} icon={UserIcon} label="Perfil" />
               </li>
               <li>
                 <NavItem to="/settings" icon={ConfigIcon} label="Ajustes" />

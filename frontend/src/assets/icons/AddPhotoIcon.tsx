@@ -6,10 +6,10 @@ type Props = {
 export const AddPhotoIcon = ({ size, className}: Props) => {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor" className={className}>
-      <g  stroke-width="0"></g>
+      <g  strokeWidth="0"></g>
       <g
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}

@@ -27,6 +27,7 @@ export default function LikeButton({
     mutationFn: async () => {
       await api.post(
         `/like/${postId}`,
+        //vacio porque el endpoint de like no necesita body
         {},
         {
           headers: {
