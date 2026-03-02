@@ -7,6 +7,7 @@ import { useFileUpload } from "../../../hooks/handleFileChange.js";
 type Props = {
   user: UserInfo;
   setFullName: (name: string) => void;
+  fullName: string;
   setStep: (step: number) => void;
   setSelectedFile: (selectedFile: File | null) => void;
   selectedFile: File | null;
@@ -18,6 +19,8 @@ type Props = {
 };
 export const ProfileStep1 = ({
   user,
+  setFullName,
+  fullName,
   setStep,
   setSelectedFile,
   selectedFile,
@@ -26,8 +29,6 @@ export const ProfileStep1 = ({
   handleSubmit,
   onClose,
 }: Props) => {
-  const [fullName, setFullName] = useState(user.name);
-
   // hook personalizado para validar el archivo
   const { validateFile } = useFileUpload({});
 

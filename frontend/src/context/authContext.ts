@@ -9,7 +9,7 @@ export type UserInfo = {
    bio:string,
    created_at:Date,
    name:string,
-  banner_url?:string,
+   banner_url?:string,
 }
 
 export interface AuthContextType {

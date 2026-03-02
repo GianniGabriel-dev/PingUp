@@ -1,51 +1,71 @@
 import { AddPhotoIcon, CloseIcon } from "@/assets/icons/index.js";
-import { Input } from "@/components/ui/inputs.js";
+import { Input, Textarea } from "@/components/ui/inputs.js";
 import { UserInfo } from "@/context/authContext.js";
 import { useEffect, useRef, useState } from "react";
 import { useFileUpload } from "../../../hooks/handleFileChange.js";
 
 type Props = {
   user: UserInfo;
+  fullName: string;
   setFullName: (name: string) => void;
+  bio: string;
+  setBio: (bio: string) => void;
   setStep: (step: number) => void;
   setSelectedFile: (selectedFile: File | null) => void;
   selectedFile: File | null;
   token: string | null;
   avatarCanvas: HTMLCanvasElement | null;
   setAvatarCanvas: (canvas: HTMLCanvasElement | null) => void;
+  bannerCanvas: HTMLCanvasElement | null;
+  setBannerCanvas: (canvas: HTMLCanvasElement | null) => void;
+  setEditingType: (type: "avatar" | "banner") => void;
   handleSubmit: () => void;
   onClose: () => void;
 };
 export const ProfileStep1 = ({
   user,
+  fullName,
+  setFullName,
+  bio,
+  setBio,
   setStep,
   setSelectedFile,
   selectedFile,
   avatarCanvas,
   setAvatarCanvas,
+  bannerCanvas,
+  setBannerCanvas,
+  setEditingType,
   handleSubmit,
   onClose,
 }: Props) => {
-  const [fullName, setFullName] = useState(user.name);
+
 
   // hook personalizado para validar el archivo
   const { validateFile } = useFileUpload({});
 
   //estado que detecta si ha cambiado la imagen o el usuario por defecto para activar o cambiar estilo del boton de siguiente
   const [hasChanged, setHasChanged] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const avatarInputRef = useRef<HTMLInputElement | null>(null);
+  const bannerInputRef = useRef<HTMLInputElement | null>(null);
 
   // efecto que detecta si ha habido cambios en el nombre o la imagen de perfil
   useEffect(() => {
     const nameChanged = fullName.trim() !== user.name && fullName.trim() !== "";
+    const bioChanged = bio.trim() !== (user.bio || "") && bio.trim() !== "";
     const avatarChanged = avatarCanvas !== null;
+    const bannerChanged = bannerCanvas !== null;
 
-    setHasChanged(nameChanged || avatarChanged);
-  }, [fullName, avatarCanvas, user.name]);
+    setHasChanged(nameChanged || bioChanged || avatarChanged || bannerChanged);
+  }, [fullName, bio, avatarCanvas, bannerCanvas, user.name, user.bio]);
 
   // se abre el selector de archivos al hacer click en el icono
-  const handleClick = () => {
-    inputRef.current?.click();
+  const handleAvatarClick = () => {
+    avatarInputRef.current?.click();
+  };
+
+  const handleBannerClick = () => {
+    bannerInputRef.current?.click();
   };
 
   return (
@@ -56,19 +76,58 @@ export const ProfileStep1 = ({
       <div className="w-full pb-5 overflow-hidden">
         {/* Banner */}
         <div
-          className={`w-full h-40 ${user.banner_url ? "" : "bg-slate-600"}`}
+          className={`w-full h-40 relative group ${user.banner_url && !bannerCanvas ? "" : bannerCanvas ? "" : "bg-slate-600"}`}
           style={
-            user.banner_url
+            bannerCanvas
               ? {
-                  backgroundImage: `url(${user.banner_url})`,
+                  backgroundImage: `url(${bannerCanvas.toDataURL("image/png")})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }
-              : undefined
+              : user.banner_url
+                ? {
+                    backgroundImage: `url(${user.banner_url})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }
+                : undefined
           }
-        />
+        >
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center gap-3">
+            <div
+              className="cursor-pointer bg-gray-900/50 rounded-full p-2 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all"
+              onClick={handleBannerClick}
+            >
+              <AddPhotoIcon size={24} className={""} />
+              <input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                ref={bannerInputRef}
+                onChange={(e) => {
+                  if (!e.target.files?.[0]) return;
+                  const file = e.target.files[0];
+                  if (!validateFile(file)) return;
+                  setSelectedFile(file);
+                  setEditingType("banner");
+                  setStep(3);
+                }}
+                className="hidden"
+              />
+            </div>
+            {bannerCanvas && selectedFile && (
+              <div
+                className="cursor-pointer bg-gray-900/50 rounded-full p-2 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all "
+                onClick={() => {
+                  setBannerCanvas(null);
+                }}
+              >
+                <CloseIcon size={24} className={""} />
+              </div>
+            )}
+          </div>
+        </div>
         {/* Avatar*/}
-        <article className="relative pl-4 -mt-15 mb-3 flex items-end justify-between">
+        <article className="relative pl-4 -mt-15 mb-4 flex items-end justify-between">
           <div className="relative w-30 h-30 rounded-full border-4 border-black overflow-hidden">
             <img
               src={
@@ -83,14 +142,14 @@ export const ProfileStep1 = ({
               {/*div para agregar avatar, lleva al step2 */}
               <div
                 className=" cursor-pointer bg-gray-900/50 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all"
-                onClick={handleClick}
+                onClick={handleAvatarClick}
               >
                 <AddPhotoIcon size={22} className={""} />
                 {/*input oculto se activa al hacer click en el div*/}
                 <input
                   type="file"
                   accept="image/jpeg,image/png,image/webp"
-                  ref={inputRef}
+                  ref={avatarInputRef}
                   onChange={(e) => {
                     //si no se selecciona un archivo impide ir al sigiuente paso
                     if (!e.target.files?.[0]) return;
@@ -98,17 +157,17 @@ export const ProfileStep1 = ({
                     //si el archivo pesa mas de lo permitido o no es un tipo valido, impide ir al siguiente paso
                     if (!validateFile(file)) return;
                     setSelectedFile(file);
+                    setEditingType("avatar");
                     setStep(2);
                   }}
                   className="hidden"
                 />
               </div>
-              {selectedFile && (
+              {selectedFile && avatarCanvas && (
                 <div
                   className=" cursor-pointer bg-gray-900/50 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/60 transition-all"
                   onClick={() => {
                     setAvatarCanvas(null);
-                    setSelectedFile(null);
                   }}
                 >
                   <CloseIcon size={22} className={""} />
@@ -133,6 +192,21 @@ export const ProfileStep1 = ({
           }
         }}
       />
+      <Textarea
+        value={bio}
+        name="bio"
+        id="bio"
+        placeholder="Biografía"
+        error={""}
+        maxLength={280}
+        onChange={(e) => {
+          const value = e.target.value;
+          //impide que se escriban mas de 280 caracteres
+          if (value.length <= 280) {
+            setBio(value);
+          }
+        }}
+      />
       <button
         type="submit"
         className={`${
@@ -142,7 +216,7 @@ export const ProfileStep1 = ({
         } cursor-pointer  h-12 w-10/12 max-sm:w-full text-2xl mb-4 py-2 transition-all duration-300  font-bold rounded-3xl shadow`}
         onClick={hasChanged ? handleSubmit : onClose}
       >
-        {hasChanged ? "Siguiente" : "Descartar por ahora"}
+        {hasChanged ? "Guardar cambios" : "Cancelar"}
       </button>
     </div>
   );

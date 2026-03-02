@@ -30,16 +30,12 @@ export default function OnboardingProfile() {
   //Función que maneja el guardado de los datos y el update de los mismos en la bd
   const profileMutation = useMutation({
     mutationFn: async () => {
-      let avatarFile = avatarCanvas ? await canvasToFile(avatarCanvas) : null;
-
-      if (avatarCanvas) {
-        avatarFile = await canvasToFile(avatarCanvas);
-      }
+      const avatarFile = avatarCanvas ? await canvasToFile(avatarCanvas) : null;
 
       const formData = new FormData();
       formData.append("name", fullName);
       if (avatarFile) formData.append("avatar", avatarFile);
-
+      
       await api.patch("/updateProfile", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -83,6 +79,7 @@ export default function OnboardingProfile() {
           setStep={setStep}
           user={user}
           setFullName={setFullName}
+          fullName={fullName}
           setSelectedFile={setSelectedFile}
           selectedFile={selectedFile}
           token={token}
