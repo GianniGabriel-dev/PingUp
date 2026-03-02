@@ -8,7 +8,7 @@ import { ProfileStep2 } from "./ProfileStep2.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { canvasToFile } from "../../../hooks/canvasHandler.js";
 
-export default function OnboardingProfile() {
+export default function EditProfile() {
   const queryClient = useQueryClient();
   const { user, token } = useAuth();
   const [step, setStep] = useState(1);

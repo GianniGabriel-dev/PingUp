@@ -3,10 +3,12 @@ import { UserData } from "./heroUser.js";
 import { useState } from "react";
 import { api } from "@/lib/axios.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 export const HeroButton = ({ user }: { user: UserData }) => {
   const { user: currentUser, token } = useAuth();
   const [isFollowing, setIsFollowing] = useState(user.isFollowing);
+  const navigate = useNavigate();
   const [hover, setHover] = useState(false);
   const queryClient = useQueryClient();
 
@@ -61,7 +63,10 @@ export const HeroButton = ({ user }: { user: UserData }) => {
           {isFollowing ? (hover ? "Dejar de seguir" : "Siguiendo") : "Seguir"}
         </button>
       ) : (
-        <button className="cursor-pointer px-4 py-2 rounded-full border border-gray-500 font-bold hover:bg-white hover:text-black transition-all duration-200 -translate-y-2">
+        <button 
+        onClick={()=>{navigate("?modal=edit-profile")}}
+        className="cursor-pointer px-4 py-2 rounded-full border border-gray-500 font-bold hover:bg-white hover:text-black transition-all duration-200 -translate-y-2"
+        >
           Editar Perfil
         </button>
       )}

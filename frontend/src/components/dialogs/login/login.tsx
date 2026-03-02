@@ -5,7 +5,7 @@ import z from "zod";
 import { api, ApiErrors } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
 import { loginSchema } from "@/validations/authValidations.js";
-import { AuthDialog } from "../authDialog.js";
+import { AuthDialog } from "../../../layout/authDialog.js";
 import { LoginStep1 } from "./loginStep1.js";
 import { LoginStep2 } from "./loginStep2.js";
 import { useModal } from "@/hooks/useModal.js";

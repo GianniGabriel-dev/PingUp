@@ -8,7 +8,8 @@ export type UserInfo = {
    avatar_url:string,
    bio:string,
    created_at:Date,
-   name:string
+   name:string,
+  banner_url?:string,
 }
 
 export interface AuthContextType {

@@ -37,22 +37,30 @@ export const AllUserPosts = () => {
     <>
       <nav>
         <ul className="flex justify-between border-b border-gray-600 ">
-          <li className="cursor-pointer w-full text-center h-10 place-content-center transition-all hover:bg-zinc-900">
+          <li className="w-full h-10 transition-all hover:bg-zinc-900">
             <Link
               to={`/${username}`}
-              className="relative inline-block px-4 py-2 font-bold"
-            > 
-              Posts
-             {view == "posts" && <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 rounded-l-md rounded-r-md"></span>}
+              className="flex items-center justify-center w-full h-full"
+            >
+              <span className="relative inline-block px-4 py-2 font-bold">
+                Posts
+                {view === "posts" && (
+                  <span className="absolute left-0 bottom-0 w-full h-1 bg-blue-500 rounded-md"></span>
+                )}
+              </span>
             </Link>
           </li>
-          <li className="cursor-pointer w-full text-center h-10 place-content-center transition-all hover:bg-zinc-900">
+          <li className="w-full h-10 transition-all hover:bg-zinc-900">
             <Link
               to={`/${username}/replies`}
-              className="relative inline-block px-4 py-2 font-bold"
+              className="flex items-center justify-center w-full h-full"
             >
-              Respuestas
-              {view == "replies" && <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-500 rounded-l-md rounded-r-md"></span>}
+              <span className="relative inline-block px-4 py-2 font-bold">
+                Replies
+                {view === "replies" && (
+                  <span className="absolute left-0 bottom-0 w-full h-1 bg-blue-500 rounded-md"></span>
+                )}
+              </span>
             </Link>
           </li>
         </ul>

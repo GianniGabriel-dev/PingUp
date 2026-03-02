@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useAuth } from "@/context/useAuth.js";
 import { formatDate } from "@/utils/formatDate.js";
-import { AuthDialog } from "../authDialog.js";
+import { AuthDialog } from "../../../layout/authDialog.js";
 import { useModal } from "@/hooks/useModal.js";
 import { WritePost } from "@/components/feed/WritePost.js";
 
