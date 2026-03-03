@@ -17,6 +17,8 @@ model User {
   email     String  @unique @db.VarChar(255)
   password  String? @db.VarChar(255)
   avatar_url String @default("https://res.cloudinary.com/dssbrks07/image/upload/v1771602464/avatars/d1ozknsuviqhqbjyx1z2.webp") @db.VarChar(350)
+  banner_url String @default("https://res.cloudinary.com/dssbrks07/image/upload/v1772491422/Captura_de_pantalla_2026-03-02_234003_bsbhb4.webp") @db.VarChar(350)
+  language   String @default("es") @db.VarChar(5)
   bio       String? @db.VarChar(280)
   auth_provider String @default("email") @db.VarChar(15)
   googleId  String? @unique @db.VarChar(30)

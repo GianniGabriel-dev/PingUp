@@ -5,9 +5,7 @@ import { NextFunction, Request, Response } from "express";
 //el file se guarde en req
 export const uploadMedia=(fileName:string)=>{
     return (req:Request, res:Response, next:NextFunction)=>{
-      console.log("uploadMEdia")
       upload.single(fileName)(req, res, (err) => {
-              console.log("upload")
         //se muestra un error controlado si se ha enviado mas de un archivo a multer
         if (err) {
           let message=""
@@ -25,4 +23,21 @@ export const uploadMedia=(fileName:string)=>{
         next();
       });
     }
+}
+
+
+//el file se guarde en req
+export const uploadAvatarAndBanner=(req: Request, res: Response, next: NextFunction)=>{
+      upload.fields([
+        {name:"avatar", maxCount:1},
+        {name:"banner", maxCount:1}
+      ])(req, res, (err) => {
+        //se muestra un error controlado si se ha enviado mas de un archivo a multer
+        if (err) {
+          return res.status(400).json({ 
+            error: err.message || "Error uploading files" 
+          });
+        }
+        next();
+      });
 }

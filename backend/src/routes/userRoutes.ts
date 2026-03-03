@@ -2,7 +2,7 @@ import express from 'express'
 import passport from '../config/passport.js'
 import { follow } from '../controllers/socialController.js'
 import { getPostsUser, getUserByUsername, getUserData, updateProfile } from '../controllers/usersController.js'
-import { uploadMedia } from '../middlewares/uploadMedia.js'
+import { uploadAvatarAndBanner, uploadMedia } from '../middlewares/uploadMedia.js'
 import { validateAvatarImg } from '../validations/mediaUploadValidation.js'
 import { optionalAuth } from '../middlewares/optionalAuth.js'
 export const userRouter = express.Router()
@@ -19,7 +19,7 @@ userRouter.post("/follow/:followingId",
 
 userRouter.patch("/updateProfile",
     passport.authenticate ('jwt', {session:false}),
-    uploadMedia("avatar"),
+    uploadAvatarAndBanner,
     validateAvatarImg,
     updateProfile
 )

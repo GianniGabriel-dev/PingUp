@@ -128,7 +128,7 @@ export const ProfileStep1 = ({
         </div>
         {/* Avatar*/}
         <article className="relative pl-4 -mt-15 mb-4 flex items-end justify-between">
-          <div className="relative w-30 h-30 rounded-full border-4 border-black overflow-hidden">
+          <div className="relative w-35 h-35 rounded-full border-4 border-black overflow-hidden">
             <img
               src={
                 avatarCanvas
@@ -213,7 +213,7 @@ export const ProfileStep1 = ({
           hasChanged
             ? "text-zinc-950 bg-white hover:bg-white/55"
             : "text-white border-2 border-gray-500 hover:bg-zinc-500/5"
-        } cursor-pointer  h-12 w-10/12 max-sm:w-full text-2xl mb-4 py-2 transition-all duration-300  font-bold rounded-3xl shadow`}
+        } cursor-pointer  h-12 w-10/12  text-2xl mt-4 mb-4 py-2 transition-all duration-300  font-bold rounded-3xl shadow`}
         onClick={hasChanged ? handleSubmit : onClose}
       >
         {hasChanged ? "Guardar cambios" : "Cancelar"}

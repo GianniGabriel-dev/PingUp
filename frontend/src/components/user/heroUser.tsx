@@ -52,7 +52,7 @@ export const HeroUser = ({
       <div className="w-full max-w-2xl mx-auto bg-black overflow-hidden">
         {/* Banner */}
         <div
-          className={`w-full h-40 ${banner ? "" : "bg-slate-600"}`}
+          className={"w-full h-50"}
           style={
             banner
               ? {
@@ -67,11 +67,11 @@ export const HeroUser = ({
         {/* Info */}
         <div className="px-6 pb-6">
           {/* Avatar + Follow */}
-          <div className="relative -mt-15 mb-3 flex items-end justify-between">
+          <div className="relative -mt-17.5 mb-3 flex items-end justify-between">
             <img
               src={data.avatar_url}
               alt={data.username}
-              className="w-30 h-30 rounded-full border-4 border-black object-cover"
+              className="w-35 h-35 rounded-full border-4 border-black object-cover"
             />
             <HeroButton user={data} />
           </div>

@@ -47,29 +47,31 @@ export default function EditProfile() {
       console.log("Bio to update:", bio);
       if (avatarFile) formData.append("avatar", avatarFile);
       if (bannerFile) formData.append("banner", bannerFile);
+      console.log("FormData entries:");
+      for (const pair of formData.entries()) {
+        console.log(`${pair[0]}:`, pair[1]);
+      }
+      console.log(formData.get("bannerFile"));
+
 
       await api.patch("/updateProfile", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-    },
-    //se invalidan la querry de posts para que se recarguen los post con la nueva info del usuario
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["allPosts"] });
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-    },
+    }
   });
 
   const handleSubmit = () => {
     if (!token) return;
     console.log("Submitting profile update...");
     profileMutation.mutate(undefined, {
+      //se invalidan la querry de posts para que se recarguen los post con la nueva info del usuario
       onSuccess: () => {
-        // Se invalidan las queries necesarias después de la actualización del perfil
         queryClient.invalidateQueries({ queryKey: ["allPosts"] });
         queryClient.invalidateQueries({ queryKey: ["user"] });
-
+        queryClient.invalidateQueries({ queryKey: ["userPosts", user?.username, "replies"], });
+        queryClient.invalidateQueries({ queryKey: ["userPosts", user?.username, "replies"], });
         handleCloseModal();
       },
     });

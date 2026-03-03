@@ -36,25 +36,40 @@ export const getUserByUsername = async (req: Request, res: Response) => {
 export const updateProfile = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
-    const { name } = req.body;
-    const file = req.file;
+    const { name, bio} = req.body;
+ 
+    const avatarFile = (req.files as any)?.avatar?.[0];
+    const bannerFile = (req.files as any)?.banner?.[0];
 
     // Inicializa el objeto que se enviará a Prisma
-    const data: { name?: string; avatar_url?: string } = {};
+    const data: { name?: string; bio?:string; avatar_url?: string; banner_url?: string } = {};
 
     // Validación de name
-    if (name) {
+    if (name !== undefined) {
       if (name.trim().length > 30) {
-        return res
-          .status(400)
-          .json({ error: "El nombre no puede superar 30 caracteres" });
+        return res.status(400).json({ error: "Name is too long" });
       }
       data.name = name.trim();
     }
-    // Si hay un archivo, súbelo a Cloudinary y agrega la URL al objeto data
-    if (file) {
-      const result = await uploadToCloudinary(file.buffer, "avatars");
+
+    // Validación de biografía
+    if (bio !== undefined) {
+      if (bio.trim().length > 280) {
+        return res.status(400).json({ error: "Bio is too long" });
+      }
+      data.bio = bio.trim();
+    }
+
+    // Si hay un avatar, se sube a Cloudinary y agrega la URL al objeto data
+    if (avatarFile) {
+      const result = await uploadToCloudinary(avatarFile.buffer, "avatars");
       data.avatar_url = result.secure_url;
+    }
+
+    // Si hay un banner, se sube a Cloudinary y agrega la URL al objeto data
+    if (bannerFile) {
+      const result = await uploadToCloudinary(bannerFile.buffer, "banners");
+      data.banner_url = result.secure_url;
     }
 
     const updatedUser = await updateUserData(userId, data);

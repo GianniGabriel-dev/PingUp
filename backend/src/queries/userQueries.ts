@@ -13,6 +13,7 @@ export const getUserByParam = async (param:number | string, currentUserId?: numb
         email:true,
         googleId:true,
         avatar_url:true,
+        banner_url:true,
         bio:true,
         created_at:true,
         name:true,
@@ -31,8 +32,6 @@ export const getUserByParam = async (param:number | string, currentUserId?: numb
   }
 };
 
-
-
 export const updateAvatar = async(user_id:number, avatar_url:string )=>{
   return await prisma.user.update({
     where:{id: user_id},
@@ -40,17 +39,6 @@ export const updateAvatar = async(user_id:number, avatar_url:string )=>{
   })
 }
 
-export const updateUserData = async(user_id:number, data: { avatar_url?: string; name?: string })=>{
-  const { avatar_url, name } = data;
-  
-  if (avatar_url !== undefined) data.avatar_url = avatar_url;
-  if (name !== undefined) data.name = name;
-  
-  return await prisma.user.update({
-    where:{id: user_id},
-    data: data
-  })
-}
 
 export const getPostsByUser = async (
   username: string,
@@ -72,6 +60,20 @@ export const getPostsByUser = async (
     orderBy: [{ created_at: "desc" }, { id: "desc" }],
   });
 };
+
+export const updateUserData = async(user_id:number, data: { name?: string; bio?:string; avatar_url?: string; banner_url?: string })=>{
+  const { name, bio, avatar_url, banner_url } = data;
+  
+  if (name !== undefined) data.name = name;
+  if (bio !== undefined) data.bio = bio;
+  if (avatar_url !== undefined) data.avatar_url = avatar_url;
+  if (banner_url !== undefined) data.banner_url = banner_url;
+
+  return await prisma.user.update({
+    where:{id: user_id},
+    data: data
+  })
+}
 
 export const getRepliesByUser = async (
   username: string,
