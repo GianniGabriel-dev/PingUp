@@ -1,4 +1,3 @@
-// getCroppedImage.ts
 export interface CroppedArea {
   x: number;
   y: number;

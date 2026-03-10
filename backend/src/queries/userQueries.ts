@@ -16,6 +16,7 @@ export const getUserByParam = async (param:number | string, currentUserId?: numb
         banner_url:true,
         bio:true,
         created_at:true,
+        language:true,
         name:true,
         //si currentUserId existe, se incluye la relación followers para comprobar si el usuario actual sigue al usuario consultado, si no existe currentUserId se omite la relación para optimizar la consulta
         following: currentUserId

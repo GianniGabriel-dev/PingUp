@@ -19,7 +19,7 @@ export const IndividualPost = (post: Post) => {
             state:{ scrollY: window.scrollY }
           });
         }}
-        className="border-b border-gray-600 p-3 hover:bg-neutral-950 cursor-pointer"
+        className="border-b border-gray-600 p-3  hover:bg-neutral-950 cursor-pointer"
         >
           <div className="flex gap-2">
             <img 

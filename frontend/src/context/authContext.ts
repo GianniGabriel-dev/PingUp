@@ -8,6 +8,7 @@ export type UserInfo = {
    avatar_url:string,
    bio:string,
    created_at:Date,
+   language:string,
    name:string,
    banner_url:string,
 }
