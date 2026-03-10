@@ -26,24 +26,23 @@ export async function translateText(
 export async function translatePostContent(post_id: number, target: string) {
   //se obtiene el content del post
   const text = await getContentById(post_id);
-  //se comprueba si ya existe una traducción del post en el idioma objetivo
-  const existingTranslation = await existingTranslationPost(post_id);
+  //se comprueba si ya existe una traducción del post en el idioma objetivo, si la hay se obtiene para evitar traducirlo otra vez
+  const existingTranslation = await existingTranslationPost(post_id, target);
 
   if (!text) throw new Error("Post no encontrado");
 
   //si ya existe una traduccion o el post ya está en el idioma target, no se traduce
-  if (text.language === target || existingTranslation)
-    throw new Error(
-      "El post ya está en el idioma objetivo o ya se ha creado una traducción en este idioma"
-    );
+  if (text.language === target || existingTranslation){
+    return{translation: existingTranslation}
+  }
   else {
     //se traduce el contenido del post
-    const translation = await translateText(text.content, target);
+    const translation = await translateText(text.content!, target);
     if (!translation) throw new Error("Error al traducir el texto");
     //se guarda la traducción en la base de datos
     await createTranslation(
       post_id,
-      text.content,
+      text.content!,
       translation.translation,
       target,
       translation.detectedSourceLanguage

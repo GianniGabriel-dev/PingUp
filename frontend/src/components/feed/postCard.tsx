@@ -5,9 +5,43 @@ import { MoreOptionsIcon } from "@/assets/icons/MoreOptionsIcon.js"
 import CommentButton from "./commentButton.js"
 import RetweetButton from "./retweetButton.js"
 import { useNavigate } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { useAuth } from "@/context/useAuth.js"
+import { useTranslatePost } from "@/hooks/useTranslatePost.js"
 
 export const IndividualPost = (post: Post) => {
   const navigate = useNavigate()
+  const { user } = useAuth()
+
+  const [displayText, setDisplayText] = useState<string | null>(null)
+  const [showOriginal, setShowOriginal] = useState(false)
+  const { mutateAsync: translatePost, isPending: isTranslating } = useTranslatePost()
+    useEffect(() => {console.log(`showOriginal: ${showOriginal} displayText: ${displayText}`)},[showOriginal, displayText])
+  const handleTranslate = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+
+
+
+    if (showOriginal) {
+      setShowOriginal(false)
+      setDisplayText(null)
+      return
+    }
+
+    if (!user?.language) return
+
+    try {
+      const translation = await translatePost({ postId: post.id, targetLanguage: user.language })
+      setDisplayText(translation.translation)
+      setShowOriginal(true)
+    } catch (error) {
+      console.error("Failed to translate post:", error)
+    }
+  }
+
+  const shouldShowTranslateButton = post.language && user?.language && post.language !== user.language
+
+  const contentToDisplay = displayText && showOriginal ? displayText : post.content
 
 
     return (
@@ -39,7 +73,19 @@ export const IndividualPost = (post: Post) => {
                       <span className="text-gray-500">· {formatDate(post.created_at)}</span>
                 </header>
                 {/* contenido del post */}
-                <p className="font-normal ml-1">{post.content}</p>
+                <p className="font-normal ml-1">{contentToDisplay}</p>
+                <div className="flex justify-start">
+                  {shouldShowTranslateButton && (
+                    <button
+                      onClick={handleTranslate}
+                      disabled={isTranslating}
+                      className="text-sky-600 hover:text-sky-500 text-sm ml-1 mt-1 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    >
+                      {isTranslating ? "Traduciendo..." : showOriginal ? "Ver Original" : "Traducir"}
+                    </button>
+                  )}
+                </div>
+
                 {post.media_url && (
                   <img
                     src={post.media_url}

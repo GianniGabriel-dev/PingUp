@@ -62,13 +62,14 @@ export const getPostsByUser = async (
   });
 };
 
-export const updateUserData = async(user_id:number, data: { name?: string; bio?:string; avatar_url?: string; banner_url?: string })=>{
-  const { name, bio, avatar_url, banner_url } = data;
-  
+export const updateUserData = async(user_id:number, data: { name?: string; bio?:string; avatar_url?: string; banner_url?: string; language?: string })=>{
+  const { name, bio, avatar_url, banner_url, language } = data;
+
   if (name !== undefined) data.name = name;
   if (bio !== undefined) data.bio = bio;
   if (avatar_url !== undefined) data.avatar_url = avatar_url;
   if (banner_url !== undefined) data.banner_url = banner_url;
+  if (language !== undefined) data.language = language;
 
   return await prisma.user.update({
     where:{id: user_id},

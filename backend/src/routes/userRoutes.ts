@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from '../config/passport.js'
 import { follow } from '../controllers/socialController.js'
-import { getPostsUser, getUserByUsername, getUserData, updateProfile } from '../controllers/usersController.js'
+import { getPostsUser, getUserByUsername, getUserData, updateProfile, updateLanguagePreference } from '../controllers/usersController.js'
 import { uploadAvatarAndBanner, uploadMedia } from '../middlewares/uploadMedia.js'
 import { validateAvatarImg } from '../validations/mediaUploadValidation.js'
 import { optionalAuth } from '../middlewares/optionalAuth.js'
@@ -22,6 +22,11 @@ userRouter.patch("/updateProfile",
     uploadAvatarAndBanner,
     validateAvatarImg,
     updateProfile
+)
+
+userRouter.patch("/updateLanguage",
+    passport.authenticate ('jwt', {session:false}),
+    updateLanguagePreference
 )
 
 userRouter.get("/:username", optionalAuth, getUserByUsername)

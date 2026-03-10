@@ -4,7 +4,7 @@ import { CloseIcon, BackIcon } from "@/assets/icons/index.js";
 interface AuthDialogProps {
   showLogo: boolean;
   open: boolean;
-  step:number;
+  step?:number;
   onClose: () => void;
   style?:string
   onStepBack?: () => void;

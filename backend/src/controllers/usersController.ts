@@ -79,6 +79,35 @@ export const updateProfile = async (req: Request, res: Response) => {
   }
 };
 
+export const updateLanguagePreference = async (req: Request, res: Response) => {
+  try {
+    const userId = (req.user as { id: number }).id;
+    const language = req.body.language || (req.query.language as string);
+
+    if (!language || language.trim().length === 0) {
+      return res.status(400).json({ error: "Language is required" });
+    }
+
+    // Validate language code format (ISO 639-1: 2-5 chars, alphanumeric with optional hyphen)
+    if (!/^[a-z]{2}(-[a-z]{2})?$/i.test(language)) {
+      return res.status(400).json({ error: "Invalid language code format" });
+    }
+
+    const updatedUser = await updateUserData(userId, { language: language.toLowerCase() });
+
+    return res.status(200).json({
+      message: "Language preference updated successfully",
+      user: {
+        id: updatedUser.id,
+        language: updatedUser.language,
+      },
+    });
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Error updating language preference" });
+  }
+};
+
 //controlador que obitiene posts de un usaurio, puede obtener todos sus posts p todas sus respuestas si se el pasa post_id en los parámetoros
 
 export const getPostsUser = (isReply: boolean) => 

@@ -13,15 +13,20 @@ export const getContentById= async(id:number)=>{
     }
   })
 }
-//devuelve un booleano si existe o no la traducción
-export const existingTranslationPost= async(id:number, )=>{
-  const existing =await prisma.translation.findFirst({
-    where:{ 
-      id, 
+//devuelve la traducción si existe y null si no existe
+export const existingTranslationPost= async(content_id:number, target_language:string)=>{
+  const translation =await prisma.translation.findUnique({
+    where: {
+      content_id_target_language: {
+        content_id,
+        target_language,
+      },
     },
-    select:{id:true}
-  })
-  return existing != null // si existe es true si no false
+    select: {
+      translated_text: true,
+    },
+  });
+  return translation ?  translation.translated_text : null
 }
 
 //creacion de traduccion
