@@ -33,13 +33,21 @@ export const IndividualPost = (post: Post) => {
             />
             <div className="flex flex-col w-full ">
                 {/* header del post con los datos del usuario */}
-                <header className="flex gap-1 ml-1">
-                      <span className="text-white font-extrabold">{post.user.name}</span>
+                <header onClick={()=> navigate(`/${post.user.username}`)} className="flex gap-1 ml-1">
+                      <span className="text-white font-extrabold transition-all  hover:underline">{post.user.name}</span>
                       <span className="text-gray-500">@{post.user.username}</span>
                       <span className="text-gray-500">· {formatDate(post.created_at)}</span>
                 </header>
                 {/* contenido del post */}
                 <p className="font-normal ml-1">{post.content}</p>
+                {post.media_url && (
+                  <img
+                    src={post.media_url}
+                    alt="Media content"
+                    className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                )}
                 {/* Footer con los botones de interaccion */}
                 <footer className="w-full flex justify-between mt-2 text-gray-500">
                   <CommentButton totalComments={post._count.replies} post={post}/>

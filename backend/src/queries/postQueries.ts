@@ -3,22 +3,22 @@ import { prisma } from "./prisma.js";
 
 export const createPost = async (
   user_id: number,
-  content: string,
-  sentiment: string,
-  sentiment_score: number,
-  language: string,
+  content?: string | null,
+  sentiment?: string | null,
+  sentiment_score?: number | null,
+  language?: string | null,
   parent_post_id?: number | null,
   media_url?: string | null,
 ) => {
   return prisma.post.create({
     data: {
       user_id,
-      content,
-      sentiment,
-      sentiment_score,
-      language,
-      parent_post_id,
-      media_url,
+      content: content ?? undefined,
+      sentiment: sentiment ?? undefined,
+      sentiment_score: sentiment_score ?? undefined,
+      language: language ?? undefined,
+      parent_post_id: parent_post_id ?? undefined,
+      media_url: media_url ?? undefined,
     },
   });
 };

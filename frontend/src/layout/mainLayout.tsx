@@ -29,12 +29,22 @@ export function MainLayout() {
     }
   }, [isLoading, isOpen, modalType, user, navigate]);
 
-  console.log(user);
+  // Si los modales están abiertos, se bloque el scroll de la app
+  useEffect(() => {
+    if (isOpen) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+    } else {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
+
   return (
     <>
       <main className="flex  justify-center p-0">
         <LeftNavbar />
-        <section className="border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full ">
+        <section className={`border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full `}>
           <Outlet />
         </section>
         <RightNavbar />

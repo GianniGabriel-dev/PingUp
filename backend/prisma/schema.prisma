@@ -37,11 +37,11 @@ model Post {
   id              Int       @id @default(autoincrement())
   parent_post_id  Int?
   user_id         Int
-  content         String    @db.VarChar(280)
+  content         String?    @db.VarChar(280)
   media_url       String?   @db.VarChar(350)
   sentiment       String?   @db.VarChar(20)
   sentiment_score Float?
-  language        String    @db.VarChar(50)
+  language        String?    @db.VarChar(50)
   created_at      DateTime  @default(now())
 
   user     User @relation(fields: [user_id], references: [id], onDelete: Cascade)
