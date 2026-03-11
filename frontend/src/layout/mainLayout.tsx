@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { LeftNavbar } from "../components/navbar/leftNavbar";
 import { RightNavbar } from "../components/navbar/rightNavbar.js";
 import RegisterModal from "@/components/dialogs/register/register.js";
@@ -9,25 +9,23 @@ import ComposePost from "@/components/dialogs/writePost/composePost";
 import { useAuth } from "@/context/useAuth";
 import { useEffect } from "react";
 import EditProfile from "@/components/dialogs/editProfile/editProfile.js";
+import { Footer } from "./footerLayout.js";
 
 export function MainLayout() {
   const { user, isLoading } = useAuth();
-  const { isOpen, modalType } = useModal();
-  const navigate = useNavigate();
+  const { isOpen, modalType, openModal, closeModal } = useModal();
+
 
   useEffect(() => {
-    if (isLoading || user === undefined) return;
+    const PROTECTED_MODALS = ["compose", "onboarding-profile", "edit-profile"];
+
+    if (isLoading) return;
 
     // Si intenta abrir compose u onboarding sin estar logueado → bloqueamos
-    if (
-      isOpen &&
-      (modalType === "compose" || modalType === "onboarding-profile") &&
-      user === null
-    ) {
-      console.log(`open:${isOpen}, modalTy:${modalType}, user:${user} `);
-      navigate("/", { replace: true });
+    if (isOpen && PROTECTED_MODALS.includes(modalType!) && user === undefined) {
+      closeModal()
     }
-  }, [isLoading, isOpen, modalType, user, navigate]);
+  }, [isLoading, isOpen, modalType, user, closeModal]);
 
   // Si los modales están abiertos, se bloque el scroll de la app
   useEffect(() => {
@@ -43,6 +41,7 @@ export function MainLayout() {
   return (
     <>
       <main className="flex  justify-center p-0">
+        <Footer user={user} openModal={openModal} isLoading={isLoading}/>
         <LeftNavbar />
         <section className={`border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full `}>
           <Outlet />

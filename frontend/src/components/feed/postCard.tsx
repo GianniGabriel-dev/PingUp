@@ -20,18 +20,14 @@ export const IndividualPost = (post: Post) => {
   const handleTranslate = async (e: React.MouseEvent) => {
     e.stopPropagation()
 
-
-
     if (showOriginal) {
       setShowOriginal(false)
       setDisplayText(null)
       return
     }
 
-    if (!user?.language) return
-
     try {
-      const translation = await translatePost({ postId: post.id, targetLanguage: user.language })
+      const translation = await translatePost({ postId: post.id, targetLanguage: userLanguage})
       setDisplayText(translation.translation)
       setShowOriginal(true)
     } catch (error) {
@@ -39,8 +35,11 @@ export const IndividualPost = (post: Post) => {
     }
   }
 
-  const shouldShowTranslateButton = post.language && user?.language && post.language !== user.language
+  //si hay un usuario logueado se le da su language de la base de datos, para los usuarion no logueado se establece español como default
+  const userLanguage= user?.language ? user.language : "es"
 
+  const shouldShowTranslateButton = post.language && userLanguage && post.language !== userLanguage
+  // en base al estado de showOriginal muestra el texto traducido o el del post original
   const contentToDisplay = displayText && showOriginal ? displayText : post.content
 
 
@@ -101,7 +100,10 @@ export const IndividualPost = (post: Post) => {
                   {/*si existe se le pasa true o false si el usuario le ha dado like o no, y si no se encuentra post.likes significa que no se está logeuado y se le pasa al boton false*/}
                   <LikeButton postId={post.id} likes={post._count.likes}  initialIsLiked={post.likes ? post.likes.length > 0 : false}/>
                   <RetweetButton/>
-                  <MoreOptionsIcon/>
+                <div className="hover:bg-blue-500/25 hover:text-blue-500 transition-all rounded-full duration-300 w-7 h-7 flex items-center justify-center">
+                  <MoreOptionsIcon size={20} />
+                </div>
+                  
                 </footer>
                 
             </div>
