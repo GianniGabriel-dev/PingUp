@@ -93,7 +93,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
 
   return (
     <form
-      className={`w-full p-4 pb-0 ${isReply ? "pt-3" : "border-b border-gray-600"}`}
+      className={`w-full p-4  border-b border-gray-600 pb-0 ${isReply ? "pt-3" : ""}`}
       onSubmit={handleSubmit}
     >
       <div className={`flex items-start gap-3 p-4 ${isReply ? "pt-1" : ""}`}>

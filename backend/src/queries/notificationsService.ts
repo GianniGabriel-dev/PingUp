@@ -36,3 +36,19 @@ export const findReceiverId = async (post_id:number) => {
   
     return post?.user_id ?? null;
   };
+
+export const getNotification = async (user_id: number) => {
+const notifications = await prisma.notification.findMany({
+  where: { receiver_id: user_id },
+  include: {
+    sender: {
+      select: { id: true, username: true, avatar_url: true },
+    },
+    post: {
+      select: { id: true, content: true, media_url: true },
+    },
+  },
+  orderBy: { created_at: "desc" },
+});
+  return notifications;
+};

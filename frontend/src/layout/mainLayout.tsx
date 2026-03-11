@@ -41,7 +41,8 @@ export function MainLayout() {
   return (
     <>
       <main className="flex  justify-center p-0">
-        <Footer user={user} openModal={openModal} isLoading={isLoading}/>
+        {!user && (<Footer user={user} openModal={openModal} isLoading={isLoading}/>)}
+        
         <LeftNavbar />
         <section className={`border-r border-l max-sm:border-r-0 border-gray-600 grow  max-w-2xl max-lg:w-full `}>
           <Outlet />

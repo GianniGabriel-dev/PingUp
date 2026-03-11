@@ -12,11 +12,12 @@ export function formatDate(isoDate: string): string {
   const hours = now.diff(date, "hour");
   const days = now.diff(date, "day");
 
+  if (seconds < 10) return `Hace un momento`;
   if (seconds < 60) return `${seconds}s`;
   if (minutes < 60) return `${minutes}m`;
   if (hours < 24) return `${hours}h`;
   if (days <= 30) return `${days}d`;
 
   // Más de 30 días - "20 jul"
-  return date.format("D MMM");
+  return date.format("D MMM YYYY");
 }

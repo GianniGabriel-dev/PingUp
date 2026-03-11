@@ -49,6 +49,7 @@ model Post {
   translations Translation[]
   parent   Post?   @relation("PostReplies", fields: [parent_post_id], references: [id], onDelete: Cascade)
   replies  Post[]  @relation("PostReplies")
+  notifications  Notification[]
 }
 
 model Like {
@@ -101,4 +102,5 @@ model Notification {
 
   sender   User @relation("Sender", fields: [sender_id], references: [id], onDelete: Cascade)
   receiver User @relation("Receiver", fields: [receiver_id], references: [id], onDelete: Cascade)
+  post        Post? @relation(fields: [post_id], references: [id], onDelete: Cascade)
 }
