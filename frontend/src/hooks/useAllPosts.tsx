@@ -1,11 +1,11 @@
 import { PostsResponse } from "@/components/feed/typesPost.js";
 import { useAuth } from "@/context/useAuth.js";
 import { api } from "@/lib/axios.js";
-import { useInfiniteQuery} from "@tanstack/react-query";
+import { QueryKey, useInfiniteQuery} from "@tanstack/react-query";
 
 type PostsQueryParams = {
   url:string
-  queryKey:(string | number | undefined)[]
+  queryKey:QueryKey
   limit?: number
   enabledParam?: boolean
 }

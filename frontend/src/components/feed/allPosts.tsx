@@ -5,19 +5,16 @@ import { useInifnitePosts } from "@/hooks/useAllPosts.js";
 import { useEffect, useRef } from "react";
 
 
-export const AllPosts = ({ filters }: { filters: string[] }) => {
-
-  const queryKey = ["allPosts", filters];
+export const AllPosts = ({ filters }: { filters: string[] }) => { 
   const urlParams = filters.length > 0 ? `?sentiment=${filters.join(",")}` : "";
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
     useInifnitePosts({
       url: `post${urlParams}`,
-      queryKey: queryKey,
+      queryKey: ["allPosts", filters],
       limit: 10,
       enabledParam: true,
     });
-    console.log(data)
 
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
     useEffect(() => {
