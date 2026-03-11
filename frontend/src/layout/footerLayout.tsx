@@ -13,7 +13,7 @@ export const Footer = ({ user, openModal, isLoading }: FooterProps) => {
     <footer className="fixed bottom-0 left-0 w-full bg-blue-500 p-4 flex justify-center items-center lg:hidden">
       {!user &&
         (isLoading ? (
-          <LoadingIcon size={40} />
+          <LoadingIcon/>
         ) : (
           <section className="w-full max-w-md flex flex-col gap-3">
             <article className="text-center">

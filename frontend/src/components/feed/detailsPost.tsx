@@ -37,7 +37,7 @@ export const DetailsPost = () => {
       }, [fetchNextPage, hasNextPage]);
 
 
-  if (isLoading) return <LoadingIcon size={40}/>
+  if (isLoading) return <LoadingIcon/>
   if (!data) return null;
   
   console.log(data);
@@ -70,7 +70,7 @@ export const DetailsPost = () => {
             <IndividualPost key={reply.id} {...reply} />
           )),
         )}
-        {isFetchingNextPage && <LoadingIcon size={30} />}
+        {isFetchingNextPage && <LoadingIcon/>}
         {/*Observer que detecta cuando se llega al final de la lista de comentarios para cargar más */}
         {hasNextPage && <div ref={loadMoreRef} style={{ height: 1 }} />}
       </section>

@@ -43,6 +43,7 @@ export const getAllPosts = async (
   limit: number,
   cursor?: { createdAt: string; id: number },
   currentUserId?: number,
+  sentiments?: string[],
 ) => {
   return prisma.post.findMany({
     take: limit,
@@ -50,6 +51,8 @@ export const getAllPosts = async (
       parent_post_id: null,
       //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
       ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
+      //si hay sentimientos especificados, se filtra por ellos
+      ...(sentiments && sentiments.length > 0 ? { sentiment: { in: sentiments } } : {}),
     },
     // datos necesarios para renderizar los posts en la feed
     include: basePostInclude(currentUserId),

@@ -5,12 +5,15 @@ import { useInifnitePosts } from "@/hooks/useAllPosts.js";
 import { useEffect, useRef } from "react";
 
 
-export const AllPosts = () => {
+export const AllPosts = ({ filters }: { filters: string[] }) => {
+
+  const queryKey = ["allPosts", filters];
+  const urlParams = filters.length > 0 ? `?sentiment=${filters.join(",")}` : "";
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage, error } =
     useInifnitePosts({
-      url: `post`,
-      queryKey: ["allPosts"],
+      url: `post${urlParams}`,
+      queryKey: queryKey,
       limit: 10,
       enabledParam: true,
     });
@@ -21,7 +24,7 @@ export const AllPosts = () => {
       osbserverHook(loadMoreRef, hasNextPage, fetchNextPage)
     }, [fetchNextPage, hasNextPage]);
 
-  if (isLoading) return <LoadingIcon size={40}/>
+  if (isLoading) return <LoadingIcon />
   if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;
   
@@ -33,7 +36,7 @@ export const AllPosts = () => {
             <IndividualPost key={post.id} {...post} />
           )) : null
         )}
-        {isFetchingNextPage && <LoadingIcon size={30} />}
+        {isFetchingNextPage && <LoadingIcon/>}
         {/*Observer que detecta cuando se llega al final de la lista de comentarios para cargar más */}
         {hasNextPage && <div ref={loadMoreRef} style={{ height: 1 }} />}
     </>

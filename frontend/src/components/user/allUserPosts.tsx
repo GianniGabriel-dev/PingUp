@@ -30,7 +30,7 @@ export const AllUserPosts = () => {
     osbserverHook(loadMoreRef, hasNextPage, fetchNextPage);
   }, [fetchNextPage, hasNextPage]);
 
-  if (isLoading) return <LoadingIcon size={40} />;
+  if (isLoading) return <LoadingIcon/>;
   if (isError) return null;
 
   return (
@@ -70,7 +70,7 @@ export const AllUserPosts = () => {
           ? page.posts.map((post) => <IndividualPost key={post.id} {...post} />)
           : null,
       )}
-      {isFetchingNextPage && <LoadingIcon size={30} />}
+      {isFetchingNextPage && <LoadingIcon/>}
       {/*Observer que detecta cuando se llega al final de la lista de comentarios para cargar más */}
       {hasNextPage && <div ref={loadMoreRef} style={{ height: 1 }} />}
     </>

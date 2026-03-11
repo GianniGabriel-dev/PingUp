@@ -93,6 +93,10 @@ export const getPosts = async (req: Request, res: Response) => {
     // Forzar límites si el usuario intenta excederlos
     if (limit > MAX_LIMIT || limit < 1) limit = MAX_LIMIT;
 
+    //obtener los sentimientos del query parameter (sentiment=positivo,neutral,negativo)
+    const sentimentParam = req.query.sentiment as string;
+    const sentiments = sentimentParam ? sentimentParam.split(",").map(s => s.trim()) : undefined;
+
     //si se da el post id significa que se quieren obtener los detalles de un post, es decir, el post principal y sus comentarios
     if (postId) {
       const posts = await getDetailsOfPost(postId, limit, cursor, userId);
@@ -119,7 +123,7 @@ export const getPosts = async (req: Request, res: Response) => {
         hasMore: posts.replies.length === limit,
       });
     }
-    const posts = await getAllPosts(limit, cursor, userId);
+    const posts = await getAllPosts(limit, cursor, userId, sentiments);
     const nextCursor =
       posts.length > 0
         ? {
