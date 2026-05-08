@@ -85,7 +85,7 @@ export const HeroUser = ({
           </div>
 
           {/* Bio */}
-          <p className="text-sm text-gray-500 whitespace-pre-line">
+          <p className="text-sm text-white whitespace-pre-line">
             {data.bio}
           </p>
 

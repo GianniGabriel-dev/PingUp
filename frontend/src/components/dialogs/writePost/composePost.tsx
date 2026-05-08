@@ -49,12 +49,14 @@ export default function ComposePost() {
                   </span>
                 </header>
                 <p className="font-normal">{post.content}</p>
-                <img
-                  src={post.media_url}
-                  alt="Media content"
-                  className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
-                  loading="lazy"
-                />
+                {post.media_url && (
+                  <img
+                    src={post.media_url}
+                    alt="Media content"
+                    className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+                    loading="lazy"
+                  />
+                )}
 
                 <p className="text-gray-500 mt-2">
                   Respondiendo a{" "}

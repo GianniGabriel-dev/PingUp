@@ -56,7 +56,7 @@ export const AllUserPosts = () => {
               className="flex items-center justify-center w-full h-full"
             >
               <span className="relative inline-block px-4 py-2 font-bold">
-                Replies
+                Respuestas
                 {view === "replies" && (
                   <span className="absolute left-0 bottom-0 w-full h-1 bg-blue-500 rounded-md"></span>
                 )}

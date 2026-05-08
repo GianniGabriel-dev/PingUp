@@ -15,11 +15,13 @@ const { data: user, isLoading } = useQuery({
       const res = await api.get<UserInfo>("/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
+        console.log(res.data)
       return res.data;
     },
     enabled: !!token, // solo ejecuta si hay token
     refetchOnWindowFocus: false,
   });
+
 
   return (
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
