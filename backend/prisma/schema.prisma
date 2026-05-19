@@ -27,6 +27,7 @@ model User {
   
   posts      Post[]
   likes      Like[]
+  reposts    Repost[]
   followers  Follow[] @relation("Follower")
   following  Follow[] @relation("Following")
   sentNotifications     Notification[] @relation("Sender")
@@ -42,6 +43,7 @@ model Post {
   sentiment       String?   @db.VarChar(20)
   sentiment_score Float?
   language        String?    @db.VarChar(50)
+  deleted_at      DateTime?
   created_at      DateTime  @default(now())
 
   user     User @relation(fields: [user_id], references: [id], onDelete: Cascade)
@@ -49,6 +51,7 @@ model Post {
   translations Translation[]
   parent   Post?   @relation("PostReplies", fields: [parent_post_id], references: [id], onDelete: Cascade)
   replies  Post[]  @relation("PostReplies")
+  reposts  Repost[]
   notifications  Notification[]
 }
 
@@ -57,6 +60,18 @@ model Like {
   created_at DateTime @default(now())
   user_id    Int
   post_id    Int
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+
+  @@unique([user_id, post_id])
+}
+
+model Repost {
+  id         Int      @id @default(autoincrement())
+  user_id    Int
+  post_id    Int
+  created_at DateTime @default(now())
 
   user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
   post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)

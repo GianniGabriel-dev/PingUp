@@ -24,7 +24,6 @@ export const AllPosts = ({ filters }: { filters: string[] }) => {
   if (isLoading) return <LoadingIcon />
   if (error) return <p>Error al cargar posts</p>;
   if (!data) return null;
-  
 
   return (
     <>

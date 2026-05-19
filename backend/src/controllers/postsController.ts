@@ -105,7 +105,7 @@ export const getPosts = async (req: Request, res: Response) => {
       if (!posts) {
         return res.status(404).json({ error: "Post not found" });
       }
-      //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
+      //el siguiente cursor es un objeto con la fecha de creacion y el id del ultimo post obtenido
       const nextCursor =
         posts.replies.length > 0
           ? {

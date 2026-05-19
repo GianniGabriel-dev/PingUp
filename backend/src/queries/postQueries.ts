@@ -1,4 +1,4 @@
-import { basePostInclude, cursorFilter} from "./helpers/postsHelpers.js";
+import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js";
 
 export const createPost = async (
@@ -51,8 +51,21 @@ export const getAllPosts = async (
       parent_post_id: null,
       //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
       ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
-      //si hay sentimientos especificados, se filtra por ellos
-      ...(sentiments && sentiments.length > 0 ? { sentiment: { in: sentiments } } : {}),
+      //si hay sentimientos especificados, se filtra por ellos, tabmien inclye los post sin snetimiento, es decir post con solo contenido multiemdia
+      ...(sentiments && sentiments.length > 0
+        ? {
+            OR: [
+              {
+                sentiment: {
+                  in: sentiments,
+                },
+              },
+              {
+                sentiment: null,
+              },
+            ],
+          }
+        : {}),
     },
     // datos necesarios para renderizar los posts en la feed
     include: basePostInclude(currentUserId),
