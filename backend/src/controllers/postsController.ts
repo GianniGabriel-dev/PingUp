@@ -4,6 +4,7 @@ import { analyzeSentiment, getSentimentLabel } from "../services/nlpService.js";
 import { translatePostContent } from "../services/translationService.js";
 import {
   createPost,
+  deletePost,
   getAllPosts,
   getDetailsOfPost,
 } from "../queries/postQueries.js";
@@ -168,3 +169,19 @@ export const translatePost = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const deleteUserPost = async (req: Request, res: Response) => {
+  try {
+    const post_id = Number(req.params.post_id);
+
+    await deletePost(post_id);
+
+    return res.status(200).json({
+      message: "Post deleted successfully",
+    });
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+

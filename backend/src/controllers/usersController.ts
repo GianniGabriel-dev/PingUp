@@ -167,4 +167,3 @@ export const getPostsUser = (isReply: boolean) =>
       return res.status(500).json({ error: "Error getting posts" });
     }
   };
-

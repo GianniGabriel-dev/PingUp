@@ -10,7 +10,7 @@ import {
   followUser,
   likeExisting,
   likePost,
-} from "../queries/likeAndFollowQueries.js";
+} from "../queries/likeFollowAndRepostQueries.js";
 
 export const toggleLike = async (userId: number, post_id: number) => {
   const [existing, receiver_id] = await Promise.all([

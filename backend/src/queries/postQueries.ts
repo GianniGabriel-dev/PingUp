@@ -25,7 +25,7 @@ export const createPost = async (
 
 //funcion que devuelve todos los posts, se usa solo para la vista de admin para implemetar paginacion al mostarr posts
 export const getAllPostsAdmin = async (limit: number, skip: number) => {
-  return await prisma.post.findMany({
+  return prisma.post.findMany({
     //skip es una función de prisma equivalente al offset, este se salta los resultados anteriores para crear paginación
     skip,
     //take coge cuantos posts mostrar por pagina
@@ -92,5 +92,12 @@ export const getDetailsOfPost = async (
         include: basePostInclude(currentUserId),
       },
     },
+  });
+};
+
+export const deletePost = async (postId: number) => {
+  return prisma.post.update({
+    where: { id: postId },
+    data: { deleted_at: new Date() },
   });
 };
