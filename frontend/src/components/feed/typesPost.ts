@@ -9,6 +9,16 @@ export interface User {
 export interface PostCount {
   likes: number;
   replies: number;
+  reposts: number;
+}
+
+// Información del usuario que reposteó
+export interface RepostUser {
+  id: number;
+  user: {
+    username: string;
+    name: string;
+  };
 }
 
 // Post individual
@@ -25,7 +35,9 @@ export interface Post {
   replies: Post[]; 
   user: User;
   _count: PostCount;
-  likes: [{id:number}]  //sirve apra ver si el usuario ha dado like a un post
+  likes: [{id:number}]  //sirve para ver si el usuario ha dado like a un post
+  reposts: [{id:number}] //sirve para ver si el usuario ha dado repost a un post
+  repostedBy: RepostUser[] // información del usuario que reposteó
 }
 
 // el cursor es el conjunto de la fecha y el id del último post fetcheado

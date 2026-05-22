@@ -32,7 +32,7 @@ export const AllUserPosts = () => {
 
   if (isLoading) return <LoadingIcon/>;
   if (isError) return null;
-
+console.log(data)
   return (
     <>
       <nav>

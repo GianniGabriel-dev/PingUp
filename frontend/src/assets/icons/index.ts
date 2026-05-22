@@ -8,6 +8,7 @@ export { LogoutIcon } from "./LogoutIcon";
 export { HearthIcon } from "./HearthIcon";
 export { CommentIcon } from "./CommentIcon";
 export { RetweetIcon } from "./RetweetIcon";
+export { RetweetIcon2 } from "./RetweetIcon2";
 export { LoadingIcon } from "./LoadingIcon";
 export { AddPhotoIcon } from "./AddPhotoIcon"
 export { BackIcon } from "./BackIcon"

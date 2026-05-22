@@ -9,7 +9,7 @@ import {
   getDetailsOfPost,
 } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
-import { toggleLike } from "../services/likeFollowAndRepostServices.js";
+import { toggleLike, toggleRepost } from "../services/likeFollowAndRepostServices.js";
 import { Post } from "@prisma/client";
 import { repostPost } from "../queries/likeFollowAndRepostQueries.js";
 
@@ -189,7 +189,7 @@ export const repost = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
     const post_id = Number(req.params.post_id);
-    const result = await repostPost(userId, post_id);
+    const result = await toggleRepost(userId, post_id);
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

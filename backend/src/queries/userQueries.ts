@@ -68,6 +68,7 @@ export const getPostsByUser = async (
         ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
       },
       include: {
+        user: { select: { id: true, username: true, name: true } },
         post: {
           include: basePostInclude(currentUserId),
         },
@@ -81,9 +82,7 @@ export const getPostsByUser = async (
     ...posts,
     ...reposts.map(r => ({
       ...r.post,
-      isRepost: true,
-      repostedBy: r.user_id,
-      repostedAt: r.created_at
+      repostedBy: [{ id: r.user_id, user: { username: r.user.username, name: r.user.name } }],
     }))
   ];
 

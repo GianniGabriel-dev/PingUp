@@ -3,7 +3,7 @@ export const basePostInclude = (currentUserId?: number) => ({
   user: { select: { username: true, avatar_url: true, name: true } },
 
   _count: {
-    select: { likes: true, replies: true },
+    select: { likes: true, replies: true, reposts: true },
   },
 
   likes: currentUserId
@@ -13,6 +13,13 @@ export const basePostInclude = (currentUserId?: number) => ({
         take: 1,
       }
     : false,
+  reposts: currentUserId
+    ? {
+        where: { user_id: currentUserId },
+        select: { id: true },
+        take: 1,
+      }
+    : false,  
 });
 
 //función que construye el filtro para la paginación con cursor
