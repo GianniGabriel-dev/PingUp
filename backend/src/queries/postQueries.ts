@@ -66,6 +66,7 @@ export const getAllPosts = async (
             ],
           }
         : {}),
+      deleted_at: null,
     },
     // datos necesarios para renderizar los posts en la feed
     include: basePostInclude(currentUserId),

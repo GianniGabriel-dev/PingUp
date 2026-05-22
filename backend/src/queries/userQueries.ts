@@ -48,18 +48,49 @@ export const getPostsByUser = async (
   currentUserId?: number
 
 ) => {
-  return prisma.post.findMany({
-    take: limit,
-    where: {
-      user: { username },
-      parent_post_id: null, // solo posts originales
-      //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
-      ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
-    },
-    // datos necesarios para renderizar los posts en la feed
-    include: basePostInclude(currentUserId),
-    orderBy: [{ created_at: "desc" }, { id: "desc" }],
-  });
+  const [posts, reposts] = await Promise.all([
+    prisma.post.findMany({
+      take: limit,
+      where: {
+        user: { username },
+        parent_post_id: null, // solo posts originales
+        //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
+        ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
+      },
+      // datos necesarios para renderizar los posts en la feed
+      include: basePostInclude(currentUserId),
+      orderBy: [{ created_at: "desc" }, { id: "desc" }],
+    }),
+    prisma.repost.findMany({
+      take: limit,
+      where: {
+        user: { username },
+        ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
+      },
+      include: {
+        post: {
+          include: basePostInclude(currentUserId),
+        },
+      },
+      orderBy: [{ created_at: "desc" }, { id: "desc" }],
+    })
+  ]);
+
+  // Combinar posts y reposts
+  const combined = [
+    ...posts,
+    ...reposts.map(r => ({
+      ...r.post,
+      isRepost: true,
+      repostedBy: r.user_id,
+      repostedAt: r.created_at
+    }))
+  ];
+
+  // Ordenar por fecha de creación descendente
+  return combined.sort((a, b) => 
+    new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  ).slice(0, limit);
 };
 
 export const updateUserData = async(user_id:number, data: { name?: string; bio?:string; avatar_url?: string; banner_url?: string; language?: string })=>{

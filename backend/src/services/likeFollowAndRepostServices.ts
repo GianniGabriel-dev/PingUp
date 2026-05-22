@@ -6,10 +6,12 @@ import {
 import {
   deleteFollow,
   deleteLike,
+  deleteRepost,
   followExisting,
   followUser,
   likeExisting,
   likePost,
+  repostPost,
 } from "../queries/likeFollowAndRepostQueries.js";
 
 export const toggleLike = async (userId: number, post_id: number) => {
@@ -50,5 +52,23 @@ export const toggleFollow = async (userId: number, followingId: number) => {
       await createNotification("follow", userId, followingId);
     }
     return { msg: "follow dado" };
+  }
+};
+
+export const toggleRepost = async (userId: number, post_id: number) => {
+  const existing = await likeExisting(userId, post_id);
+  if (existing) {
+    await Promise.all([
+      deleteRepost(userId, post_id),
+      deleteNotification("repost", userId, post_id),
+    ]);
+    return { msg: "repost quitado" };
+  } else {
+    await repostPost(userId, post_id);
+    //si el usuario no se da like a si mismo crea una notificación
+    if (userId != post_id) {
+      await createNotification("repost", userId, post_id);
+    }
+    return { msg: "repost dado" };
   }
 };

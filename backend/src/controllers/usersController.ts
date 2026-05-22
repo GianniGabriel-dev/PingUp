@@ -108,13 +108,10 @@ export const updateLanguagePreference = async (req: Request, res: Response) => {
   }
 };
 
-//controlador que obitiene posts de un usaurio, puede obtener todos sus posts p todas sus respuestas si se el pasa post_id en los parámetoros
-
-export const getPostsUser = (isReply: boolean) => 
+export const getPostsUser = (type: 'posts' | 'replies') => 
   async (req: Request, res: Response) => {
     try {
       const MAX_LIMIT = 20;
-      //currentUserId se usa para comprobar a que posts el usuario ha dado like, puede ser undefined si el usuario no está autenticado 
       const currentUserId = (req.user as { id: number })?.id;
       const username = req.params.username;
 
@@ -122,19 +119,15 @@ export const getPostsUser = (isReply: boolean) =>
         ? JSON.parse(req.query.cursor as string)
         : undefined;
       console.log(cursor);
-      //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
       let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
-      // Forzar límites si el usuario intenta excederlos
       if (limit > MAX_LIMIT || limit < 1) limit = MAX_LIMIT;
 
-      //si es isReply es true significa se obtienen respuetas del usuario
-      if (isReply) {
+      if (type === 'replies') {
         const posts = await getRepliesByUser(username, limit, cursor, currentUserId);
 
         if (!posts) {
           return res.status(404).json({ error: "Posts not found" });
         }
-        //el siguente cirsor es un objeto con la fecha de creacion y el id del ultimo post obtenido
         const nextCursor =
           posts.length > 0
             ? {
@@ -145,11 +138,11 @@ export const getPostsUser = (isReply: boolean) =>
         return res.status(200).json({
           posts,
           nextCursor,
-          //normalmente si la cantidad de posts obtenidos es menor que el limite, significa que no hay mas posts que obtener
           hasMore: posts.length === limit,
         });
       }
-      const posts = await getPostsByUser(username, limit,  cursor, currentUserId);
+
+      const posts = await getPostsByUser(username, limit, cursor, currentUserId);
       const nextCursor =
         posts.length > 0
           ? {

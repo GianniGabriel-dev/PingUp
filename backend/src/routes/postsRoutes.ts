@@ -7,6 +7,7 @@ import {
   getPosts,
   like,
   newPost,
+  repost,
   translatePost,
 } from "../controllers/postsController.js";
 import { uploadMedia } from "../middlewares/uploadMedia.js";
@@ -38,4 +39,11 @@ postsRouter.post(
   passport.authenticate("jwt", { session: false }),
   like,
 );
+
+postsRouter.post(
+  "/repost/:post_id",
+  passport.authenticate("jwt", { session: false }),
+  repost,
+);
+
 postsRouter.post("/post/:post_id/translate", translatePost);

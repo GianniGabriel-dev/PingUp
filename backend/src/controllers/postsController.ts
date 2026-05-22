@@ -9,8 +9,9 @@ import {
   getDetailsOfPost,
 } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
-import { toggleLike } from "../services/likeAndFollowServices.js";
+import { toggleLike } from "../services/likeFollowAndRepostServices.js";
 import { Post } from "@prisma/client";
+import { repostPost } from "../queries/likeFollowAndRepostQueries.js";
 
 export const newPost = async (
   req: Request,
@@ -184,4 +185,14 @@ export const deleteUserPost = async (req: Request, res: Response) => {
   }
 };
 
+export const repost = async (req: Request, res: Response) => {
+  try {
+    const userId = (req.user as { id: number }).id;
+    const post_id = Number(req.params.post_id);
+    const result = await repostPost(userId, post_id);
+    return res.json(result);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 

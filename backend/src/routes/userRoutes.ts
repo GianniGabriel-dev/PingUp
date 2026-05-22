@@ -36,8 +36,8 @@ userRouter.get("/notifications",
 
 userRouter.get("/:username", optionalAuth, getUserByUsername)
 
-//get post user recibe false o true dependiendo de si se quieren obtener solo los posts originales o también las respuestas
-userRouter.get("/:username/posts", optionalAuth , getPostsUser(false))
+//get post user recibe 'posts' o 'replies' dependiendo del tipo de contenido que se quiera obtener
+userRouter.get("/:username/posts", optionalAuth , getPostsUser('posts'))
 
-userRouter.get("/:username/replies", optionalAuth , getPostsUser(true))
+userRouter.get("/:username/replies", optionalAuth , getPostsUser('replies'))
 

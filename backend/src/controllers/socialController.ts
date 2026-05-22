@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { toggleFollow } from "../services/likeAndFollowServices.js";
+import { toggleFollow } from "../services/likeFollowAndRepostServices.js";
 import { getNotification } from "../queries/notificationsService.js";
 
 export const follow = async (req: Request, res: Response) => {
