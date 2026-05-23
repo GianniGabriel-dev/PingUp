@@ -37,6 +37,7 @@ export interface Post {
   _count: PostCount;
   likes: [{id:number}]  //sirve para ver si el usuario ha dado like a un post
   reposts: [{id:number}] //sirve para ver si el usuario ha dado repost a un post
+  deleted_at: string | null; // para detectar si el post ha sido eliminado
   repostedBy: RepostUser[] // información del usuario que reposteó
 }
 

@@ -7,7 +7,6 @@ import {
 } from "@/assets/icons/";
 import { UserInfo } from "@/context/authContext.js";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover.js";
-import { useNavigate } from "react-router-dom";
 import { useModal } from "@/hooks/useModal.js";
 import { useState } from "react";
 

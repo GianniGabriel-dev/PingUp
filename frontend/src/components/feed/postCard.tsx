@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/context/useAuth.js";
 import { useTranslatePost } from "@/hooks/useTranslatePost.js";
-import { RetweetIcon2 } from "@/assets/icons/index.js";
+import { CommentIcon2, RetweetIcon2 } from "@/assets/icons/index.js";
 import { MoreOptions } from "./moreOptions.js";
 
 export const IndividualPost = (post: Post) => {
@@ -88,6 +88,22 @@ export const IndividualPost = (post: Post) => {
                 }}
               >
                 {post.repostedBy[0].user.name} reposteó esto
+              </Link>
+            </div>
+          )}
+                    {/* Indicador de respuesta a otro post */}
+          {post.parent_post_id && (
+            <div className="flex items-center gap-1 ml-1 mb-1 text-gray-500 text-sm">
+              <CommentIcon2 size={16} />
+              <Link
+                to={`/post/${post.parent_post_id}`}
+                className="hover:underline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/post/${post.parent_post_id}`);
+                }}
+              >
+                {post.user.name} respondió a este post
               </Link>
             </div>
           )}

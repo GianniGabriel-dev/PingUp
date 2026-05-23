@@ -13,11 +13,13 @@ import {
 import { uploadMedia } from "../middlewares/uploadMedia.js";
 import { validatePostMedia } from "../validations/mediaUploadValidation.js";
 import { optionalAuth } from "../middlewares/optionalAuth.js";
+import { createPostLimiter } from "../middlewares/rateLimit.js";
 export const postsRouter = express.Router();
 
 postsRouter.post(
   "/post",
   passport.authenticate("jwt", { session: false }),
+  createPostLimiter,
   uploadMedia("media"),
   validatePostMedia,
   postValidator,
