@@ -1,7 +1,6 @@
 import { formatDate } from "@/utils/formatDate.js";
 import { Post } from "./typesPost.js";
 import LikeButton from "./likeButton.js";
-import { MoreOptionsIcon } from "@/assets/icons/MoreOptionsIcon.js";
 import CommentButton from "./commentButton.js";
 import RetweetButton from "./retweetButton.js";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/useAuth.js";
 import { useTranslatePost } from "@/hooks/useTranslatePost.js";
 import { RetweetIcon2 } from "@/assets/icons/index.js";
+import { MoreOptions } from "./moreOptions.js";
 
 export const IndividualPost = (post: Post) => {
   const navigate = useNavigate();
@@ -150,9 +150,7 @@ export const IndividualPost = (post: Post) => {
               reposts={post._count.reposts}
               initialIsReposted={post.reposts ? post.reposts.length > 0 : false}
             />
-            <div className="hover:bg-blue-500/25 hover:text-blue-500 transition-all rounded-full duration-300 w-7 h-7 flex items-center justify-center">
-              <MoreOptionsIcon size={20} />
-            </div>
+            {user && <MoreOptions user={user} postId={post.id} idUserPost={post.user_id} usernameOfPost={post.user.username} />}
           </footer>
         </div>
       </div>

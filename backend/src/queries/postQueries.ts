@@ -88,7 +88,11 @@ export const getDetailsOfPost = async (
 
       replies: {
         take: limit,
-        where: cursorFilter(cursor),
+        where: {
+          ...cursorFilter(cursor),
+          deleted_at: null,
+        },
+
         orderBy: [{ created_at: "desc" }, { id: "desc" }],
         include: basePostInclude(currentUserId),
       },
@@ -98,7 +102,7 @@ export const getDetailsOfPost = async (
 
 export const deletePost = async (postId: number) => {
   return prisma.post.update({
-    where: { id: postId },
+    where: { id: postId, deleted_at: null },
     data: { deleted_at: new Date() },
   });
 };

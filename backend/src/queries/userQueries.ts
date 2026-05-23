@@ -53,6 +53,7 @@ export const getPostsByUser = async (
       take: limit,
       where: {
         user: { username },
+        deleted_at: null,
         parent_post_id: null, // solo posts originales
         //se construye el objeto where desde dentro con el spread operator e inyecta propiedades si hay cursor
         ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
@@ -116,6 +117,7 @@ export const getRepliesByUser = async (
   return prisma.post.findMany({
     where: {
       user: { username },
+      deleted_at: null,
       parent_post_id: { not: null }, // solo replies
       ...cursorFilter(cursor),
     },

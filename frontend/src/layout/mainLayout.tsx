@@ -10,6 +10,7 @@ import { useAuth } from "@/context/useAuth";
 import { useEffect } from "react";
 import EditProfile from "@/components/dialogs/editProfile/editProfile.js";
 import { Footer } from "./footerLayout.js";
+import { DeleteConfirmation } from "@/components/dialogs/deletePost/deleteConfirmation.js";
 
 export function MainLayout() {
   const { user, isLoading } = useAuth();
@@ -58,6 +59,7 @@ export function MainLayout() {
       )}
       {isOpen && modalType === "edit-profile" && user && <EditProfile />}
       {isOpen && modalType === "compose" && user && <ComposePost />}
+      {isOpen && modalType === "deletePost" && user && <DeleteConfirmation />}
     </>
   );
 }
