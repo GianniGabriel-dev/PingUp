@@ -9,6 +9,7 @@ import { useAuth } from "@/context/useAuth.js";
 import { useTranslatePost } from "@/hooks/useTranslatePost.js";
 import { CommentIcon2, RetweetIcon2 } from "@/assets/icons/index.js";
 import { MoreOptions } from "./moreOptions.js";
+import VideoPost from "./videoPost.js";
 
 export const IndividualPost = (post: Post) => {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ export const IndividualPost = (post: Post) => {
               </Link>
             </div>
           )}
-                    {/* Indicador de respuesta a otro post */}
+          {/* Indicador de respuesta a otro post */}
           {post.parent_post_id && (
             <div className="flex items-center gap-1 ml-1 mb-1 text-gray-500 text-sm">
               <CommentIcon2 size={16} />
@@ -109,12 +110,10 @@ export const IndividualPost = (post: Post) => {
           )}
           {/* header del post con los datos del usuario */}
           <header
-            onClick={
-              ((e) => {
-                e.stopPropagation();
-                navigate(`/${post.user.username}`);
-              })
-            }
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate(`/${post.user.username}`);
+            }}
             className="flex gap-1 ml-1"
           >
             <span className="text-white font-extrabold transition-all  hover:underline">
@@ -142,15 +141,19 @@ export const IndividualPost = (post: Post) => {
               </button>
             )}
           </div>
+          {/*Si es un vídeo lo carga, si no es un vídeo lo carga como imagen  y si no tiene media_url devuelve null*/}
+          {post.media_url &&
+            (post.media_url.includes("/video/") ? (
+<VideoPost src={post.media_url} />
+            ) : (
+              <img
+                src={post.media_url}
+                alt="Media content"
+                className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+                loading="lazy"
+              />
+            ))}
 
-          {post.media_url && (
-            <img
-              src={post.media_url}
-              alt="Media content"
-              className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
-              loading="lazy"
-            />
-          )}
           {/* Footer con los botones de interaccion */}
           <footer className="w-full flex justify-between mt-2 text-gray-500">
             <CommentButton totalComments={post._count.replies} post={post} />
@@ -166,7 +169,14 @@ export const IndividualPost = (post: Post) => {
               reposts={post._count.reposts}
               initialIsReposted={post.reposts ? post.reposts.length > 0 : false}
             />
-            {user && <MoreOptions user={user} postId={post.id} idUserPost={post.user_id} usernameOfPost={post.user.username} />}
+            {user && (
+              <MoreOptions
+                user={user}
+                postId={post.id}
+                idUserPost={post.user_id}
+                usernameOfPost={post.user.username}
+              />
+            )}
           </footer>
         </div>
       </div>

@@ -17,7 +17,7 @@ cloudinary_url: process.env.CLOUDINARY_URL,
 export const uploadToCloudinary = (buffer: Buffer, folder: string): Promise<any> => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
-      { folder },
+      { folder, resource_type: "auto" },
      // Callback estándar de Node.js: (error, result)
       (error, result) => {
         if (error) {

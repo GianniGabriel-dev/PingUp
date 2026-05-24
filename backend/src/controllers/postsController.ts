@@ -75,7 +75,7 @@ export const newPost = async (
     return res.status(200).json(post);
   } catch (error: any) {
     console.error(error.message);
-    return res.status(500).json({ error: "Error creating users" });
+    return res.status(500).json({ error: "Error creating post" });
   }
 };
 

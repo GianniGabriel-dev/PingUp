@@ -12,7 +12,7 @@ export const loginLimiter = rateLimit({
 
 export const createPostLimiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minuto
-  max: 15,
+  max: 30,
   message: {
     error: "Too many posts created. Please wait.",
   },

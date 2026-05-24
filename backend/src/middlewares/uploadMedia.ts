@@ -10,12 +10,12 @@ export const uploadMedia=(fileName:string)=>{
         if (err) {
           let message=""
             if(err instanceof multer.MulterError && err.code === "LIMIT_UNEXPECTED_FILE"){
-              //si filename es avatar muestra el mensaje de que solo se puede subir una iamgen, si no muestra el otro mensaje que es para posts y
+              //si filename es avatar muestra el mensaje de que solo se puede subir una iamgen, si no muestra el otro mensaje que es para posts y permite subir imagen o video
               message = fileName === "avatar"
               ? "Solo puedes subir una imagen."
               : "Solo puedes subir una imagen o vídeo.";
             }else{
-                err.message
+                message = err.message;
             }
     
           return res.status(400).json({ error: message });

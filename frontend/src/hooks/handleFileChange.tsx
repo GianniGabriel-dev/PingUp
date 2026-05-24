@@ -5,7 +5,7 @@ type UseFileUploadProps = {
 
 export const useFileUpload = ({
   maxSizeMB = 5,
-  allowedTypes = ["image/jpeg", "image/png", "image/webp"],
+  allowedTypes = ["image/jpeg", "image/png", "image/webp", "video/mp4", "video/webm", "video/quicktime"],
 }: UseFileUploadProps) => {
   const validateFile = (file: File) => {
     if (!allowedTypes.includes(file.type)) return false;
