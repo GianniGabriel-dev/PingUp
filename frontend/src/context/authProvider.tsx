@@ -16,7 +16,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const res = await api.get<UserInfo>("/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        console.log('🟢 Usuario obtenido del servidor:', res.data);
         return res.data;
       } catch (error) {
         console.error('❌ Error obteniendo datos del usuario:', error);

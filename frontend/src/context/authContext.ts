@@ -10,6 +10,7 @@ export type UserInfo = {
    created_at:Date,
    language:string,
    name:string,
+   unreadNotifications:number,
    banner_url:string,
 }
 

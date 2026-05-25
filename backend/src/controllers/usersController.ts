@@ -6,6 +6,7 @@ import {
   updateUserData,
 } from "../queries/userQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
+import { getNumberOfUnreadNotifications } from "../queries/notificationsService.js";
 
 //controlador que obtiene los datos del usuario autenticado
 export const getUserData = async (req: Request, res: Response) => {
@@ -13,7 +14,9 @@ export const getUserData = async (req: Request, res: Response) => {
     const userId = (req.user as { id: number }).id;
 
     const result = await getUserByParam(userId);
-    return res.json(result);
+    const unreadNotifications = await getNumberOfUnreadNotifications(userId);
+    //agregamos el número de notificaciones no leídas a la respuesta para mostrarlo en el frontend
+    return res.json({ ...result, unreadNotifications });
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
   }

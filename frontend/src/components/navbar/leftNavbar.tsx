@@ -51,6 +51,7 @@ export function LeftNavbar() {
                     to="/notifications"
                     icon={NotificationIcon}
                     label="Notificaciones"
+                    unreadCount={user.unreadNotifications}
                   />
                 </li>
 

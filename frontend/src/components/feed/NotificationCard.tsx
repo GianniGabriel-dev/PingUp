@@ -1,6 +1,7 @@
 import { formatDate } from "@/utils/formatDate.js";
-import { Bell, Heart, MessageCircle, Repeat, UserPlus } from "lucide-react";
+import { Bell, Heart, MessageCircle,Repeat2, UserPlus } from "lucide-react";
 import { Link } from "react-router-dom";
+import VideoPost from "./videoPost.js";
 
 interface Sender {
   id: number;
@@ -37,27 +38,27 @@ const getNotificationMessage = (
   switch (type) {
     case "like":
       return {
-        title: `A ${username} le gustó tu post`,
+        title: `@${username} le gustó tu post`,
         icon: <Heart color="red" fill="#E60076" />,
       };
     case "reply":
       return {
-        title: `${username} respondió a tu post`,
+        title: `@${username} respondió a tu post`,
         icon: <MessageCircle color="#2B7FFF" />,
       };
-    case "retweet":
+    case "repost":
       return {
-        title: `${username} hizo retweet a tu post`,
-        icon: <Repeat />,
+        title: `@${username} Ha compartido tu post`,
+        icon: <Repeat2 color="oklch(59.6% 0.145 163.225)" />,
       };
     case "follow":
       return {
-        title: `${username} te ha empezado a seguir`,
+        title: `@${username} te ha empezado a seguir`,
         icon: <UserPlus color="#2B7FFF" />,
       };
     default:
       return {
-        title: `${username} envió una notificación`,
+        title: `@${username} envió una notificación`,
         icon: <Bell />,
       };
   }
@@ -107,7 +108,7 @@ export function NotificationCard({ notification }: NotificationCardProps) {
                   className="hover:underline"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  {notification.sender.username}
+                  @{notification.sender.username}
                 </Link>
               </p>
               <p className="text-gray-400 text-sm">{title}</p>
@@ -118,13 +119,17 @@ export function NotificationCard({ notification }: NotificationCardProps) {
                   <p className="text-gray-300 text-sm">
                     {notification.post.content}
                   </p>
-                  {notification.post.media_url &&(
-                  <img
-                    className="mt-2 w-20 h-20 object-cover rounded-md border border-gray-600"
-                    src={notification.post.media_url}
-                    alt="Media of post"
-                  />
-                  )}
+                  {notification.post.media_url &&
+                    (notification.post.media_url.includes("/video/") ? (
+                      <VideoPost src={notification.post.media_url} />
+                    ) : (
+                      <img
+                        src={notification.post.media_url}
+                        alt="Media content"
+                        className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+                        loading="lazy"
+                      />
+                    ))}
                 </div>
               )}
 
@@ -134,7 +139,7 @@ export function NotificationCard({ notification }: NotificationCardProps) {
 
             {/* Unread Indicator */}
             {!notification.is_read && (
-              <div className="w-3 h-3 bg-rose-400 rounded-full shrink-0 mt-2"></div>
+              <div className="w-4 h-4 bg-red-500 rounded-full shrink-0 mt-2"></div>
             )}
           </div>
         </div>

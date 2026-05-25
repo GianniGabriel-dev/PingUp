@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { toggleFollow } from "../services/likeFollowAndRepostServices.js";
-import { getNotification } from "../queries/notificationsService.js";
+import { getNotification, setNotificationsReaded } from "../queries/notificationsService.js";
 
 export const follow = async (req: Request, res: Response) => {
   try {
@@ -20,6 +20,7 @@ export const showNotifications = async (req: Request, res: Response) => {
     const userId = (req.user as { id: number }).id;
 
     const result = await getNotification(userId)
+    await setNotificationsReaded(userId);
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });

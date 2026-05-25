@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
 import { NotificationCard } from "@/components/feed/NotificationCard.js";
@@ -27,11 +27,17 @@ export interface Notification {
 }
 
 export function Notifications() {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const { token } = useAuth();
-  if(!token) navigate("/")
+  const queryClient = useQueryClient();
 
-  const { data: notifications = [], isLoading, isError } = useQuery<Notification[]>({
+  if (!token) navigate("/");
+
+  const {
+    data: notifications = [],
+    isLoading,
+    isError,
+  } = useQuery<Notification[]>({
     queryKey: ["notifications"],
     queryFn: async () => {
       const response = await api.get("/notifications", {
@@ -43,7 +49,9 @@ export function Notifications() {
     },
     enabled: !!token,
   });
-
+  queryClient.invalidateQueries({
+    queryKey: ["user", token],
+  });
   return (
     <div className="w-full">
       {/* Header */}
@@ -53,9 +61,7 @@ export function Notifications() {
 
       {/* Content */}
       <div>
-        {isLoading && (
-          <LoadingIcon/>
-        )}
+        {isLoading && <LoadingIcon />}
 
         {isError && (
           <div className="p-6 text-center">
@@ -67,7 +73,7 @@ export function Notifications() {
 
         {!isLoading && !isError && notifications.length === 0 && (
           <div className="flex flex-col gap-3 items-center justify-center py-12">
-              <Bell color="white" size={50}/>
+            <Bell color="white" size={50} />
             <p className="text-gray-400 text-lg font-semibold">
               No tienes notificaciones
             </p>

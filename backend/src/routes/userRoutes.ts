@@ -2,7 +2,7 @@ import express from 'express'
 import passport from '../config/passport.js'
 import { follow, showNotifications } from '../controllers/socialController.js'
 import { getPostsUser, getUserByUsername, getUserData, updateProfile, updateLanguagePreference } from '../controllers/usersController.js'
-import { uploadAvatarAndBanner, uploadMedia } from '../middlewares/uploadMedia.js'
+import { uploadAvatarAndBanner} from '../middlewares/uploadMedia.js'
 import { validateAvatarImg } from '../validations/mediaUploadValidation.js'
 import { optionalAuth } from '../middlewares/optionalAuth.js'
 export const userRouter = express.Router()
