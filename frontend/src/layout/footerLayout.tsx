@@ -10,7 +10,7 @@ type FooterProps = {
 export const Footer = ({ user, openModal, isLoading }: FooterProps) => {
 
   return (
-    <footer className="fixed bottom-0 left-0 w-full bg-blue-500 p-4 flex justify-center items-center lg:hidden">
+    <footer className="fixed z-50 bottom-0 left-0 w-full bg-blue-500 p-4 flex justify-center items-center lg:hidden">
       {!user &&
         (isLoading ? (
           <LoadingIcon/>

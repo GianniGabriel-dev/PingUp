@@ -30,27 +30,17 @@ export const UserInfoCard = ({ user }: Props) => {
               width={50}
               alt={`Profile picture of ${user.username}`}
             />
-            <div className="flex flex-col ">
-              <p className="text-sm max-lg:text-xs">{user.name}</p>
-              <p className="text-gray-500 text-sm max-lg:text-xs">@{user.username}</p>
+            <div className="flex flex-col w-30 max-lg:w-20 overflow-hidden">
+              <p className="text-sm max-lg:text-xs truncate ">{user.name}</p>
+              <p className="text-gray-500 text-sm  truncate max-lg:text-xs">@{user.username}</p>
             </div>
           </div>
           <MoreOptionsIcon size={30}/>
         </div>
       </PopoverTrigger>
       {/*Contenido dentro del popUp*/}
-      <PopoverContent className="mt-1 w-50 relative max-md:hidden ">
-        {/*Flecha que aparce arriba del popover para indicar de donde viene */}
-        <svg
-          className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full"
-          width="16"
-          height="8"
-          style={{
-            filter: `drop-shadow(0.5px -1px 1px rgba(255,255,255,0.2))`,
-          }}
-        >
-          <polygon fill="black" points="0,8 8,0 16,8" />
-        </svg>
+      <PopoverContent className="mb-1 w-50 relative max-md:hidden ">
+
         <div className="w-full p-3 flex z-90 flex-col gap-2">
           <a
             className="p-1 flex place-items-center gap-3 text-lg rounded transition-colors hover:bg-neutral-900 cursor-pointer "

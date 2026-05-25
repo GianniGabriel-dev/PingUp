@@ -6,7 +6,9 @@ export const LoginStep1 = ({
   return (
     <section className="p-4">
       <div>
-        <h2 className="text-3xl text-center mb-10 font-bold">Iniciar sesión en PingUp</h2>
+        <h2 className="text-3xl text-center mb-10 font-bold">
+          Iniciar sesión en PingUp
+        </h2>
       </div>
       {/*Botones de registro*/}
       <div className="flex text-xl  place-items-center flex-col gap-4">
@@ -27,6 +29,9 @@ export const LoginStep1 = ({
         <div className="w-10/12 w-sm-full">
           <button
             type="button"
+            onClick={() => {
+              window.location.href = "http://localhost:3001/auth/google";
+            }}
             className="text-white  w-full  hover:bg-blue-600  bg-blue-500 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg 
                         px-5 py-2.5 text-center inline-flex items-center justify-between "
           >

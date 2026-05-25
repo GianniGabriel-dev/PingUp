@@ -135,7 +135,7 @@ export default function VideoPost({
       ref={containerRef}
       className={`relative select-none mt-3 overflow-hidden rounded-2xl border border-gray-600 bg-black cursor-pointer group ${
         isFullscreen 
-          ? "fixed inset-0 z-50 rounded-none border-0 w-screen h-screen" 
+          ? "fixed  rounded-none border-0 w-screen h-screen" 
           : "max-w-full"
       }`}
       onMouseMove={handleShowControls}
@@ -173,7 +173,7 @@ export default function VideoPost({
 
       {/* Controls Container */}
       <div
-        className={`absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 transition-opacity duration-200 ${
+        className={`absolute bottom-0 left-0 right-0 bg-linear  -to-t from-black/80 to-transparent p-3 transition-opacity duration-200 ${
           showControls || !isPlaying ? "opacity-100" : "opacity-0"
         }`}
         onClick={(e) => e.stopPropagation()}

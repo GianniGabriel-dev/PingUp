@@ -45,28 +45,34 @@ export const MoreOptions = ({
         </button>
       </PopoverTrigger>
       <PopoverContent className=" bg-black w-50 relative ">
-        <ul className="w-full flex z-90 flex-col rounded-full gap-2">
+        <ul className="w-full flex z-90 flex-col rounded-full">
           {user.id === idUserPost ? (
             <>
-              <li className="transition-all  duration-300 hover:bg-neutral-900  ">
-                <button disabled className="w-full  flex gap-3 cursor-pointer p-2   items-center">
-                  <WritePostIcon size={20} /> Edit
-                </button>
-              </li>
-              <li className="transition-all  duration-300 hover:bg-neutral-900  ">
+              <li className="transition-all  bg-red-900/20 text-red-300 duration-300 hover:bg-red-900/40 ">
                 <button
                   onClick={handleDeleteClick}
                   className="w-full flex gap-3 cursor-pointer p-2 items-center"
                 >
                   <DeleteIcon size={20} />
-                  Delete
+                  Borrar
+                </button>
+              </li>
+              <li className="transition-all  duration-300 hover:bg-neutral-900  ">
+                <button
+                  disabled
+                  className="w-full  flex gap-3 cursor-pointer p-2   items-center"
+                >
+                  <WritePostIcon size={20} /> Editar
                 </button>
               </li>
             </>
           ) : (
             <>
               <li className="transition-all  duration-300 hover:bg-neutral-900  ">
-                <button disabled className="w-full flex gap-3 cursor-pointer p-2   items-center ">
+                <button
+                  disabled
+                  className="w-full flex gap-3 cursor-pointer p-2   items-center "
+                >
                   <ReportIcon size={20} /> Reportar
                 </button>
               </li>

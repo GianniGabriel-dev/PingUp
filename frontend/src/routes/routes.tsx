@@ -6,9 +6,14 @@ import { Notifications } from "../pages/feed/notifications.js";
 import { Profile } from "../pages/feed/profile.js";
 import { Settings } from "../pages/feed/settings.js";
 import { DetailsPost } from "@/components/feed/detailsPost.js";
+import { OAuthSuccess } from "../pages/OAuthSuccess.js";
 
 //se crea el router para las rutas de la aplicacion
 export const router = createBrowserRouter([
+  {
+    path: "oauth-success",
+    element: <OAuthSuccess />,
+  },
   {
     element: <MainLayout />,
     children: [

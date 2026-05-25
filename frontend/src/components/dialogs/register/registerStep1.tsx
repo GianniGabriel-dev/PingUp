@@ -27,6 +27,9 @@ export const RegisterStep1 = ({
         <div className="w-10/12 w-sm-full">
           <button
             type="button"
+            onClick={() => {
+              window.location.href = "http://localhost:3001/auth/google";
+            }}
             className="text-white  w-full  hover:bg-blue-600  bg-blue-500 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg 
                         px-5 py-2.5 text-center inline-flex items-center justify-between "
           >
