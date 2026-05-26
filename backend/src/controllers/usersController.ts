@@ -29,7 +29,6 @@ export const getUserByUsername = async (req: Request, res: Response) => {
     const currentUserId = (req.user as { id: number })?.id;
 
     const result = await getUserByParam(username, currentUserId);
-    console.log(result);
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
@@ -121,7 +120,6 @@ export const getPostsUser = (type: 'posts' | 'replies') =>
       let cursor = req.query.cursor
         ? JSON.parse(req.query.cursor as string)
         : undefined;
-      console.log(cursor);
       let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
       if (limit > MAX_LIMIT || limit < 1) limit = MAX_LIMIT;
 

@@ -28,7 +28,6 @@ export const HeroButton = ({ user }: { user: UserData }) => {
       setIsFollowing((prev) => !prev);
     },
     onSuccess: () => {
-      console.log("followed/unfollowed successfully");
       queryClient.invalidateQueries({ queryKey: ["user", user.username] });
     },
     onError: () => {

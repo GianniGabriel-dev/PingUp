@@ -33,8 +33,6 @@ export async function analyzeSentiment(text: string): Promise<{
     //el ? se usa para evitar errores en caso de que result sea undefined
     language = result?.language ?? "und";
 
-    console.log(result);
-    console.log(sentiment);
   } catch (error: any) {
     //si el idioma no es soportado por la API de nlp de google devuelve un error con code 3, caundo esto pasa se traduce el texto al ingles y se vuelve a analizar
     if (error.code === 3) {
@@ -45,8 +43,6 @@ export async function analyzeSentiment(text: string): Promise<{
       });
       sentiment = translatedResult.documentSentiment;
 
-      console.log(translatedResult);
-      console.log(sentiment);
     } else {
       throw error;
     }

@@ -4,7 +4,7 @@ import LikeButton from "./likeButton.js";
 import CommentButton from "./commentButton.js";
 import RetweetButton from "./retweetButton.js";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "@/context/useAuth.js";
 import { useTranslatePost } from "@/hooks/useTranslatePost.js";
 import { CommentIcon2, RetweetIcon2 } from "@/assets/icons/index.js";
@@ -18,9 +18,7 @@ export const IndividualPost = (post: Post) => {
   const [showOriginal, setShowOriginal] = useState(false);
   const { mutateAsync: translatePost, isPending: isTranslating } =
     useTranslatePost();
-  useEffect(() => {
-    console.log(`showOriginal: ${showOriginal} displayText: ${displayText}`);
-  }, [showOriginal, displayText]);
+
   const handleTranslate = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
@@ -144,7 +142,7 @@ export const IndividualPost = (post: Post) => {
           {/*Si es un vídeo lo carga, si no es un vídeo lo carga como imagen  y si no tiene media_url devuelve null*/}
           {post.media_url &&
             (post.media_url.includes("/video/") ? (
-<VideoPost src={post.media_url} />
+              <VideoPost src={post.media_url} />
             ) : (
               <img
                 src={post.media_url}

@@ -29,13 +29,8 @@ export default function LoginModal() {
   type LoginData= z.infer<typeof loginSchema>
    //Función que maneja el envío del formulario
   const handleSubmit = async (data:LoginData) => {
-    console.log("Datos del formulario enviados:", data);
-
     try {
       const res = await api.post("/login", data);
-
-      console.log(res);
-      console.log(res.data);
 
       // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
       const { token } = res.data;
@@ -46,9 +41,7 @@ export default function LoginModal() {
       handleCloseModal()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log(error)
         setApiError(error.response?.data.errors)
-        console.log(apiError)
       }
     }
   };

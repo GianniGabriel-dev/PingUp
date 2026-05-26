@@ -41,7 +41,7 @@ export const FilterHeader = ({
                   onClick={() => setFollowingFeed(false)}
                   className="flex items-center justify-center w-full h-full"
                 >
-                  <span className="relative inline-block px-4 py-2 font-bold">
+                  <span className="relative inline-block px-4 py-3.5 font-bold">
                     Feed principal
                     {followingFeed === false && (
                       <span className="absolute left-0 bottom-0 w-full h-1 bg-blue-500 rounded-md"></span>
@@ -54,7 +54,7 @@ export const FilterHeader = ({
                   onClick={() => setFollowingFeed(true)}
                   className="flex items-center justify-center w-full h-full"
                 >
-                  <span className="relative inline-block px-4 py-2 font-bold">
+                  <span className="relative inline-block px-4  py-3.5 font-bold">
                     Siguiendo
                     {followingFeed === true && (
                       <span className="absolute left-0 bottom-0 w-full h-1 bg-blue-500 rounded-md"></span>

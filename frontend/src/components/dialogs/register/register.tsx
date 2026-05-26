@@ -28,13 +28,8 @@ export default function RegisterModal() {
   type RegisData = z.infer<typeof registerSchema>;
  //Función que maneja el envío del formulario
   const handleSubmit = async (data:RegisData) => {
-    console.log("Datos dulario enviados:", data);
-
     try {
       const res = await api.post("/signup", data);
-
-      console.log(res);
-      console.log(res.data);
 
       // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
       const { token } = res.data;
@@ -48,9 +43,7 @@ export default function RegisterModal() {
       handleCloseModal()
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data.errors)
         setApiError(error.response?.data.errors); // Si hay un error al comunicarte con el backend, lo guardas en el estado
-        console.log(apiError)
       }
     }
   };

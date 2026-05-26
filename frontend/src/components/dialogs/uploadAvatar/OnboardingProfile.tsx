@@ -18,8 +18,6 @@ export default function OnboardingProfile() {
     null,
   );
 
-  console.log(user);
-
   const { closeModal } = useModal();
   //al cerrar el modal se resetean los pasos y los errores de la api
   const handleCloseModal = () => {

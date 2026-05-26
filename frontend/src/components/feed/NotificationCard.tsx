@@ -38,7 +38,7 @@ const getNotificationMessage = (
   switch (type) {
     case "like":
       return {
-        title: `@${username} le gustó tu post`,
+        title: `A @${username} le gustó tu post`,
         icon: <Heart color="red" fill="#E60076" />,
       };
     case "reply":
@@ -48,7 +48,7 @@ const getNotificationMessage = (
       };
     case "repost":
       return {
-        title: `@${username} Ha compartido tu post`,
+        title: `@${username} ha compartido tu post`,
         icon: <Repeat2 color="oklch(59.6% 0.145 163.225)" />,
       };
     case "follow":

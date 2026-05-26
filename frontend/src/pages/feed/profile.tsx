@@ -31,7 +31,7 @@ export function Profile() {
     },
     refetchOnWindowFocus: false,
   });
-  console.log(data)
+
   //si no está cargando y no se han encontrado datos del usuario, se muestra un mensaje de error
   if (!isLoading && !data.username) {
     return <ErrorFindingUser username={username} handleBack={handleBack} />;

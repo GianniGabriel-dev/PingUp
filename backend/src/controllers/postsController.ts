@@ -32,12 +32,12 @@ export const newPost = async (
       parent_id = Number(parent_post_id);
     }
 
-    console.log(`Content: ${content}, ID del post padre: ${parent_post_id}`);
+
     let post: Post | null = null;
 
     //upload a cloudinary y obtencion de la url si se ha subido u narchivo
     const media_url = req.file ? (await uploadToCloudinary(req.file.buffer, "media"))?.secure_url ?? null : null;
-    console.log("URL de media:", media_url);
+
 
     //si el contenido de post y el media_url son nulos, se devuelve un error, ya que no se puede crear un post sin contenido ni media
     if (!content && !media_url) {
@@ -90,7 +90,7 @@ export const getPosts = async (req: Request, res: Response) => {
     let cursor = req.query.cursor
       ? JSON.parse(req.query.cursor as string)
       : undefined;
-    console.log(cursor);
+   
     //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
     let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
     // Forzar límites si el usuario intenta excederlos

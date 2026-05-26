@@ -1,36 +1,51 @@
 import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
-export const getUserByParam = async (param:number | string, currentUserId?: number) => {
+export const getUserByParam = async (
+  param: number | string,
+  currentUserId?: number
+) => {
+
+  const where =
+    typeof param === "number"
+      ? { id: param }
+      : { username: param };
+
   const user = await prisma.user.findUnique({
-    where: {
-      id: typeof param === "number" ? param : undefined,
-      username: typeof param === "string" ? param : undefined
-    },
-    select:{
-        id:true,
-        username:true,
-        email:true,
-        googleId:true,
-        avatar_url:true,
-        banner_url:true,
-        bio:true,
-        created_at:true,
-        language:true,
-        name:true,
-        //si currentUserId existe, se incluye la relación followers para comprobar si el usuario actual sigue al usuario consultado, si no existe currentUserId se omite la relación para optimizar la consulta
-        following: currentUserId
+    where,
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      googleId: true,
+      avatar_url: true,
+      banner_url: true,
+      bio: true,
+      created_at: true,
+      language: true,
+      name: true,
+
+      following: currentUserId
         ? {
             where: { follower_id: currentUserId },
-            select: { id: true }
+            select: { id: true },
           }
-        : false
-    }
+        : false,
+
+      _count: {
+        select: {
+          followers: true,
+          following: true,
+          posts: true,
+        },
+      },
+    },
   });
-  return{
+
+  return {
     ...user,
-    isFollowing: !!user?.following?.length
-  }
+    isFollowing: !!user?.following?.length,
+  };
 };
 
 export const updateAvatar = async(user_id:number, avatar_url:string )=>{

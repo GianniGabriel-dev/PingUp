@@ -38,7 +38,6 @@ export const DetailsPost = () => {
   if (isLoading) return <LoadingIcon />;
   if (!data) return null;
 
-  console.log(data);
   //primera página recibida (el post principal)
   const firstPage = data?.pages[0];
   return (
@@ -76,15 +75,23 @@ export const DetailsPost = () => {
         <div className="border-t border-gray-700 px-4 py-4">
           <p className="text-white text-lg font-semibold">Respuestas al post</p>
         </div>
-
-        {data?.pages.map((page) =>
-          page.posts.replies.map((reply) => (
-            <IndividualPost key={reply.id} {...reply} />
-          )),
+        {data?.pages[0]?.posts?.replies.length === 0 ? (
+          <div className="flex flex-col items-center justify-center gap-4 mt-10">
+            <p className="text-gray-400 text-lg">No se han encontrado respuestas para este post.</p>
+          </div>
+        ) : (
+          <>
+            {data?.pages.map((page) =>
+              page.posts.replies.map((reply) => (
+                <IndividualPost key={reply.id} {...reply} />
+              ))
+            )}
+          </>
         )}
         {isFetchingNextPage && <LoadingIcon />}
         {/*Observer que detecta cuando se llega al final de la lista de comentarios para cargar más */}
         {hasNextPage && <div ref={loadMoreRef} style={{ height: 1 }} />}
+        
       </section>
     </>
   );

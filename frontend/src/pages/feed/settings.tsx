@@ -94,7 +94,7 @@ export function Settings() {
 
         <button
           onClick={handleEditProfile}
-          className="w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+          className="w-full cursor-pointer bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
         >
           Editar Perfil
         </button>
@@ -113,7 +113,7 @@ export function Settings() {
 
         <button
           onClick={handleLogout}
-          className="w-full bg-rose-600 hover:bg-rose-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
+          className="w-full bg-rose-600 cursor-pointer hover:bg-rose-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 active:scale-95"
         >
           Cerrar Sesión
         </button>

@@ -32,7 +32,7 @@ export const AllUserPosts = () => {
 
   if (isLoading) return <LoadingIcon/>;
   if (isError) return null;
-console.log(data)
+
   return (
     <>
       <nav>
@@ -65,6 +65,11 @@ console.log(data)
           </li>
         </ul>
       </nav>
+      {data && data.pages[0]?.posts?.length===0 && (
+        <div className="flex items-center justify-center py-16">
+          <p className="text-gray-400 text-lg">No hay posts para mostrar</p>
+        </div>
+      )}
       {data?.pages.map((page) =>
         Array.isArray(page.posts)
           ? page.posts.map((post) => <IndividualPost key={post.id} {...post} />)

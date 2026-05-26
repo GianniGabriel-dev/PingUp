@@ -4,7 +4,7 @@ import { LoadingHero } from "./loadingHero.js";
 import { HeroButton } from "./heroButton.js";
 
 export interface UserData {
-  id:number;
+  id: number;
   username: string;
   banner_url?: string | null;
   avatar_url: string;
@@ -12,6 +12,11 @@ export interface UserData {
   bio?: string;
   created_at: string;
   isFollowing: boolean;
+  _count: {
+    followers: number;
+    following: number;
+    posts: number;
+  };
 }
 
 export const HeroUser = ({
@@ -46,7 +51,10 @@ export const HeroUser = ({
             />
             <span className="sr-only">Volver</span>
           </button>
-          <p className="font-extrabold text-xl">{data.name}</p>
+          <div className="flex flex-col">
+            <p className="font-extrabold text-xl">{data.name}</p>
+            <p className="text-gray-500   font-stretch-ultra-expanded text-sm font-medium">{data._count.posts} posts</p>
+          </div>
         </div>
       </Header>
       <div className="w-full max-w-2xl mx-auto bg-black overflow-hidden">
@@ -85,13 +93,27 @@ export const HeroUser = ({
           </div>
 
           {/* Bio */}
-          <p className="text-sm text-white whitespace-pre-line">
-            {data.bio}
-          </p>
+          <p className="text-sm text-white whitespace-pre-line">{data.bio}</p>
 
           {/* Meta */}
           <div className="mt-3 text-sm text-gray-500">
             Se unió el {new Date(data.created_at).toLocaleDateString()}
+          </div>
+
+          {/* Stats - Like Twitter */}
+          <div className="mt-4 flex gap-6 text-sm">
+            <div className="flex gap-1 group cursor-pointer hover:opacity-80 transition-opacity">
+              <span className="text-white font-bold">
+                {data._count.following}
+              </span>
+              <span className="text-gray-500">Siguiendo</span>
+            </div>
+            <div className="flex gap-1 group cursor-pointer hover:opacity-80 transition-opacity">
+              <span className="text-white font-bold">
+                {data._count.followers}
+              </span>
+              <span className="text-gray-500">Seguidores</span>
+            </div>
           </div>
         </div>
       </div>

@@ -23,7 +23,7 @@ export function RightNavbar() {
               <div>
                 <p className="text-xl font-extrabold">¿Nuevo en PingUp?</p>
                 <span className="text-sm text-gray-500">
-                  Regístrate para disfrutar te todas sus funcionalidades
+                  Regístrate para disfrutar de todas sus funcionalidades
                 </span>
               </div>
               <button
