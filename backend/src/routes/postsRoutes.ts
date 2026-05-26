@@ -9,6 +9,7 @@ import {
   newPost,
   repost,
   translatePost,
+  getFollowingPostsController,
 } from "../controllers/postsController.js";
 import { uploadMedia } from "../middlewares/uploadMedia.js";
 import { validatePostMedia } from "../validations/mediaUploadValidation.js";
@@ -35,6 +36,12 @@ postsRouter.put(
 postsRouter.get("/post", optionalAuth, getPosts);
 
 postsRouter.get("/post/:post_id", optionalAuth, getPosts);
+
+postsRouter.get(
+  "/posts-user-follows",
+  passport.authenticate("jwt", { session: false }),
+  getFollowingPostsController,
+);
 
 postsRouter.post(
   "/like/:post_id",

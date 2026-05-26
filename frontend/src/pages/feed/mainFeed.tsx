@@ -1,4 +1,3 @@
-import { AllPosts } from "@/components/feed/allPosts.js";
 import { WritePost } from "@/components/feed/WritePost.js";
 import { useAuth } from "@/context/useAuth.js";
 import { useState } from "react";
@@ -25,7 +24,6 @@ export function MainFeed() {
     <>
       {user && token && <WritePost user={user} token={token} isReply={false}/>}
       <FilterHeader appliedFilters={appliedFilters} selectedFilters={selectedFilters} handleApplyFilters={handleApplyFilters} handleFilterChange={handleFilterChange} />
-      <AllPosts filters={appliedFilters}/>
     </>
   )
 }

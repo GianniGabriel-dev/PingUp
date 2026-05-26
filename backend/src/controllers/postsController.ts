@@ -7,6 +7,7 @@ import {
   deletePost,
   getAllPosts,
   getDetailsOfPost,
+  getFollowingPosts,
 } from "../queries/postQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
 import { toggleLike, toggleRepost } from "../services/likeFollowAndRepostServices.js";
@@ -144,6 +145,7 @@ export const getPosts = async (req: Request, res: Response) => {
   }
 };
 
+
 export const like = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
@@ -154,6 +156,7 @@ export const like = async (req: Request, res: Response) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
 
 export const translatePost = async (req: Request, res: Response) => {
   try {
@@ -171,6 +174,7 @@ export const translatePost = async (req: Request, res: Response) => {
   }
 };
 
+
 export const deleteUserPost = async (req: Request, res: Response) => {
   try {
     const post_id = Number(req.params.post_id);
@@ -185,6 +189,8 @@ export const deleteUserPost = async (req: Request, res: Response) => {
   }
 };
 
+
+
 export const repost = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
@@ -193,6 +199,50 @@ export const repost = async (req: Request, res: Response) => {
     return res.json(result);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+
+
+
+export const getFollowingPostsController = async (req: Request, res: Response) => {
+  try {
+    const MAX_LIMIT = 20;
+    //currentUserId se obtiene del usuario autenticado
+    const userId = (req.user as { id: number })?.id;
+
+    // Si no hay usuario autenticado, retornar error
+    if (!userId) {
+      return res.status(401).json({ error: "Usuario no autenticado" });
+    }
+
+    let cursor = req.query.cursor
+      ? JSON.parse(req.query.cursor as string)
+      : undefined;
+
+    //si el limit no es proporcionado por el usuario, se usa el máximo por defecto
+    let limit = parseInt(req.query.limit as string) || MAX_LIMIT;
+    // Forzar límites si el usuario intenta excederlos
+    if (limit > MAX_LIMIT || limit < 1) limit = MAX_LIMIT;
+
+    const posts = await getFollowingPosts(userId, limit, cursor);
+
+    const nextCursor =
+      posts.length > 0
+        ? {
+            createdAt: posts[posts.length - 1].created_at.toISOString(),
+            id: posts[posts.length - 1].id,
+          }
+        : null;
+
+    return res.status(200).json({
+      posts,
+      nextCursor,
+      hasMore: posts.length === limit,
+    });
+  } catch (error: any) {
+    console.error(error.message);
+    return res.status(500).json({ error: "Error getting following posts" });
   }
 };
 

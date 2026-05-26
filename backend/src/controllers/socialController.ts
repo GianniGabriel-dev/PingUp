@@ -8,6 +8,9 @@ export const follow = async (req: Request, res: Response) => {
     const userId = (req.user as { id: number }).id;
     //following id es la persona a la cual decide seguir el follower
     const followingId = Number(req.params.followingId);
+    if (userId === followingId) {
+      return res.status(400).json({ error: "No puedes seguirte a ti mismo" });
+    }
     const result = await toggleFollow(userId, followingId);
     return res.json(result);
   } catch (error: any) {

@@ -106,3 +106,42 @@ export const deletePost = async (postId: number) => {
     data: { deleted_at: new Date() },
   });
 };
+
+export const getFollowingPosts = async (
+  userId: number,
+  limit: number,
+  cursor?: { createdAt: string; id: number },
+) => {
+  // 1. Obtener los IDs de usuarios que el usuario actual sigue
+  const following = await prisma.follow.findMany({
+    where: {
+      follower_id: userId,
+    },
+    select: {
+      following_id: true,
+    },
+  });
+
+  const followingIds = following.map((f) => f.following_id);
+
+  // Si no sigue a nadie, retornar un array vacío
+  if (followingIds.length === 0) {
+    return [];
+  }
+
+  // 2. Obtener posts de los usuarios que sigue
+  return prisma.post.findMany({
+    take: limit,
+    where: {
+      parent_post_id: null,
+      user_id: {
+        in: followingIds,
+      },
+      deleted_at: null,
+      // Aplicar el cursor si existe
+      ...(cursor ? { AND: [cursorFilter(cursor)!] } : {}),
+    },
+    include: basePostInclude(userId),
+    orderBy: [{ created_at: "desc" }, { id: "desc" }],
+  });
+};
