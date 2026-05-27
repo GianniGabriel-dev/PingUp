@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "module": "CommonJS",  // ← Cambiar a CommonJS
-    "moduleResolution": "node",  // ← Cambiar a node
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"]
 }

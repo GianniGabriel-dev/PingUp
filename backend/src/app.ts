@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 
 dotenv.config()
-import { authRouter } from './routes/authRoutes'
-import "./config/passport"
+import { authRouter } from './routes/authRoutes.js'
+import "./config/passport.js"
 import passport from 'passport'
 import { postsRouter } from './routes/postsRoutes.js'
 import { userRouter } from './routes/userRoutes.js'

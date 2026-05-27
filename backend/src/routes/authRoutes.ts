@@ -6,7 +6,7 @@ import {
   login,
   signUp,
   googleCallback,
-} from "../controllers/authController";
+} from "../controllers/authController.js";
 
 import {
   loginValidator,
