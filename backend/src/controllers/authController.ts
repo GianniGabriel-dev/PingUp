@@ -100,20 +100,25 @@ export const googleCallback = async (
   try {
     const profile = req.user as any;
 
+    const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+
     if (!profile || !profile.id) {
       console.error("❌ Perfil inválido o sin ID");
-      res.redirect("http://localhost:5173/login?error=invalid_profile");
+
+      res.redirect(`${FRONTEND_URL}/login?error=invalid_profile`);
       return;
     }
 
     // Extraer datos de Google
     const googleId = profile.id;
     const email = profile.emails?.[0]?.value;
-    const displayName = profile.displayName || profile.name?.givenName || "Usuario";
+    const displayName =
+      profile.displayName || profile.name?.givenName || "Usuario";
 
     if (!email) {
       console.error("❌ No hay email en el perfil de Google");
-      res.redirect("http://localhost:5173/login?error=no_email");
+
+      res.redirect(`${FRONTEND_URL}/login?error=no_email`);
       return;
     }
 
@@ -122,7 +127,8 @@ export const googleCallback = async (
 
     if (!user || !user.id) {
       console.error("❌ Usuario no se pudo crear/obtener:", user);
-      res.redirect("http://localhost:5173/login?error=user_creation_failed");
+
+      res.redirect(`${FRONTEND_URL}/login?error=user_creation_failed`);
       return;
     }
 
@@ -136,13 +142,17 @@ export const googleCallback = async (
       expiresIn: "7d",
     });
 
-    // Redirigir al frontend con el token
-    const frontendUrl = `http://localhost:5173/oauth-success?token=${token}`;
+    // Redirigir al frontend con token
+    const frontendUrl = `${FRONTEND_URL}/oauth-success?token=${token}`;
 
     res.redirect(frontendUrl);
   } catch (error: any) {
     console.error("❌ Error en Google OAuth callback:", error);
+
     console.error("Stack:", error.stack);
-    res.redirect("http://localhost:5173/login?error=auth_failed");
+
+    const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+
+    res.redirect(`${FRONTEND_URL}/login?error=auth_failed`);
   }
 };
