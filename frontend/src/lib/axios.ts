@@ -7,8 +7,14 @@ export type ApiErrors = {
   location: string;
 }[];
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+if (!API_URL) {
+  console.warn("VITE_API_URL no definida");
+}
+
 export const api = axios.create({
-  baseURL: "http://localhost:3001/",
+  baseURL: API_URL || "http://localhost:3001",
 });
 
 api.interceptors.response.use(
