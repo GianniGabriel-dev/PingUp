@@ -1,7 +1,7 @@
-import { ExploreIcon } from "@/assets/icons/ExploreIcon.js";
 import { LoadingIcon } from "@/assets/icons/LoadingIcon.js";
 import { useAuth } from "@/context/useAuth.js";
 import { useModal } from "@/hooks/useModal.js";
+import { SearchBar } from "./SearchBar.js";
 import { WhoToFollow } from "./whoToFollow.js";
 import { useLocation } from "react-router-dom";
 
@@ -42,17 +42,7 @@ export function RightNavbar() {
           )
         ) : (
           <section className="w-full flex flex-col gap-6">
-            {!isExplore && (
-              <article className="flex items-center gap-3 border border-gray-500 rounded-full px-4 py-2 focus-within:border-0 focus-within:ring-2 focus-within:ring-blue-500 transition-all">
-                <ExploreIcon className="text-white cursor-pointer" />
-
-                <input
-                  type="text"
-                  placeholder="Buscar"
-                  className="bg-transparent outline-none text-sm text-white placeholder-gray-400 w-full"
-                />
-              </article>
-            )}
+            {!isExplore && <SearchBar />}
 
             <WhoToFollow />
           </section>

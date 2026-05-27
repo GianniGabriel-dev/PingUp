@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import {
   getPostsByUser,
   getRepliesByUser,
-  getUserByParam, 
+  getUserByParam,
+  searchUsers as searchUsersQuery,
   updateUserData,
 } from "../queries/userQueries.js";
 import { uploadToCloudinary } from "../config/cloudinaryAndMulter.js";
@@ -110,7 +111,20 @@ export const updateLanguagePreference = async (req: Request, res: Response) => {
   }
 };
 
-export const getPostsUser = (type: 'posts' | 'replies') => 
+export const searchUsers = async (req: Request, res: Response) => {
+  try {
+    const q = (req.query.q as string)?.trim();
+    if (!q || q.length === 0) {
+      return res.status(400).json({ error: "Query param 'q' is required" });
+    }
+    const users = await searchUsersQuery(q);
+    return res.json(users);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const getPostsUser = (type: 'posts' | 'replies') =>
   async (req: Request, res: Response) => {
     try {
       const MAX_LIMIT = 20;

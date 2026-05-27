@@ -1,6 +1,26 @@
 import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
+export const searchUsers = async (query: string, limit: number = 8) => {
+  return prisma.user.findMany({
+    where: {
+      OR: [
+        { username: { contains: query, mode: "insensitive" } },
+        { name:     { contains: query, mode: "insensitive" } },
+      ],
+    },
+    select: {
+      id:         true,
+      username:   true,
+      name:       true,
+      avatar_url: true,
+      _count: { select: { followers: true } },
+    },
+    orderBy: { followers: { _count: "desc" } },
+    take: limit,
+  });
+};
+
 export const getUserByParam = async (
   param: number | string,
   currentUserId?: number
