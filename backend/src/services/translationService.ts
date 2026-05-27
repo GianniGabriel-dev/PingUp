@@ -4,9 +4,12 @@ import {
   existingTranslationPost,
   getContentById,
 } from "../queries/translationQueries.js";
+import { googleCredentials } from "../config/googleCredentials.js";
 
-//se inicializa el cliente de la api, los datos para acceder a esta están en el archivo oculto json con las credenciales de google
-const translate = new Translate();
+const translate = new Translate({
+  credentials: googleCredentials,
+  projectId: googleCredentials.project_id,
+});
 
 //target es al idioma al que quieres traducir el texto
 export async function translateText(

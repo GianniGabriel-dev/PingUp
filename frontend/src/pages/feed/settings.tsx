@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUpdateLanguage } from "@/hooks/useUpdateLanguage.js";
 import { LANGUAGES } from "@/lib/utils.js";
+import { useQueryClient } from "@tanstack/react-query/build/legacy/QueryClientProvider.js";
 
 export function Settings() {
   const { user } = useAuth();
@@ -16,8 +17,16 @@ export function Settings() {
     // Call mutation to save language preference
     updateLanguage(newLanguage);
   };
+  const queryClient = useQueryClient();
+  const { setToken } = useAuth();
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("onboardingCompleted");
+    setToken(null);
+    queryClient.clear();
+    navigate("/");
+  };
 
   const handleEditProfile = () => {
     navigate("?modal=edit-profile");
