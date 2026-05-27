@@ -17,10 +17,14 @@ export const useInifnitePosts =({url, queryKey, limit = 10, enabledParam }: Post
         // page param es el cursor inicial, en principio está vacío
         initialPageParam: undefined,
         queryFn: async({pageParam})=>{
+          console.log("👉 pageParam enviado:", pageParam); // ← añade esto
+
+
             const res = await api.get<PostsResponse>(url, {
                 params: { limit,   cursor: JSON.stringify(pageParam)},
                 headers: token ? { Authorization: `Bearer ${token}` } : undefined,
             })
+            console.log("👈 nextCursor recibido:", res.data.nextCursor); // ← y esto
             return res.data
         },
     //saca el cursor de la pagina anteriror y se cargan mas posts a partir del cursor

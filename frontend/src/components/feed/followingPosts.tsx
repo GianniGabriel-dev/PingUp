@@ -15,9 +15,9 @@ export const FollowingPosts = () => {
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
   
-  useEffect(() => {
-    osbserverHook(loadMoreRef, hasNextPage, fetchNextPage);
-  }, [fetchNextPage, hasNextPage]);
+useEffect(() => {
+  return osbserverHook(loadMoreRef, hasNextPage, fetchNextPage, isFetchingNextPage)
+}, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (isLoading) return <LoadingIcon />;
   if (error) return <p className="text-center text-gray-400 py-8">Error al cargar posts</p>;

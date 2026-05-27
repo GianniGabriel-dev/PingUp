@@ -17,9 +17,9 @@ export const AllPosts = ({ filters }: { filters: string[] }) => {
     });
 
     const loadMoreRef = useRef<HTMLDivElement | null>(null);
-    useEffect(() => {
-      osbserverHook(loadMoreRef, hasNextPage, fetchNextPage)
-    }, [fetchNextPage, hasNextPage]);
+useEffect(() => {
+  return osbserverHook(loadMoreRef, hasNextPage, fetchNextPage, isFetchingNextPage)
+}, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (isLoading) return <LoadingIcon />
   if (error) return <p>Error al cargar posts</p>;

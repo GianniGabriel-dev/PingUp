@@ -26,9 +26,9 @@ export const AllUserPosts = () => {
   });
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    osbserverHook(loadMoreRef, hasNextPage, fetchNextPage);
-  }, [fetchNextPage, hasNextPage]);
+useEffect(() => {
+  return osbserverHook(loadMoreRef, hasNextPage, fetchNextPage, isFetchingNextPage)
+}, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (isLoading) return <LoadingIcon/>;
   if (isError) return null;

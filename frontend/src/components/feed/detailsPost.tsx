@@ -31,9 +31,9 @@ export const DetailsPost = () => {
     });
 
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    osbserverHook(loadMoreRef, hasNextPage, fetchNextPage);
-  }, [fetchNextPage, hasNextPage]);
+useEffect(() => {
+  return osbserverHook(loadMoreRef, hasNextPage, fetchNextPage, isFetchingNextPage)
+}, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
   if (isLoading) return <LoadingIcon />;
   if (!data) return null;
