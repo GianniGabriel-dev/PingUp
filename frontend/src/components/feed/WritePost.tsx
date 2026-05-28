@@ -23,7 +23,8 @@ export const WritePost = ({ user, token, isReply }: Props) => {
   const [type, setType] = useState<"image" | "video" | null>(null);
 
   //constante que utilizo para detectar si el contenido del post es valido, para desactivar el boton de envio o no
-  const isValidContent = contentTrimmed > 0 && contentTrimmed < 280 || previewUrl !== null;
+  const isValidContent =
+    (contentTrimmed > 0 && contentTrimmed < 280) || previewUrl !== null;
 
   const queryClient = useQueryClient();
 
@@ -32,7 +33,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
     mutationFn: async () => {
       return await api.post(
         "/post",
-        {media: file, content,  parent_post_id },
+        { media: file, content, parent_post_id },
         {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -48,12 +49,19 @@ export const WritePost = ({ user, token, isReply }: Props) => {
       setContent("");
       setPreviewUrl(null);
       setFile(null);
-      setType(null)
+      setType(null);
       closeModal();
       // se recargan los posts en la cache de react query para mostar el nuevo post sin actualizar la pagina
       queryClient.invalidateQueries({ queryKey: ["allPosts"] });
       queryClient.invalidateQueries({
         queryKey: ["posts", "detail", parent_post_id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          "userPosts",
+          user.username,
+          parent_post_id ? "replies" : "posts",
+        ],
       });
     },
   });
@@ -65,7 +73,7 @@ export const WritePost = ({ user, token, isReply }: Props) => {
     }
   };
 
-    const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -79,7 +87,6 @@ export const WritePost = ({ user, token, isReply }: Props) => {
       setType("image");
     }
   };
-
 
   // Función que se ejecuta cada vez que se escribe en el textarea.
   // Ajusta dinámicamente la altura del textarea para que crezca con el contenido
