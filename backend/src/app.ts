@@ -25,6 +25,8 @@ app.use(express.urlencoded({ extended: true })); // sirve para que express entie
 
 const PORT = process.env.PORT || 3000;
 
+app.get("/health", (_req, res) => res.sendStatus(200));
+
 app.use("/", postsRouter);
 app.use("/", authRouter);
 app.use("/", userRouter);

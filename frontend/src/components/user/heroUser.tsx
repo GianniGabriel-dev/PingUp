@@ -104,13 +104,13 @@ export const HeroUser = ({
           <div className="mt-4 flex gap-6 text-sm">
             <div className="flex gap-1 group cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-white font-bold">
-                {data._count.following}
+                {data._count.followers}
               </span>
               <span className="text-gray-500">Siguiendo</span>
             </div>
             <div className="flex gap-1 group cursor-pointer hover:opacity-80 transition-opacity">
               <span className="text-white font-bold">
-                {data._count.followers}
+                {data._count.following}
               </span>
               <span className="text-gray-500">Seguidores</span>
             </div>

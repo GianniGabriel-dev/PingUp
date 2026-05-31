@@ -136,7 +136,7 @@ export default function VideoPost({
       className={`relative select-none mt-3 overflow-hidden rounded-2xl border border-gray-600 bg-black cursor-pointer group ${
         isFullscreen 
           ? "fixed  rounded-none border-0 w-screen h-screen" 
-          : "max-w-full"
+          : "w-full h-auto max-h-128 object-cover"
       }`}
       onMouseMove={handleShowControls}
       onMouseLeave={() => !isPlaying && setShowControls(false)}
@@ -154,7 +154,7 @@ export default function VideoPost({
         className={`${
           isFullscreen
             ? "w-full h-full object-contain"
-            : "w-full h-auto object-cover"
+            : "w-full max-h-128 object-contain"
         }`}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
@@ -195,7 +195,7 @@ export default function VideoPost({
             {/* Play/Pause Button */}
             <button
               onClick={(e) => togglePlay(e)}
-              className="text-white hover:opacity-80 transition-opacity p-1"
+              className="text-white hover:opacity-80 cursor-pointer transition-opacity p-1"
               title={isPlaying ? "Pausar" : "Reproducir"}
             >
               {isPlaying ? (
@@ -208,7 +208,7 @@ export default function VideoPost({
             {/* Mute Button */}
             <button
               onClick={toggleMute}
-              className="text-white hover:opacity-80 transition-opacity p-1"
+              className="text-white cursor-pointer hover:opacity-80 transition-opacity p-1"
               title={isMuted ? "Activar sonido" : "Silenciar"}
             >
               {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
@@ -223,7 +223,7 @@ export default function VideoPost({
           {/* Fullscreen Button */}
           <button
             onClick={handleFullscreen}
-            className="text-white hover:opacity-80 transition-opacity p-1"
+            className="text-white cursor-pointer hover:opacity-80 transition-opacity p-1"
             title={isFullscreen ? "Salir de pantalla completa" : "Pantalla completa"}
           >
             {isFullscreen ? (
