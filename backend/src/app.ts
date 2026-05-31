@@ -12,7 +12,7 @@ import { userRouter } from "./routes/userRoutes.js";
 const app = express();
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://ping-up-xc11.vercel.app"],
+    origin: ["http://localhost:5173", "https://pingup-social.vercel.app"],
 
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,

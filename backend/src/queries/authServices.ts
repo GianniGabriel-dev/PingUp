@@ -108,7 +108,7 @@ export const getOrCreateGoogleUser = async (
       }
 
       // Usar la URL de Google directamente
-      let avatarUrl = "https://res.cloudinary.com/dssbrks07/image/upload/v1771602464/avatars/d1ozknsuviqhqbjyx1z2.webp";
+      let avatarUrl = "https://res.cloudinary.com/dssbrks07/image/upload/v1779846157/avatars/yikglrxc0loced4am32q.webp";
 
       user = await prisma.user.create({
         data: {

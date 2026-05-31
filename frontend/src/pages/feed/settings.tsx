@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUpdateLanguage } from "@/hooks/useUpdateLanguage.js";
 import { LANGUAGES } from "@/lib/utils.js";
-import { useQueryClient } from "@tanstack/react-query/build/legacy/QueryClientProvider.js";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function Settings() {
   const { user } = useAuth();

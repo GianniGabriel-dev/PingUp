@@ -1,9 +1,17 @@
 //datos simepre necesarios para mostrar un post, se crea una función para no repetir código en las consultas
 export const basePostInclude = (currentUserId?: number) => ({
   user: { select: { username: true, avatar_url: true, name: true } },
-
+//no cuenta las respuestas eliminadas para que el número de comentarios sea correcto
   _count: {
-    select: { likes: true, replies: true, reposts: true },
+    select: {
+      likes: true,
+      reposts: true,
+      replies: {
+        where: {
+          deleted_at: null,
+        },
+      },
+    },
   },
 
   likes: currentUserId
@@ -19,7 +27,7 @@ export const basePostInclude = (currentUserId?: number) => ({
         select: { id: true },
         take: 1,
       }
-    : false,  
+    : false,
 });
 
 //función que construye el filtro para la paginación con cursor

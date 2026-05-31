@@ -6,10 +6,11 @@ import {
 } from "../queries/translationQueries.js";
 import { googleCredentials } from "../config/googleCredentials.js";
 
-const translate = new Translate({
-  credentials: googleCredentials,
-  projectId: googleCredentials.project_id,
-});
+const translate = new Translate(
+  googleCredentials
+    ? { credentials: googleCredentials, projectId: googleCredentials.project_id }
+    : {}
+);
 
 //target es al idioma al que quieres traducir el texto
 export async function translateText(

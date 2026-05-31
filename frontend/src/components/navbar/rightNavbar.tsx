@@ -41,10 +41,14 @@ export function RightNavbar() {
             </div>
           )
         ) : (
-          <section className="w-full flex flex-col gap-6">
+          <section className="w-full flex flex-col justify-center gap-6">
             {!isExplore && <SearchBar />}
 
             <WhoToFollow />
+            <p className="text-gray-500 w-full text-sm ">
+              © {new Date().getFullYear()} PingUp · Proyecto desarrollado por
+              Gianni Gabriel
+            </p>
           </section>
         )
       }

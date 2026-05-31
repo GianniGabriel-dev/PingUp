@@ -11,13 +11,8 @@
 
 const raw = process.env.GOOGLE_CREDENTIALS_JSON;
 
-if (!raw) {
-  throw new Error(
-    "Missing env var GOOGLE_CREDENTIALS_JSON. " +
-    "Base64-encode your Google service-account JSON and set it as this variable."
-  );
-}
-
-export const googleCredentials = JSON.parse(
-  Buffer.from(raw, "base64").toString("utf8")
-);
+// Production (Render): parse credentials from the base64 env var.
+// Local: undefined → Google SDK falls back to GOOGLE_APPLICATION_CREDENTIALS automatically.
+export const googleCredentials = raw
+  ? JSON.parse(Buffer.from(raw, "base64").toString("utf8"))
+  : undefined;

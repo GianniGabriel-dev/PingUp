@@ -5,11 +5,14 @@ import { translateText } from "./translationService.js";
 import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
 import { googleCredentials } from "../config/googleCredentials.js";
 
-const client = new LanguageServiceClient({ credentials: googleCredentials });
-const translate = new Translate({
-  credentials: googleCredentials,
-  projectId: googleCredentials.project_id,
-});
+const client = new LanguageServiceClient(
+  googleCredentials ? { credentials: googleCredentials } : {}
+);
+const translate = new Translate(
+  googleCredentials
+    ? { credentials: googleCredentials, projectId: googleCredentials.project_id }
+    : {}
+);
 
 //la funcion se divide en dos partes, primero se analiza el sentimiento del texto, si el idioma no es soportado por la API de nlp de google se traduce al ingles y se vuelve a analizar
 export async function analyzeSentiment(text: string): Promise<{
