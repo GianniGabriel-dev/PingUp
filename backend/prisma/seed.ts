@@ -234,6 +234,8 @@ const users = [
     username: "criscode",
     name: "Cristina Vega",
     email: "cristina.vega@mail.com",
+    avatar_url:
+"https://res.cloudinary.com/dssbrks07/image/upload/v1779841155/pexels-md-shamim-shariar-sakil-1954441149-34192054_mwmacg.webp",
     language: "es",
     bio: "Apasionada de la lectura y el cine 🎬",
   },
@@ -278,8 +280,6 @@ const users = [
     username: "eloyweb",
     name: "Eloy Campos",
     email: "eloy.campos@mail.com",
-    avatar_url:
-      "https://res.cloudinary.com/dssbrks07/image/upload/v1779841157/30ee819bea201a1f043cf9431955ef21_o1dpw6.webp",
     language: "es",
     bio: "Amante del cine y la música indie 🎬",
   },
@@ -287,8 +287,6 @@ const users = [
     username: "irisdev",
     name: "Iris Muñoz",
     email: "iris.munoz@mail.com",
-    avatar_url:
-      "https://res.cloudinary.com/dssbrks07/image/upload/v1779841155/pexels-md-shamim-shariar-sakil-1954441149-34192054_mwmacg.webp",
     language: "es",
     bio: "Naturaleza, viajes y fotografía 🌿",
   },
@@ -296,8 +294,6 @@ const users = [
     username: "raulux",
     name: "Raúl Ortega",
     email: "raul.ortega@mail.com",
-    avatar_url:
-      "https://res.cloudinary.com/dssbrks07/image/upload/v1779841155/pexels-md-asgar-2161584851-37589666_xqgrrk.webp",
     language: "es",
     bio: "Fitness y vida sana 💪",
   },
@@ -419,6 +415,7 @@ const users = [
     name: "James Martin",
     email: "james.martin@mail.com",
     language: "en",
+    avatar_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779841155/pexels-jose-leon-2149817406-30805229_zudgcj.webp",
     bio: "Reading, travel and good coffee ☕",
   },
   {
@@ -483,6 +480,7 @@ const users = [
     name: "Noah Bernard",
     email: "noah.bernard@mail.com",
     language: "fr",
+    avatar_url:"https://res.cloudinary.com/dssbrks07/image/upload/v1779841157/30ee819bea201a1f043cf9431955ef21_o1dpw6.webp",
     bio: "Sport, amis et bonnes vibes ⚽",
   },
   {
@@ -514,71 +512,71 @@ type PostSeed = {
   username: string;
   content?: string;
   media_url?: string | null;
-  language: string;
-  sentiment?: "positive" | "neutral" | "negative";
+  language?: string | null;
+  sentiment?: "positivo" | "neutral" | "negativo";
 };
 
 const posts: PostSeed[] = [
   // ─── alexdev ────────────────────────────────────────────────────────────
-  { username: "alexdev", content: "Acabo de terminar mi proyecto personal con React + TypeScript. La combinación es brutal 🚀 ¿Alguien más obsesionado con el tipado estático?", media_url: null, language: "es", sentiment: "positive" },
-  { username: "alexdev", content: "Bangkok en 3 días: templos, street food y caos en las calles. No me arrepiento de nada 🌏", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/damnoen-mercado-700x467_f3k8ho.webp", language: "es", sentiment: "positive" },
-  { username: "alexdev", content: "He probado Cursor AI para programar y no voy a volver atrás. Dios mío.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "alexdev", content: "Acabo de terminar mi proyecto personal con React + TypeScript. La combinación es brutal 🚀 ¿Alguien más obsesionado con el tipado estático?", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "alexdev", content: "Bangkok en 3 días: templos, street food y caos en las calles. No me arrepiento de nada 🌏", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/damnoen-mercado-700x467_f3k8ho.webp", language: "es", sentiment: "positivo" },
+  { username: "alexdev", content: "He probado Cursor AI para programar y no voy a volver atrás. Dios mío.", media_url: null, language: "es", sentiment: "positivo" },
   { username: "alexdev", content: "Tres semanas intentando arreglar un bug en producción que resultó ser una coma mal puesta. Estoy bien.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── OnlyCats ────────────────────────────────────────────────────────────
-  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263450/media/sdxs46yhn6ihrwxjo2rk.mp4", language: "es" },
-  { username: "OnlyCats_1", content: "Beautifull cat with homophobia 🩵💚", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263478/media/ugxr4nmysvbqjunj3c7k.mp4", language: "en", sentiment: "positive" },
-  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1780263440/media/nhijeemghk5fu8rr7hns.jpg", language: "es" },
-  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263525/media/gga4ykvkiaa4i8hj4syk.mp4", language: "es" },
+  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263450/media/sdxs46yhn6ihrwxjo2rk.mp4"},
+  { username: "OnlyCats_1", content: "Beautifull cat with homophobia 🩵💚", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263478/media/ugxr4nmysvbqjunj3c7k.mp4", language: "en", sentiment: "positivo" },
+  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1780263440/media/nhijeemghk5fu8rr7hns.jpg"},
+  { username: "OnlyCats_1", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1780263525/media/gga4ykvkiaa4i8hj4syk.mp4"},
 
   // ─── mariacodes ─────────────────────────────────────────────────────────
-  { username: "mariacodes", content: "Rediseñé la app de un cliente esta semana. El antes y después es bastante impresionante 😍", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837353/post101_home-screen_uecwry.webp", language: "es", sentiment: "positive" },
+  { username: "mariacodes", content: "Rediseñé la app de un cliente esta semana. El antes y después es bastante impresionante 😍", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837353/post101_home-screen_uecwry.webp", language: "es", sentiment: "positivo" },
   { username: "mariacodes", content: "Lunes sin café no es lunes. Es un error del universo ☕", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835899/FDCTHJiX0AEAUc2_nnfqk5.webp", language: "es", sentiment: "neutral" },
-  { username: "mariacodes", content: "Descubriendo a The Strokes esta semana. ¿Cómo no los conocía antes? 🎵", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837410/1900x1900-000000-80-0-0_fyoosq.webp", language: "es", sentiment: "positive" },
+  { username: "mariacodes", content: "Descubriendo a The Strokes esta semana. ¿Cómo no los conocía antes? 🎵", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837410/1900x1900-000000-80-0-0_fyoosq.webp", language: "es", sentiment: "positivo" },
 
   // ─── javierweb ──────────────────────────────────────────────────────────
   { username: "javierweb", content: "Cambié un poco de ruta y se me ocurrió correr con silueta nueva. Muy por debajo de mi carrera de la semana pasada, pero se cumplió. 💪", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835900/FpVq1wnakAAV4nC_ynyg8g.webp", language: "es", sentiment: "neutral" },
-  { username: "javierweb", content: "La técnica Pomodoro lleva una semana funcionándome perfectamente. ¿Alguien más la usa?", media_url: null, language: "es", sentiment: "positive" },
+  { username: "javierweb", content: "La técnica Pomodoro lleva una semana funcionándome perfectamente. ¿Alguien más la usa?", media_url: null, language: "es", sentiment: "positivo" },
   { username: "javierweb", content: "Entrené 6 días seguidos y hoy el cuerpo me pide descanso. Cuerpo: 1, ego: 0.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── lauradev ───────────────────────────────────────────────────────────
-  { username: "lauradev", content: "Arctic Monkeys en bucle desde las 8 de la mañana y sin intención de parar 🎧", media_url: null, language: "es", sentiment: "positive" },
-  { username: "lauradev", content: "Primer día de exámenes. Que alguien me explique por qué estudié todo menos lo que cayó 😭", media_url: null, language: "es", sentiment: "negative" },
-  { username: "lauradev", content: "Tarde de lluvia + playlist lo-fi + libros = el plan perfecto 📚", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835900/HGy0iInaYAAEr_V_ewqfvh.webp", language: "es", sentiment: "positive" },
+  { username: "lauradev", content: "Arctic Monkeys en bucle desde las 8 de la mañana y sin intención de parar 🎧", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "lauradev", content: "Primer día de exámenes. Que alguien me explique por qué estudié todo menos lo que cayó 😭", media_url: null, language: "es", sentiment: "negativo" },
+  { username: "lauradev", content: "Tarde de lluvia + playlist lo-fi + libros = el plan perfecto 📚", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835900/HGy0iInaYAAEr_V_ewqfvh.webp", language: "es", sentiment: "positivo" },
   { username: "lauradev", content: "Este semestre ha sido el más duro de mi carrera. Pero lo estoy superando. Poco a poco.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── danielux ───────────────────────────────────────────────────────────
-  { username: "danielux", content: "Terminé Elden Ring. Han sido 120 horas de pura tortura hermosa 🎮", media_url: null, language: "es", sentiment: "positive" },
-  { username: "danielux", content: "Dune Parte 2 es una de las mejores películas de la última década. No hay debate.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "danielux", content: "Terminé Elden Ring. Han sido 120 horas de pura tortura hermosa 🎮", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "danielux", content: "Dune Parte 2 es una de las mejores películas de la última década. No hay debate.", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── sofiacode ──────────────────────────────────────────────────────────
-  { username: "sofiacode", content: "Look de hoy: minimalista pero con ese toque que lo dice todo 💅", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837408/6da55d8c2e1351637d747130a3a4521a_nkzz4q.webp", language: "es", sentiment: "positive" },
+  { username: "sofiacode", content: "Look de hoy: minimalista pero con ese toque que lo dice todo 💅", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837408/6da55d8c2e1351637d747130a3a4521a_nkzz4q.webp", language: "es", sentiment: "positivo" },
   { username: "sofiacode", content: "Zara ha sacado colección nueva y mi cuenta bancaria ya tiene miedo 😅", media_url: null, language: "es", sentiment: "neutral" },
-  { username: "sofiacode", content: "Llevaba meses sin publicar y no tengo excusa. Aquí vuelvo con todo ✨", media_url: null, language: "es", sentiment: "positive" },
+  { username: "sofiacode", content: "Llevaba meses sin publicar y no tengo excusa. Aquí vuelvo con todo ✨", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── carlosp ────────────────────────────────────────────────────────────
-  { username: "carlosp", content: "Partido del domingo: ganamos 3-1. Metí dos goles. No voy a ser humilde hoy ⚽", media_url: null, language: "es", sentiment: "positive" },
-  { username: "carlosp", content: "La carbonara que hice anoche debería ser ilegal de lo buena que estaba 🍝", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835901/images_umounl.webp", language: "es", sentiment: "positive" },
-  { username: "carlosp", content: "Lesión en el tobillo. Mínimo 3 semanas sin entrenar. Esto es lo peor que me ha pasado este mes.", media_url: null, language: "es", sentiment: "negative" },
+  { username: "carlosp", content: "Partido del domingo: ganamos 3-1. Metí dos goles. No voy a ser humilde hoy ⚽", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "carlosp", content: "La carbonara que hice anoche debería ser ilegal de lo buena que estaba 🍝", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835901/images_umounl.webp", language: "es", sentiment: "positivo" },
+  { username: "carlosp", content: "Lesión en el tobillo. Mínimo 3 semanas sin entrenar. Esto es lo peor que me ha pasado este mes.", media_url: null, language: "es", sentiment: "negativo" },
 
   // ─── elenadev ───────────────────────────────────────────────────────────
-  { username: "elenadev", content: "Atardecer en las Islas Cíes. No hay filtro, así es la realidad 🌅", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837407/0c38c330f2b3563cd6bba5678443a48c_ddx1kw.webp", language: "es", sentiment: "positive" },
-  { username: "elenadev", content: "Compré una cámara analógica de segunda mano y estoy obsesionada con el proceso 📷", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835903/pentax-17-camara-analogica-carrete-05-1024x683_x6epgz.webp", language: "es", sentiment: "positive" },
-  { username: "elenadev", content: "Marruecos en abril: los colores, los olores, la gente. Necesito volver 🌍", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/coloridas-macetas-sobre-pared-azul-y-escalones-chefchaouen-marruecos-TAMF02682_sfdquj.webp", language: "es", sentiment: "positive" },
+  { username: "elenadev", content: "Atardecer en las Islas Cíes. No hay filtro, así es la realidad 🌅", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837407/0c38c330f2b3563cd6bba5678443a48c_ddx1kw.webp", language: "es", sentiment: "positivo" },
+  { username: "elenadev", content: "Compré una cámara analógica de segunda mano y estoy obsesionada con el proceso 📷", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835903/pentax-17-camara-analogica-carrete-05-1024x683_x6epgz.webp", language: "es", sentiment: "positivo" },
+  { username: "elenadev", content: "Marruecos en abril: los colores, los olores, la gente. Necesito volver 🌍", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/coloridas-macetas-sobre-pared-azul-y-escalones-chefchaouen-marruecos-TAMF02682_sfdquj.webp", language: "es", sentiment: "positivo" },
 
   // ─── migueljs ───────────────────────────────────────────────────────────
   { username: "migueljs", content: "Noche de examen a las 8. Decisión ejecutiva: una hora más de League of Legends.", media_url: null, language: "es", sentiment: "neutral" },
-  { username: "migueljs", content: "Alcancé Diamante en ranked. 3 años de sufrimiento condensados en este momento 🎮", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837406/Screenshot_3-1_lbrfyd.webp", language: "es", sentiment: "positive" },
+  { username: "migueljs", content: "Alcancé Diamante en ranked. 3 años de sufrimiento condensados en este momento 🎮", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837406/Screenshot_3-1_lbrfyd.webp", language: "es", sentiment: "positivo" },
   { username: "migueljs", content: "La universidad está bien pero nadie te avisa de que los mates de segundo van completamente en serio.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── luciaweb ───────────────────────────────────────────────────────────
   { username: "luciaweb", content: "Tokio en 10 días. Tengo el itinerario, el seguro, el alojamiento... y cero japonés aprendido 😅", media_url: null, language: "es", sentiment: "neutral" },
-  { username: "luciaweb", content: "Vista desde el Machu Picchu a las 6am. Sin palabras. Solo gratitud 🏔️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/depositphotos_115176328-stock-photo-machu-picchu-sunrise_bjees4.webp", language: "es", sentiment: "positive" },
-  { username: "luciaweb", content: "Viaje en tren por Europa: el mejor modo de moverse sin prisa y con vistas 🚂", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837410/484858590_1032180222276849_4743139915790828320_n_yksqzj.webp", language: "es", sentiment: "positive" },
+  { username: "luciaweb", content: "Vista desde el Machu Picchu a las 6am. Sin palabras. Solo gratitud 🏔️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835898/depositphotos_115176328-stock-photo-machu-picchu-sunrise_bjees4.webp", language: "es", sentiment: "positivo" },
+  { username: "luciaweb", content: "Viaje en tren por Europa: el mejor modo de moverse sin prisa y con vistas 🚂", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837410/484858590_1032180222276849_4743139915790828320_n_yksqzj.webp", language: "es", sentiment: "positivo" },
 
   // ─── ivancode ───────────────────────────────────────────────────────────
-  { username: "ivancode", content: "El Madrid clasifica y Twitter arde. Noche especial ⚽🔥", media_url: null, language: "es", sentiment: "positive" },
-  { username: "ivancode", content: "Finde tranquilo: sofá, manta y el partido del domingo. La vida es simple y está bien así.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "ivancode", content: "El Madrid clasifica y Twitter arde. Noche especial ⚽🔥", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "ivancode", content: "Finde tranquilo: sofá, manta y el partido del domingo. La vida es simple y está bien así.", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── paulaux ────────────────────────────────────────────────────────────
   { username: "paulaux", content: "Terminé 'El nombre del viento' en tres días. Ahora tengo un vacío existencial 📚", media_url: null, language: "es", sentiment: "neutral" },
@@ -586,87 +584,87 @@ const posts: PostSeed[] = [
 
   // ─── sergiodev ──────────────────────────────────────────────────────────
   { username: "sergiodev", content: "La dieta es el 80% del resultado. La gente no lo quiere escuchar pero es la verdad.", media_url: null, language: "es", sentiment: "neutral" },
-  { username: "sergiodev", content: "Semana horrible de sueño y se notó en el gym. El descanso no es opcional, es parte del entreno.", media_url: null, language: "es", sentiment: "negative" },
+  { username: "sergiodev", content: "Semana horrible de sueño y se notó en el gym. El descanso no es opcional, es parte del entreno.", media_url: null, language: "es", sentiment: "negativo" },
 
   // ─── nuriacode ──────────────────────────────────────────────────────────
   { username: "nuriacode", content: "No sé qué quiero hacer con mi vida pero sé que tiene que ser algo creativo. Con eso me quedo.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── adriweb ────────────────────────────────────────────────────────────
-  { username: "adriweb", content: "Semana de trekking por los Pirineos. Sin señal, sin WiFi, sin excusas 🏔️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835903/Pass-Aran-1024x768-1_ckiyua.webp", language: "es", sentiment: "positive" },
-  { username: "adriweb", content: "La próxima aventura: Islandia en febrero. Sí, en febrero. Sí, soy consciente del frío.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "adriweb", content: "Semana de trekking por los Pirineos. Sin señal, sin WiFi, sin excusas 🏔️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835903/Pass-Aran-1024x768-1_ckiyua.webp", language: "es", sentiment: "positivo" },
+  { username: "adriweb", content: "La próxima aventura: Islandia en febrero. Sí, en febrero. Sí, soy consciente del frío.", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── alvarojs ───────────────────────────────────────────────────────────
   { username: "alvarojs", content: "El EA Sports FC sigue siendo exactamente igual de frustrante que el FIFA con otro nombre 😂", media_url: null, language: "es", sentiment: "neutral" },
-  { username: "alvarojs", content: "El Barça-Madrid de esta semana: 2h de puro teatro. Totalmente necesario.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "alvarojs", content: "El Barça-Madrid de esta semana: 2h de puro teatro. Totalmente necesario.", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── martacode ──────────────────────────────────────────────────────────
   { username: "martacode", content: "La IA generativa está cambiando el diseño gráfico más rápido de lo que la mayoría pensaba.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── andreadev ──────────────────────────────────────────────────────────
-  { username: "andreadev", content: "Roma en un finde: comer bien, caminar mucho y perderme sin mapa. Perfecto 🍕", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835904/pizza-recien-salida-horno_1122-11406_qea4eu.webp", language: "es", sentiment: "positive" },
-  { username: "andreadev", content: "Playlist de viaje terminada. Cada viaje merece su propia banda sonora 🎵", media_url: null, language: "es", sentiment: "positive" },
+  { username: "andreadev", content: "Roma en un finde: comer bien, caminar mucho y perderme sin mapa. Perfecto 🍕", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835904/pizza-recien-salida-horno_1122-11406_qea4eu.webp", language: "es", sentiment: "positivo" },
+  { username: "andreadev", content: "Playlist de viaje terminada. Cada viaje merece su propia banda sonora 🎵", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── davidweb ───────────────────────────────────────────────────────────
-  { username: "davidweb", content: "La mejor inversión que hice fue una buena zapatilla de correr. Las rodillas me lo agradecen.", media_url: null, language: "es", sentiment: "positive" },
+  { username: "davidweb", content: "La mejor inversión que hice fue una buena zapatilla de correr. Las rodillas me lo agradecen.", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── criscode ───────────────────────────────────────────────────────────
-  { username: "criscode", content: "Oppenheimer es un mierda de película. No entiendo el hype ni la crítica positiva. Me aburrió muchísimo.", media_url: null, language: "es", sentiment: "negative" },
-  { username: "criscode", content: "Fui a la Feria del Libro a comprar la Biografía de Cepeda y terminé con otro montón de libros y mi papá se llevó el de Cepeda 😅😭", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835900/HGy0iInaYAAEr_V_ewqfvh.webp", language: "es", sentiment: "positive" },
+  { username: "criscode", content: "Oppenheimer es un mierda de película. No entiendo el hype ni la crítica positiva. Me aburrió muchísimo.", media_url: null, language: "es", sentiment: "negativo" },
+  { username: "criscode", content: "Fui a la Feria del Libro a comprar la Biografía de Cepeda y terminé con otro montón de libros y mi papá se llevó el de Cepeda 😅😭", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835900/HGy0iInaYAAEr_V_ewqfvh.webp", language: "es", sentiment: "positivo" },
 
   // ─── alejandroweb ───────────────────────────────────────────────────────
-  { username: "alejandroweb", content: "Bicep en directo el mes pasado: dos horas de música electrónica perfecta 🎧", media_url: null, language: "es", sentiment: "positive" },
-  { username: "alejandroweb", content: "Monté mi primer homelab con Raspberry Pi. Rabbit hole de 3 fines de semana. Sin arrepentimientos.", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835902/my-first-homelab-with-a-raspberry-pi-v0-hx7i3p3qe8tg1_aoucel.webp", language: "es", sentiment: "positive" },
+  { username: "alejandroweb", content: "Bicep en directo el mes pasado: dos horas de música electrónica perfecta 🎧", media_url: null, language: "es", sentiment: "positivo" },
+  { username: "alejandroweb", content: "Monté mi primer homelab con Raspberry Pi. Rabbit hole de 3 fines de semana. Sin arrepentimientos.", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835902/my-first-homelab-with-a-raspberry-pi-v0-hx7i3p3qe8tg1_aoucel.webp", language: "es", sentiment: "positivo" },
 
   // ─── beacodes ───────────────────────────────────────────────────────────
   { username: "beacodes", content: "El proceso creativo es 90% bloqueo y 10% inspiración que llega a las 2am. Siempre.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── pablodev ───────────────────────────────────────────────────────────
-  { username: "pablodev", content: "El Atleti eliminado otra vez en Champions. Todos los años igual 😤", media_url: null, language: "es", sentiment: "negative" },
+  { username: "pablodev", content: "El Atleti eliminado otra vez en Champions. Todos los años igual 😤", media_url: null, language: "es", sentiment: "negativo" },
   { username: "pablodev", content: "Primer proyecto en producción. Hito roto. Ahora a arreglar los bugs que nadie vio en staging.", media_url: null, language: "es", sentiment: "neutral" },
 
   // ─── luisjs ─────────────────────────────────────────────────────────────
-  { username: "luisjs", content: "Llevo 3 días con Cyberpunk 2077 y olvidé que existía el mundo real 🎮", media_url: null, language: "es", sentiment: "positive" },
+  { username: "luisjs", content: "Llevo 3 días con Cyberpunk 2077 y olvidé que existía el mundo real 🎮", media_url: null, language: "es", sentiment: "positivo" },
 
   // ─── johndev ────────────────────────────────────────────────────────────
-  { username: "johndev", content: "Just landed in Lisbon. First impression: the hills are real, the pastéis are even better 🇵🇹", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835902/Lisbon-Mateigaria-pasteis-de-nata_bux42j.webp", language: "en", sentiment: "positive" },
+  { username: "johndev", content: "Just landed in Lisbon. First impression: the hills are real, the pastéis are even better 🇵🇹", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835902/Lisbon-Mateigaria-pasteis-de-nata_bux42j.webp", language: "en", sentiment: "positivo" },
   { username: "johndev", content: "Three cups of coffee and I still couldn't focus. Maybe I should try sleeping for once.", media_url: null, language: "en", sentiment: "neutral" },
 
   // ─── emmacode ───────────────────────────────────────────────────────────
   { username: "emmacode", content: "Finished 'A Little Life' last night. I need a full week to recover emotionally 📚", media_url: null, language: "en", sentiment: "neutral" },
-  { username: "emmacode", content: "Morning hike, no phone. The trees don't need wifi and neither did I today 🌿", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837409/19e19eb37a30889d77017b160522c057_uqcl4m.webp", language: "en", sentiment: "positive" },
-  { username: "emmacode", content: "New playlist: 2 hours of indie folk for rainy days. You're welcome 🎧", media_url: null, language: "en", sentiment: "positive" },
+  { username: "emmacode", content: "Morning hike, no phone. The trees don't need wifi and neither did I today 🌿", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837409/19e19eb37a30889d77017b160522c057_uqcl4m.webp", language: "en", sentiment: "positivo" },
+  { username: "emmacode", content: "New playlist: 2 hours of indie folk for rainy days. You're welcome 🎧", media_url: null, language: "en", sentiment: "positivo" },
 
   // ─── michaeljs ──────────────────────────────────────────────────────────
-  { username: "michaeljs", content: "PR on bench press today. Two years of consistency finally paying off 💪", media_url: null, language: "en", sentiment: "positive" },
-  { username: "michaeljs", content: "Wuchang: Fallen Feathers is a pretty game, loving these environments! I m getting major Black Myth Wukong vibes from the setting and aesthetic!", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1779837944/ssstwitter.com_1779831968453_vigkch.mp4", language: "en", sentiment: "positive" },
-  { username: "michaeljs", content: "Tried making smash burgers at home. Never going back to fast food 🍔", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837407/WE_07.27.23_Double_Smash_Burger_svxrfc.webp", language: "en", sentiment: "positive" },
+  { username: "michaeljs", content: "PR on bench press today. Two years of consistency finally paying off 💪", media_url: null, language: "en", sentiment: "positivo" },
+  { username: "michaeljs", content: "Wuchang: Fallen Feathers is a pretty game, loving these environments! I m getting major Black Myth Wukong vibes from the setting and aesthetic!", media_url: "https://res.cloudinary.com/dssbrks07/video/upload/v1779837944/ssstwitter.com_1779831968453_vigkch.mp4", language: "en", sentiment: "positivo" },
+  { username: "michaeljs", content: "Tried making smash burgers at home. Never going back to fast food 🍔", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779837407/WE_07.27.23_Double_Smash_Burger_svxrfc.webp", language: "en", sentiment: "positivo" },
 
   // ─── danieluxen ─────────────────────────────────────────────────────────
   { username: "danieluxen", content: "That ending in The Bear Season 3 was absolutely brutal. Why do I keep doing this to myself 🎬", media_url: null, language: "en", sentiment: "neutral" },
-  { username: "danieluxen", content: "Champions League night. Nothing better. Absolutely nothing.", media_url: null, language: "en", sentiment: "positive" },
+  { username: "danieluxen", content: "Champions League night. Nothing better. Absolutely nothing.", media_url: null, language: "en", sentiment: "positivo" },
 
   // ─── oliviacode ─────────────────────────────────────────────────────────
   { username: "oliviacode", content: "Working from a café today. The vibe is immaculate, the wifi is absolutely tragic ☕", media_url: null, language: "en", sentiment: "neutral" },
 
   // ─── lucasdev ───────────────────────────────────────────────────────────
-  { username: "lucasdev", content: "Fred again.. live show was everything I hoped for and more 🎧", media_url: null, language: "en", sentiment: "positive" },
+  { username: "lucasdev", content: "Fred again.. live show was everything I hoped for and more 🎧", media_url: null, language: "en", sentiment: "positivo" },
   { username: "lucasdev", content: "3 cities in 5 days for work. Surviving on airport sandwiches and Spotify 🎵", media_url: null, language: "en", sentiment: "neutral" },
 
   // ─── jamescode ──────────────────────────────────────────────────────────
-  { username: "jamescode", content: "Two weeks in Southeast Asia. Best decision of this year, not even close ✈️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835897/beautiful-sunrise-jatiluwih-rice-terraces-bali-indonesia_620810-1699_lfvcee.webp", language: "en", sentiment: "positive" },
-  { username: "jamescode", content: "Re-reading 'Sapiens' for the second time. Still blows my mind every chapter.", media_url: null, language: "en", sentiment: "positive" },
+  { username: "jamescode", content: "Two weeks in Southeast Asia. Best decision of this year, not even close ✈️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835897/beautiful-sunrise-jatiluwih-rice-terraces-bali-indonesia_620810-1699_lfvcee.webp", language: "en", sentiment: "positivo" },
+  { username: "jamescode", content: "Re-reading 'Sapiens' for the second time. Still blows my mind every chapter.", media_url: null, language: "en", sentiment: "positivo" },
 
   // ─── benjaminjs ─────────────────────────────────────────────────────────
-  { username: "benjaminjs", content: "Marathon training week 12. Long runs are getting longer, confidence with them 🏃", media_url: null, language: "en", sentiment: "positive" },
+  { username: "benjaminjs", content: "Marathon training week 12. Long runs are getting longer, confidence with them 🏃", media_url: null, language: "en", sentiment: "positivo" },
   { username: "benjaminjs", content: "Apple Vision Pro impressions after a week: impressive tech, not sure it's worth it yet.", media_url: null, language: "en", sentiment: "neutral" },
 
   // ─── ethanux ────────────────────────────────────────────────────────────
-  { username: "ethanux", content: "Just finished building my new PC. Six months of saving. Zero regrets 🖥️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835899/F756E98F-62D4-40A6-8810-ECF063CA1B29_zy5cgr.webp", language: "en", sentiment: "positive" },
-  { username: "ethanux", content: "Helldivers 2 is the most fun I've had gaming in years. Someone pry it from my hands.", media_url: null, language: "en", sentiment: "positive" },
+  { username: "ethanux", content: "Just finished building my new PC. Six months of saving. Zero regrets 🖥️", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835899/F756E98F-62D4-40A6-8810-ECF063CA1B29_zy5cgr.webp", language: "en", sentiment: "positivo" },
+  { username: "ethanux", content: "Helldivers 2 is the most fun I've had gaming in years. Someone pry it from my hands.", media_url: null, language: "en", sentiment: "positivo" },
 
   // ─── lucdevfr ───────────────────────────────────────────────────────────
-  { username: "lucdevfr", content: "'Anatomy of a Fall' est probablement le meilleur film français de ces dix dernières années 🎬", media_url: null, language: "fr", sentiment: "positive" },
-  { username: "lucdevfr", content: "Week-end à Porto. La ville est magnifique, le vin encore meilleur 🍷", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835901/istockphoto-2171810922-612x612_ex61gy.webp", language: "fr", sentiment: "positive" },
+  { username: "lucdevfr", content: "'Anatomy of a Fall' est probablement le meilleur film français de ces dix dernières années 🎬", media_url: null, language: "fr", sentiment: "positivo" },
+  { username: "lucdevfr", content: "Week-end à Porto. La ville est magnifique, le vin encore meilleur 🍷", media_url: "https://res.cloudinary.com/dssbrks07/image/upload/v1779835901/istockphoto-2171810922-612x612_ex61gy.webp", language: "fr", sentiment: "positivo" },
 
   // ─── emmafr ─────────────────────────────────────────────────────────────
   { username: "emmafr", content: "Shopping d'hiver terminé. Mon portefeuille pleure mais mes tenues sont vraiment au niveau 👗", media_url: null, language: "fr", sentiment: "neutral" },
@@ -675,11 +673,11 @@ const posts: PostSeed[] = [
   { username: "noahfr", content: "Match de foot avec les gars ce dimanche. On a perdu 2-0 mais l'ambiance était vraiment top ⚽", media_url: null, language: "fr", sentiment: "neutral" },
 
   // ─── leacodefr ──────────────────────────────────────────────────────────
-  { username: "leacodefr", content: "Journée créative : argentique, carnet de croquis et zéro écran. Le luxe absolu 🎨", media_url: null, language: "fr", sentiment: "positive" },
+  { username: "leacodefr", content: "Journée créative : argentique, carnet de croquis et zéro écran. Le luxe absolu 🎨", media_url: null, language: "fr", sentiment: "positivo" },
 
   // ─── juleswebfr ─────────────────────────────────────────────────────────
-  { username: "juleswebfr", content: "Soirée Boiler Room en stream. Trois heures de techno berlinoise. Merci internet 🎧", media_url: null, language: "fr", sentiment: "positive" },
-  { username: "juleswebfr", content: "Fini Cyberpunk 2077 avec toutes les fins. 200h de ma vie. Aucun regret. 🎮", media_url: null, language: "fr", sentiment: "positive" },
+  { username: "juleswebfr", content: "Soirée Boiler Room en stream. Trois heures de techno berlinoise. Merci internet 🎧", media_url: null, language: "fr", sentiment: "positivo" },
+  { username: "juleswebfr", content: "Fini Cyberpunk 2077 avec toutes les fins. 200h de ma vie. Aucun regret. 🎮", media_url: null, language: "fr", sentiment: "positivo" },
 ];
 // -------------------------------
 // GHOST USERS — faker-generated (likes, follows, reposts only)
@@ -737,15 +735,55 @@ function shuffle<T>(arr: T[]) {
 
 const commentTemplates = [
   "Totalmente de acuerdo 🔥",
-  "Esto es muy real",
+  "Muy cierto la verdad",
+  "No lo había pensado así 🤔",
+  "Buen punto, tiene sentido",
+  "Esto da para pensar",
+  "Qué buen post 👏",
+  "La verdad es que sí",
+  "Muy real todo esto",
+  "Estoy bastante de acuerdo",
+  "Buenísima reflexión 💭",
   "No puedo estar más de acuerdo",
-  "Qué bueno esto 😂",
-  "Facts.",
-  "Lo necesitaba leer esto hoy",
-  "Brutal post",
-  "Me pasa lo mismo",
-  "Increíble",
-  "💯",
+  "Tiene mucho sentido lo que dices",
+  "Esto me representa bastante 😂",
+  "Gran punto de vista",
+  "Muy interesante la verdad",
+  "Qué bueno leer algo así",
+  "Uf, esto es demasiado real 😅",
+  "Buen aporte 🙌",
+  "Hay mucha verdad aquí",
+  "Esto me hizo pensar un poco",
+  "Literalmente sí 😭",
+  "Qué buena perspectiva",
+  "Muy buen análisis 👀",
+  "Esto merece más atención",
+  "No todo el mundo está listo para esta conversación 😂",
+  "Interesante forma de verlo",
+  "Muy buena publicación 🔥",
+  "Tienes razón en eso",
+  "Me gustó este punto de vista",
+  "Sinceramente, opino parecido",
+  "No esperaba encontrarme con esto hoy",
+  "Muy necesario decir esto",
+  "Esto conecta bastante conmigo",
+  "Qué cierto todo",
+  "Buen contenido 👏",
+  "La verdad es que da para reflexionar",
+  "Muy top este post 🔥",
+  "Tiene bastante lógica",
+  "Buenísimo esto 😮",
+  "Muy de acuerdo con gran parte de esto",
+  "Esto estuvo interesante de leer",
+  "Gran reflexión 👏",
+  "No sé por qué pero esto me llegó",
+  "Esto explica muchas cosas 😅",
+  "Buen tema para debatir",
+  "Muy buena energía en este post ✨",
+  "Qué bueno encontrar contenido así",
+  "Interesante, nunca lo había visto de esa manera",
+  "Hay algo de razón aquí 👀",
+  "Esto estuvo bastante acertado",
 ];
 
 // -------------------------------
@@ -794,7 +832,7 @@ async function generateLikes() {
 async function generateComments() {
   console.log("💬 Generating comments...");
   const users = await prisma.user.findMany();
-  const posts = await prisma.post.findMany();
+  const posts = await prisma.post.findMany({ include: { user: true } });
 
   for (const post of posts) {
     if (Math.random() < 0.35) continue;
@@ -809,7 +847,7 @@ async function generateComments() {
       const isReplyStyle = chance(0.3);
 
       const content = isReplyStyle
-        ? `@${user.username} ${pick(commentTemplates)}`
+        ? `@${post.user.username} ${pick(commentTemplates)}`
         : pick(commentTemplates);
 
       try {
@@ -818,7 +856,7 @@ async function generateComments() {
             user_id: user.id,
             parent_post_id: post.id,
             content,
-            language: user.language,
+            language: "es", // assuming comments are in Spanish for simplicity
             created_at: new Date(
               Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000,
             ),
@@ -961,6 +999,9 @@ async function main() {
         avatar_url:
           u.avatar_url ||
           "https://res.cloudinary.com/dssbrks07/image/upload/v1779846157/avatars/yikglrxc0loced4am32q.webp",
+        banner_url:
+          u.banner_url ||
+          "https://res.cloudinary.com/dssbrks07/image/upload/v1779907744/banners/h20lgxtyjlyzk8vahev6.webp",
         language: u.language,
         bio: u.bio,
         password: process.env.PASSWORD_ALL_USERS,

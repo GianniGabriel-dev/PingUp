@@ -17,7 +17,7 @@ export default function RetweetButton({
   reposts,
   initialIsReposted,
 }: Props) {
- const { username} = useParams();
+ const { user } = useAuth();
  const queryClient = useQueryClient();
   //se obtiene parent_post_id si existe para invalidar la query
   const  parent_post_id = useParams().postId
@@ -47,7 +47,7 @@ export default function RetweetButton({
     onSuccess: ()=>{
       queryClient.invalidateQueries({ queryKey:["allPosts"]})
       queryClient.invalidateQueries({ queryKey: ["posts", "detail", parent_post_id] });
-      queryClient.invalidateQueries({ queryKey: ["userPosts", username, "posts"] });
+      queryClient.invalidateQueries({ queryKey: ["userPosts", user?.username, "posts"] }); 
     },
 
     // Si hay un error una vez realizada la petición, revertimos los cambios
