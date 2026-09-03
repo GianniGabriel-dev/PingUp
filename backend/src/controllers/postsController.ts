@@ -167,6 +167,7 @@ export const translatePost = async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Idioma objetivo no especificado" });
 
     const translation = await translatePostContent(post_id, target);
+    console.log("Translation result:", translation);
 
     res.json({ translation });
   } catch (error: any) {

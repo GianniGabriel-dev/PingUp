@@ -1,7 +1,7 @@
 import express from 'express'
 import passport from '../config/passport.js'
 import { follow, showNotifications } from '../controllers/socialController.js'
-import { getPostsUser, getUserByUsername, getUserData, searchUsers, updateProfile, updateLanguagePreference } from '../controllers/usersController.js'
+import { getPostsUser, getSuggestedUsersController, getUserByUsername, getUserData, searchUsers, updateProfile, updateLanguagePreference } from '../controllers/usersController.js'
 import { uploadAvatarAndBanner} from '../middlewares/uploadMedia.js'
 import { validateAvatarImg } from '../validations/mediaUploadValidation.js'
 import { optionalAuth } from '../middlewares/optionalAuth.js'
@@ -32,6 +32,11 @@ userRouter.patch("/updateLanguage",
 userRouter.get("/notifications",
     passport.authenticate ('jwt', {session:false}),
     showNotifications
+)
+
+userRouter.get("/suggested-users",
+    passport.authenticate('jwt', {session:false}),
+    getSuggestedUsersController
 )
 
 // /search must come before /:username so Express doesn't treat "search" as a username

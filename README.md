@@ -326,10 +326,8 @@ Important database design decisions:
 Current limitations:
 
 * No real-time system yet
-* No deployment yet
+* No deployment with AWS
 * No advanced role system
-* No soft delete system
-* No rate limiting yet
 
 Potential future improvements:
 
@@ -340,9 +338,7 @@ Potential future improvements:
 * Video compression pipeline
 * Direct-to-cloud uploads
 * Docker deployment
-* CI/CD
 * Monitoring/logging
-* Search system
 * Hashtags/trending system
 * Bookmark system
 

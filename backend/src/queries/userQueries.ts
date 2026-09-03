@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { basePostInclude, cursorFilter } from "./helpers/postsHelpers.js";
 import { prisma } from "./prisma.js"
 
@@ -142,6 +143,74 @@ export const updateUserData = async(user_id:number, data: { name?: string; bio?:
     data: data
   })
 }
+
+//viewingUsername es el username del perfil que se esta viendo, se usa para excluirlo de los resultados
+export const getSuggestedUsers = async (currentUserId: number, viewingUsername: string) => {
+  const followedIds = await prisma.follow.findMany({
+    where: { follower_id: currentUserId },
+    select: { following_id: true },
+  });
+  const idsToExclude = [currentUserId, ...followedIds.map((f) => f.following_id)];
+
+  if (viewingUsername) {
+    const viewingUser = await prisma.user.findUnique({
+      where: { username: viewingUsername },
+      select: { id: true },
+    });
+    if (viewingUser && !idsToExclude.includes(viewingUser.id)) {
+      idsToExclude.push(viewingUser.id);
+    }
+  }
+
+  const gianniUser = await prisma.user.findUnique({
+    where: { username: "Gianni" },
+    select: {
+      id: true,
+      username: true,
+      name: true,
+      avatar_url: true,
+      _count: { select: { followers: true } },
+    },
+  });
+
+  const shouldIncludeGianni =
+    gianniUser && !idsToExclude.includes(gianniUser.id);
+
+  const remaining = shouldIncludeGianni ? 4 : 5;
+
+  const randomUsers = await prisma.$queryRaw<
+    { id: number; username: string; name: string | null; avatar_url: string; follower_count: bigint }[]
+  >`
+    SELECT u.id, u.username, u.name, u.avatar_url,
+           (SELECT COUNT(*) FROM "Follow" f WHERE f.following_id = u.id) AS follower_count
+    FROM "User" u
+    WHERE u.id != ${currentUserId}
+      AND u.id NOT IN (${Prisma.join(idsToExclude)})
+    ORDER BY RANDOM()
+    LIMIT ${remaining}
+  `;
+
+  const mappedRandom = randomUsers.map((u) => ({
+    id: u.id,
+    username: u.username,
+    name: u.name,
+    avatar_url: u.avatar_url,
+    _count: { followers: Number(u.follower_count) },
+  }));
+
+  const result = shouldIncludeGianni ? [gianniUser, ...mappedRandom] : mappedRandom;
+
+  const currentUserFollows = await prisma.follow.findMany({
+    where: { follower_id: currentUserId, following_id: { in: result.map((u) => u.id) } },
+    select: { following_id: true },
+  });
+  const followsSet = new Set(currentUserFollows.map((f) => f.following_id));
+
+  return result.map((u) => ({
+    ...u,
+    isFollowing: followsSet.has(u.id),
+  }));
+};
 
 export const getRepliesByUser = async (
   username: string,

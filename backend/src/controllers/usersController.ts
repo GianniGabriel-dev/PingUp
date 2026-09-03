@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   getPostsByUser,
   getRepliesByUser,
+  getSuggestedUsers,
   getUserByParam,
   searchUsers as searchUsersQuery,
   updateUserData,
@@ -175,3 +176,14 @@ export const getPostsUser = (type: 'posts' | 'replies') =>
       return res.status(500).json({ error: "Error getting posts" });
     }
   };
+
+export const getSuggestedUsersController = async (req: Request, res: Response) => {
+  try {
+    const userId = (req.user as { id: number }).id;
+    const viewingUsername = req.query.viewingUsername as string | undefined;
+    const users = await getSuggestedUsers(userId, viewingUsername);
+    return res.json(users);
+  } catch (error: any) {
+    return res.status(500).json({ error: error.message });
+  }
+};
