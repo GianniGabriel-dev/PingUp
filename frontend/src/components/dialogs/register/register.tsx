@@ -29,7 +29,8 @@ export default function RegisterModal() {
  //Función que maneja el envío del formulario
   const handleSubmit = async (data:RegisData) => {
     try {
-      const res = await api.post("/signup", data);
+      const language = navigator.language || "es";
+      const res = await api.post("/signup", { ...data, language });
 
       // Backend devuelve { token: "JWT_TOKEN", user: { ... } }
       const { token } = res.data;

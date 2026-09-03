@@ -4,9 +4,10 @@ export const normalSignUp = async(
     email:string,
     username:string,
     password:string,
+    language?:string,
   )=>{
     return await prisma.user.create({
-        data:{email, username, password, name:username}
+        data:{email, username, password, name:username, language: language || "es"}
     })
 }
 

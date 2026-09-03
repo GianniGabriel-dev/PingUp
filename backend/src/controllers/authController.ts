@@ -18,10 +18,10 @@ export const signUp = async (
     return res.status(400).json({ errors: errors.array() });
   }
   try {
-    const { email, password, username } = req.body;
+    const { email, password, username, language } = req.body;
 
     const encryptedPassword = await bcrypt.hash(password, 10);
-    const newUser = await normalSignUp(email, username, encryptedPassword);
+    const newUser = await normalSignUp(email, username, encryptedPassword, language);
     //payload que será guardado en el token jwt, esta info es accesible por req cada vez que se autentica con passport
     const payload = {
       id: newUser.id,
