@@ -8,6 +8,7 @@ import { ProfileStep2 } from "./ProfileStep2.js";
 import { ProfileStep3 } from "./ProfileStep3.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { canvasToFile } from "../../../hooks/canvasHandler.js";
+import { normalizeNewlines } from "@/utils/normalizeNewlines.js";
 
 export default function EditProfile() {
   const queryClient = useQueryClient();
@@ -42,7 +43,7 @@ export default function EditProfile() {
 
       const formData = new FormData();
       formData.append("name", fullName);
-      formData.append("bio", bio);
+      formData.append("bio", normalizeNewlines(bio));
 
       if (avatarFile) formData.append("avatar", avatarFile);
       if (bannerFile) formData.append("banner", bannerFile);
@@ -78,7 +79,7 @@ export default function EditProfile() {
       showLogo={false}
       open={true}
       onClose={handleCloseModal}
-      style={"h-9/12 w-xl max-sm:h-full "}
+      style={"h-10/12 w-xl max-sm:h-full "}
       step={step}
       onStepBack={() => {
         setStep(1);

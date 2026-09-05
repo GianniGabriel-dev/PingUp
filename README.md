@@ -10,7 +10,6 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)](https://www.prisma.io/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-
 </div>
 
 ---
@@ -37,7 +36,7 @@
 ### Sistema de posts
 - Creación de posts con contenido de texto (máx. 280 caracteres) y adjuntos multimedia (imágenes/videos)
 - Subida de archivos a Cloudinary con validación de tipo y tamaño
-- Respuestas a posts (sistema de hilos)
+- Respuestas a posts (sistema de hilos simple)
 - Eliminación lógica de posts (soft delete)
 - Paginación basada en cursor para carga infinita
 
@@ -45,7 +44,7 @@
 - Sistema de seguir/dejar de seguir usuarios con toggle instantáneo
 - Likes con actualización optimista en la UI
 - Reposts
-- Notificaciones en tiempo real para likes, follows y reposts
+- Notificaciones para likes, follows y reposts (todavía no son en tiempo real)
 - Sección "A quién seguir" con usuarios sugeridos
 
 <!-- IMAGE PLACEHOLDER: Captura del perfil de usuario mostrando el botón de seguir, contador de seguidores, posts y la sección "A quién seguir" en el sidebar derecho -->
@@ -54,7 +53,7 @@
 ### Análisis de sentimiento (Google Cloud NLP)
 - Cada post de texto es analizado automáticamente al crearse
 - Clasificación en tres categorías: **positivo**, **neutral**, **negativo**
-- Filtro de posts por sentimiento en la feed principal
+- Filtro de posts por sentimiento en la feed principal, el usuario puede elegir dicho filtros
 - Fallback automático: si el idioma del post no es soportado por la API de NLP, se traduce al inglés para su análisis
 
 <!-- IMAGE PLACEHOLDER: Captura de la feed con el filtro de sentimiento activo (tabs: Todos, Positivos, Neutrales, Negativos), mostrando posts filtrados con sus respectivas etiquetas de color -->

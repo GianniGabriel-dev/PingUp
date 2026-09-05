@@ -116,7 +116,7 @@ export function NotificationCard({ notification }: NotificationCardProps) {
               {/* Post Preview */}
               {notification.post && (
                 <div className="mt-2 p-3 bg-zinc-800/50 rounded-lg border border-gray-700">
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-gray-300 text-sm whitespace-pre-wrap">
                     {notification.post.content}
                   </p>
                   {notification.post.media_url &&

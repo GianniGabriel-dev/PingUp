@@ -123,7 +123,7 @@ export const IndividualPost = (post: Post) => {
             </span>
           </header>
           {/* contenido del post */}
-          <p className="font-normal ml-1">{contentToDisplay}</p>
+          <p className="font-normal ml-1 whitespace-pre-wrap">{contentToDisplay}</p>
           <div className="flex justify-start">
             {shouldShowTranslateButton && (
               <button

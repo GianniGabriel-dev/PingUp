@@ -48,7 +48,7 @@ export default function ComposePost() {
                     · {formatDate(post.created_at)}
                   </span>
                 </header>
-                <p className="font-normal">{post.content}</p>
+                <p className="font-normal whitespace-pre-wrap">{post.content}</p>
                 {post.media_url && (
                   <img
                     src={post.media_url}

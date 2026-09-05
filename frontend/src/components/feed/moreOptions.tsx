@@ -57,14 +57,14 @@ export const MoreOptions = ({
                   Borrar
                 </button>
               </li>
-              <li className="transition-all  duration-300 hover:bg-neutral-900  ">
+              {/* <li className="transition-all  duration-300 hover:bg-neutral-900  ">
                 <button
                   disabled
                   className="w-full  flex gap-3 cursor-pointer p-2   items-center"
                 >
                   <WritePostIcon size={20} /> Editar
                 </button>
-              </li>
+              </li> */}
             </>
           ) : (
             <>

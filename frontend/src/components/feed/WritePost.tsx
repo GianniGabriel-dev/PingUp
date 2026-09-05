@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useModal } from "@/hooks/useModal.js";
 import { AddPhotoIcon } from "@/assets/icons/AddPhotoIcon.js";
+import { normalizeNewlines } from "@/utils/normalizeNewlines.js";
 
 type Props = {
   user: UserInfo;
@@ -15,7 +16,7 @@ type Props = {
 export const WritePost = ({ user, token, isReply }: Props) => {
   const [content, setContent] = useState("");
   const parent_post_id = useParams().postId;
-  const contentTrimmed = content.trim().length;
+  const contentTrimmed = normalizeNewlines(content.trim()).length;
   const { closeModal } = useModal();
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -31,9 +32,10 @@ export const WritePost = ({ user, token, isReply }: Props) => {
   // función que maneja la creación del post comunicándose con el backend, si no se responde a un post, parent_post_id se envía vacío y el abckend lo asigna como null
   const createPostMutation = useMutation({
     mutationFn: async () => {
+      const normalizedContent = normalizeNewlines(content);
       return await api.post(
         "/post",
-        { media: file, content, parent_post_id },
+        { media: file, content: normalizedContent, parent_post_id },
         {
           headers: {
             "Content-Type": "multipart/form-data",

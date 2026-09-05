@@ -180,8 +180,9 @@ export const getPostsUser = (type: 'posts' | 'replies') =>
 export const getSuggestedUsersController = async (req: Request, res: Response) => {
   try {
     const userId = (req.user as { id: number }).id;
-    const viewingUsername = req.query.viewingUsername as string | undefined;
+    const viewingUsername = (req.user as { name: string }).name;
     const users = await getSuggestedUsers(userId, viewingUsername);
+
     return res.json(users);
   } catch (error: any) {
     return res.status(500).json({ error: error.message });
