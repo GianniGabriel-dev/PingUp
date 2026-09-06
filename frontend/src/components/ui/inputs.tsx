@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+
 export function Input({
   value,
   type,
@@ -16,20 +19,33 @@ export function Input({
   placeholder: string;
   error: string | undefined;
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === "password";
+  const inputType = isPassword ? (showPassword ? "text" : "password") : type;
+
   return (
     <>
       <div className="bg-zinc-950  w-full rounded-lg">
         <div className="relative flex justify-center bg-inherit">
           <input
             {...(value !== undefined ? { value } : {})}
-            type={type}
+            type={inputType}
             id={id}
             name={name}
-            className={`peer text-lg  bg-transparent  h-12 w-10/12 rounded-lg  placeholder-transparent ring-2 px-2 focus:outline-none
+            className={`peer text-lg  bg-transparent  h-12 w-10/12 rounded-lg  placeholder-transparent ring-2 px-2 ${isPassword ? "pr-10" : ""} focus:outline-none
                ${error ? "error ring-rose-500  text-rose-500 focus:ring-rose-500" : "text-gray-200 ring-gray-500 focus:ring-sky-600"}`}
             placeholder={placeholder}
             {...rest}
           />
+          {isPassword && (
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-[9%] top-1/2 z-10 -translate-y-1/2 text-gray-400 hover:text-gray-200 transition-colors cursor-pointer"
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          )}
           <label
             htmlFor={id}
             className={`absolute cursor-text left-1/12 -top-4 text-lg  bg-inherit mx-1 px-1 peer-placeholder-shown:text-xl

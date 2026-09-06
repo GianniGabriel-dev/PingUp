@@ -47,17 +47,11 @@
 - Notificaciones para likes, follows y reposts (todavía no son en tiempo real)
 - Sección "A quién seguir" con usuarios sugeridos
 
-<!-- IMAGE PLACEHOLDER: Captura del perfil de usuario mostrando el botón de seguir, contador de seguidores, posts y la sección "A quién seguir" en el sidebar derecho -->
-![Perfil de usuario y sidebar](docs/images/perfil-sidebar.png)
-
 ### Análisis de sentimiento (Google Cloud NLP)
 - Cada post de texto es analizado automáticamente al crearse
 - Clasificación en tres categorías: **positivo**, **neutral**, **negativo**
 - Filtro de posts por sentimiento en la feed principal, el usuario puede elegir dicho filtros
 - Fallback automático: si el idioma del post no es soportado por la API de NLP, se traduce al inglés para su análisis
-
-<!-- IMAGE PLACEHOLDER: Captura de la feed con el filtro de sentimiento activo (tabs: Todos, Positivos, Neutrales, Negativos), mostrando posts filtrados con sus respectivas etiquetas de color -->
-![Filtros de sentimiento](docs/images/filtros-sentimiento.png)
 
 ### Traducción automática (Google Cloud Translate)
 - Traducción de posts a cualquier idioma soportado
@@ -283,7 +277,7 @@ Detección de idioma (Google Translate)
 - **Cache de traducciones** en base de datos para minimizar costos de API de Google Cloud
 - **Actualización optimista** en likes, follows y reposts para experiencia fluida sin esperar respuesta del servidor
 - **Fallback de sentimiento**: traducción automática al inglés cuando el idioma no es soportado por la API de NLP
-- **Rate limiting** por端点 para proteger contra abuso
+- **Rate limiting** para proteger contra abuso de varias peticiones repetitivas desde una misma ip
 - **Modales vía URL** (`?modal=compose`) para compartir enlaces directos a acciones específicas
 
 ---

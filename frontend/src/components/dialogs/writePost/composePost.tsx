@@ -4,6 +4,7 @@ import { formatDate } from "@/utils/formatDate.js";
 import { AuthDialog } from "../../../layout/authDialog.js";
 import { useModal } from "@/hooks/useModal.js";
 import { WritePost } from "@/components/feed/WritePost.js";
+import VideoPost from "@/components/feed/videoPost.js";
 
 export default function ComposePost() {
   const location = useLocation();
@@ -48,15 +49,21 @@ export default function ComposePost() {
                     · {formatDate(post.created_at)}
                   </span>
                 </header>
-                <p className="font-normal whitespace-pre-wrap">{post.content}</p>
-                {post.media_url && (
-                  <img
-                    src={post.media_url}
-                    alt="Media content"
-                    className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
-                    loading="lazy"
-                  />
-                )}
+                <p className="font-normal whitespace-pre-wrap">
+                  {post.content}
+                </p>
+                {/*Si es un vídeo lo carga, si no es un vídeo lo carga como imagen  y si no tiene media_url devuelve null*/}
+                {post.media_url &&
+                  (post.media_url.includes("/video/") ? (
+                    <VideoPost src={post.media_url} />
+                  ) : (
+                    <img
+                      src={post.media_url}
+                      alt="Media content"
+                      className="mt-3 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+                      loading="lazy"
+                    />
+                  ))}
 
                 <p className="text-gray-500 mt-2">
                   Respondiendo a{" "}

@@ -79,7 +79,7 @@ export default function EditProfile() {
       showLogo={false}
       open={true}
       onClose={handleCloseModal}
-      style={"h-10/12 w-xl max-sm:h-full "}
+      style={"h-11/12 w-xl max-sm:h-full "}
       step={step}
       onStepBack={() => {
         setStep(1);

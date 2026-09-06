@@ -32,7 +32,9 @@ export const LoginStep1 = ({
             type="button"
             onClick={() => {
               window.location.href = `${
-                import.meta.env.VITE_API_URL || "http://localhost:3001"
+                (import.meta as ImportMeta & {
+                  env?: { VITE_API_URL?: string };
+                }).env?.VITE_API_URL || "http://localhost:3001"
               }/auth/google`;
             }}
             className="text-white  w-full  hover:bg-blue-600  bg-blue-500 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg 
