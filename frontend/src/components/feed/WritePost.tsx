@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { useModal } from "@/hooks/useModal.js";
 import { AddPhotoIcon } from "@/assets/icons/AddPhotoIcon.js";
 import { normalizeNewlines } from "@/utils/normalizeNewlines.js";
+import { CloseIcon } from "@/assets/icons/CloseIcon.js";
 
 type Props = {
   user: UserInfo;
@@ -124,19 +125,47 @@ export const WritePost = ({ user, token, isReply }: Props) => {
           ></textarea>
           {/* Vista previa del media adjunto */}
           {previewUrl && type === "image" && (
-            <img
-              src={previewUrl}
-              alt="Media content"
-              className="mt-1 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
-            />
+            <div className="relative">
+              <img
+                src={previewUrl}
+                alt="Media content"
+                className="mt-1 border border-gray-600 w-max h-auto max-h-125 object-cover rounded-lg"
+              />
+              <button
+                type="button"
+                aria-label="Remove selected media"
+                className=" cursor-pointer border-white bg-gray-900/80 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/90 transition-all absolute top-1 right-1"
+                onClick={() => {
+                  setPreviewUrl(null);
+                  setFile(null);
+                  setType(null);
+                }}
+              >
+                <CloseIcon className="w-5 h-5" />
+              </button>
+            </div>
           )}
 
           {previewUrl && type === "video" && (
-            <video
-              src={previewUrl}
-              controls
-              className="mt-1 rounded-lg max-h-96"
-            />
+            <div className="relative">
+              <video
+                src={previewUrl}
+                controls
+                className="mt-1 rounded-lg max-h-96"
+              />
+              <button
+                type="button"
+                aria-label="Remove selected media"
+                className=" cursor-pointer border-white bg-gray-900/80 rounded-full p-1.5 text-white/70 hover:text-white hover:bg-gray-900/90 transition-all absolute top-1 right-1"
+                onClick={() => {
+                  setPreviewUrl(null);
+                  setFile(null);
+                  setType(null);
+                }}
+              >
+                <CloseIcon className="w-5 h-5" />
+              </button>
+            </div>
           )}
         </section>
       </div>

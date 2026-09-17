@@ -44,7 +44,7 @@ type SuggestedUserCardProps = {
   navigate: ReturnType<typeof useNavigate>;
 };
 
-const SuggestedUserCard = ({ user, token, queryClient, navigate }: SuggestedUserCardProps) => {
+const SuggestedUserCard = ({ user, token, navigate }: SuggestedUserCardProps) => {
   const [isFollowing, setIsFollowing] = useState(user.isFollowing);
   const [hover, setHover] = useState(false);
 
