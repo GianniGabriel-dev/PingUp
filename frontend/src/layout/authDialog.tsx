@@ -30,7 +30,7 @@ export function AuthDialog({
     >
       {/* Modal - El stopPropagation hace que al pulsar el diálogo para escribir no se comporte como si se pulsara fuera para cerrarlo */}
       <div
-        className={`${style} bg-zinc-950 flex flex-col gap-6 rounded-2xl max-sm:rounded-none shadow-xl relative`}
+        className={`${style} bg-zinc-950 flex flex-col gap-6 rounded-2xl max-sm:rounded-none shadow-xl relative overflow-y-auto dialog-scrollbar`}
         onClick={(e) => e.stopPropagation()}
       >
         <header className="flex justify-center p-2.5 items-center">
@@ -68,7 +68,7 @@ export function AuthDialog({
         </header>
 
         {/* Contenido dinámico */}
-        <main className="h-full">{children}</main>
+        <main className="flex-1 min-h-0">{children}</main>
       </div>
     </div>
   );

@@ -2,6 +2,8 @@ import { CommentIcon } from "@/assets/icons/index.js";
 import { useNavigate } from "react-router-dom";
 import { Post } from "./typesPost.js";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuth } from "@/context/useAuth.js";
+import { useModal } from "@/hooks/useModal.js";
 
 export default function CommentButton({
   totalComments,
@@ -12,6 +14,8 @@ export default function CommentButton({
 }) {
   const navigate = useNavigate();
   const queryClient= useQueryClient()
+  const { token } = useAuth();
+  const { openModal } = useModal();
   if (totalComments == null) totalComments = 0;
   const isReply = true;
   return (
@@ -19,6 +23,11 @@ export default function CommentButton({
       <button
         onClick={(e) => {
           e?.stopPropagation(); // Evita el click en el comentario se propague al post y lo abra
+          //si no hay token se abre el modal de login/register en vez de comentar
+          if (!token) {
+            openModal("login-required");
+            return;
+          }
           queryClient.invalidateQueries({ queryKey: ["posts", "detail", post.id] }); //actualiza la cache
           //al navegar al modal que se abre en la ruta del post clickeado, se el pasa informacion para modificar el estado del layout sin consutar la bd
           navigate(`/post/${post.id}/?modal=compose`,  {

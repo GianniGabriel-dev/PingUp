@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { api } from '@/lib/axios.js';
 import { useAuth } from '@/context/useAuth.js';
 import {  useMutation, useQueryClient } from "@tanstack/react-query";
+import { useModal } from '@/hooks/useModal.js';
 
 
 type Props = {
@@ -24,6 +25,7 @@ export default function RetweetButton({
   const [numReposts, setNumReposts] = useState(reposts ?? 0);
   const [IsReposted, setIsReposted] = useState(initialIsReposted);
   const {token} = useAuth()
+  const { openModal } = useModal()
   // Mutación (funcion de react query) para manejar el repost/unrepost
   const repostMutation = useMutation({
     mutationFn: async () => {
@@ -56,14 +58,15 @@ export default function RetweetButton({
       setNumReposts((prev) => (IsReposted ? prev + 1 : prev - 1));
     },
   });
- //si no existe el token no actualiza el estado del num de Reposts
+ //si no existe el token se abre el modal de login/register en vez de retwittear
   const handleRetweet = (e: React.MouseEvent) => {
     e?.stopPropagation(); // Evita el click en el retweet se propague al post y lo abra
-    if (token){
-      if (repostMutation.isPending) return;
-      repostMutation.mutate();
+    if (!token) {
+      openModal("login-required");
+      return;
     }
-
+    if (repostMutation.isPending) return;
+    repostMutation.mutate();
   };
   return (
       <button

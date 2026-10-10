@@ -21,11 +21,31 @@ input:-webkit-autofill.error {
 }
 
 body{
-background-color: black;
-color: white;
-overflow-y:auto;
-height: auto;
-font-family: 'Inter', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: black;
+  color: white;
+  overflow-y:auto;
+  height: auto;
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Scrollbar minimalista para los diálogos */
+.dialog-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  scroll-behavior: smooth;
+}
+.dialog-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.dialog-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.dialog-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+}
+.dialog-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 /* ---- Variables ---- */
 

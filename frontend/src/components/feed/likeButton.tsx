@@ -4,6 +4,7 @@ import { HearthIcon } from "@/assets/icons";
 import { api } from "@/lib/axios.js";
 import { useAuth } from "@/context/useAuth.js";
 import { useParams } from "react-router-dom";
+import { useModal } from "@/hooks/useModal.js";
 
 type Props = {
   postId: number;
@@ -22,6 +23,7 @@ export default function LikeButton({
   const [numLikes, setNumLikes] = useState(likes ?? 0);
   const [isLiked, setIsLiked] = useState(initialIsLiked);
   const {token} = useAuth()
+  const { openModal } = useModal()
   // Mutación (funcion de react query) para manejar el like/unlike
   const likeMutation = useMutation({
     mutationFn: async () => {
@@ -53,14 +55,15 @@ export default function LikeButton({
       setNumLikes((prev) => (isLiked ? prev + 1 : prev - 1));
     },
   });
- //si no existe el token no actualiza el estado del num de likes
+ //si no existe el token se abre el modal de login/register en vez de dar like
   const handleLike = (e: React.MouseEvent) => {
     e?.stopPropagation(); // Evita el click en el like se propague al post y lo abra
-    if (token){
-      if (likeMutation.isPending) return;
-      likeMutation.mutate();
+    if (!token) {
+      openModal("login-required");
+      return;
     }
-
+    if (likeMutation.isPending) return;
+    likeMutation.mutate();
   };
 
   return (

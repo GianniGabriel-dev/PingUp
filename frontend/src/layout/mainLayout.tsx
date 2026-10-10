@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import EditProfile from "@/components/dialogs/editProfile/editProfile.js";
 import { Footer } from "./footerLayout.js";
 import { DeleteConfirmation } from "@/components/dialogs/deletePost/deleteConfirmation.js";
+import LoginRequiredModal from "@/components/dialogs/loginRequired/loginRequired.js";
 
 export function MainLayout() {
   const { user, isLoading } = useAuth();
@@ -53,6 +54,7 @@ export function MainLayout() {
 
       {/* Conjunto de modales */}
       {isOpen && modalType === "login" && <LoginModal />}
+      {isOpen && modalType === "login-required" && <LoginRequiredModal />}
       {isOpen && modalType === "register" && <RegisterModal />}
       {isOpen && modalType === "onboarding-profile" && user && (
         <OnboardingProfile />
